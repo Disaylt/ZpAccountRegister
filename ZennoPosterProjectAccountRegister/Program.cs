@@ -21,7 +21,7 @@ namespace ZennoPosterProjectAccountRegister
         public static IZennoPosterProjectModel ZennoPosterProject { get; private set; }
         /// <summary>
         /// Метод для запуска выполнения скрипта
-        /// </summary>123
+        /// </summary>
         /// <param name="instance">Объект инстанса выделеный для данного скрипта</param>
         /// <param name="project">Объект проекта выделеный для данного скрипта</param>
         /// <returns>Код выполнения скрипта</returns>		

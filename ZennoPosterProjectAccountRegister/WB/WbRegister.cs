@@ -39,6 +39,11 @@ namespace ZennoPosterProjectAccountRegister.WB
             }
         }
 
+        private void InsertInGoodCollection()
+        {
+
+        }
+
         private void WarmUpCookies()
         {
             Thread.Sleep(2 * 1000);

@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace ZennoPosterProjectAccountRegister.MongoDB.WB
 {
-    internal class WbMongoAccounts<T> : MongoConnector where T : IMongoCollectionModel
+    internal class WbBuyoutsShopMongoAccounts<T> : MongoConnector where T : IMongoCollectionModel
     {
         private const string _dbName = "buyouts_shop";
         protected IMongoCollection<T> Collection { get; }
 
-        public WbMongoAccounts(string collectionName)
+        public WbBuyoutsShopMongoAccounts(string collectionName)
         {
             Collection = GetCollection<T>(collectionName, _dbName);
         }

@@ -127,6 +127,7 @@
     <Compile Include="AccountStore\GenderOptions.cs" />
     <Compile Include="AccountStore\IPersonalInfo.cs" />
     <Compile Include="AccountStore\PersonalInfoLoader.cs" />
+    <Compile Include="AccountStore\SessionBuilder.cs" />
     <Compile Include="AccountStore\WB\WbPersonalInfoWriter.cs" />
     <Compile Include="BrowserTabHandler.cs" />
     <Compile Include="BrowserTab\ITabAction.cs" />

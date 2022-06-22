@@ -1,0 +1,222 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{01135C83-8F72-4856-9F44-ACE1F3C0004A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ZennoPosterProjectAccountRegister</RootNamespace>
+    <AssemblyName>ZennoPosterProjectAccountRegister</AssemblyName>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DnsClient, Version=1.6.0.0, Culture=neutral, PublicKeyToken=4574bb5573c51424, processorArchitecture=MSIL">
+      <HintPath>..\packages\DnsClient.1.6.0\lib\net45\DnsClient.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Bson, Version=2.16.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Bson.2.16.0\lib\netstandard2.0\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver, Version=2.16.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.2.16.0\lib\netstandard2.0\MongoDB.Driver.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver.Core, Version=2.16.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Driver.Core.2.16.0\lib\netstandard2.0\MongoDB.Driver.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Libmongocrypt, Version=1.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MongoDB.Libmongocrypt.1.5.2\lib\netstandard2.0\MongoDB.Libmongocrypt.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="SharpCompress, Version=0.30.1.0, Culture=neutral, PublicKeyToken=afb0a02973931d96, processorArchitecture=MSIL">
+      <HintPath>..\packages\SharpCompress.0.30.1\lib\net461\SharpCompress.dll</HintPath>
+    </Reference>
+    <Reference Include="SmartProxyV2_ZennoLabVersion">
+      <HintPath>..\Lib\SmartProxyV2_ZennoLabVersion.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.4\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.5.0.0\lib\net45\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Text.Encoding.CodePages, Version=5.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Text.Encoding.CodePages.5.0.0\lib\net461\System.Text.Encoding.CodePages.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(ZennoPosterDllPath)' != ''">
+    <Reference Include="Global, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>$(ZennoPosterDllPath)\Global.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ZennoLab.CommandCenter, Version=4.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>$(ZennoPosterDllPath)\ZennoLab.CommandCenter.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ZennoLab.Emulation, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>$(ZennoPosterDllPath)\ZennoLab.Emulation.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ZennoLab.InterfacesLibrary, Version=4.1.3.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>$(ZennoPosterDllPath)\ZennoLab.InterfacesLibrary.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="ZennoLab.Macros, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+      <HintPath>$(ZennoPosterDllPath)\ZennoLab.Macros.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AccountStore\Account.cs" />
+    <Compile Include="AccountStore\AccountBuilder.cs" />
+    <Compile Include="AccountStore\GenderOptions.cs" />
+    <Compile Include="AccountStore\IPersonalInfo.cs" />
+    <Compile Include="AccountStore\PersonalInfoLoader.cs" />
+    <Compile Include="AccountStore\WB\WbPersonalInfoWriter.cs" />
+    <Compile Include="BrowserTabHandler.cs" />
+    <Compile Include="BrowserTab\ITabAction.cs" />
+    <Compile Include="BrowserTab\TabClickAction.cs" />
+    <Compile Include="BrowserTab\TabInputAction.cs" />
+    <Compile Include="Http\IBodyStringConverter.cs" />
+    <Compile Include="Http\HttpSenderClient.cs" />
+    <Compile Include="Http\ZennoCookieContainer.cs" />
+    <Compile Include="Http\WB\WbPersonalInfoHttpSender.cs" />
+    <Compile Include="AccountStore\IPersonalInfoWriter.cs" />
+    <Compile Include="JsonFileLoader.cs" />
+    <Compile Include="Models\Bson\AccountDbModel.cs" />
+    <Compile Include="Models\Json\OnlineSim\MessageStateModel.cs" />
+    <Compile Include="Models\Json\OnlineSim\OnlineSimSettingModel.cs" />
+    <Compile Include="Models\Json\OnlineSim\PhoneModel.cs" />
+    <Compile Include="Models\Json\OnlineSim\TzModel.cs" />
+    <Compile Include="Models\Json\WB\PersonalInfoModel.cs" />
+    <Compile Include="Models\Objects\HttpRequestContentModel.cs" />
+    <Compile Include="Models\Objects\HttpRequestModel.cs" />
+    <Compile Include="Models\Objects\InputTabElementsModel.cs" />
+    <Compile Include="Models\Objects\ProjectSettingsModel.cs" />
+    <Compile Include="Models\Objects\StandardTabElementsModel.cs" />
+    <Compile Include="Models\Objects\WB\BirthdayRequestModel.cs" />
+    <Compile Include="Models\Objects\WB\GenderRequestModel.cs" />
+    <Compile Include="MongoDB\MongoConnector.cs" />
+    <Compile Include="OnlineSim\CodeScaner.cs" />
+    <Compile Include="OnlineSim\MessageDefiner.cs" />
+    <Compile Include="OnlineSim\PhoneCountryCodeConverter.cs" />
+    <Compile Include="OnlineSim\IPhoneNumberActions.cs" />
+    <Compile Include="OnlineSim\OnlineSimMessageChecker.cs" />
+    <Compile Include="OnlineSim\OnlineSimTzHandler.cs" />
+    <Compile Include="OnlineSim\OnlineSimHttpRequest.cs" />
+    <Compile Include="OnlineSim\OnlineSimSettings.cs" />
+    <Compile Include="OnlineSim\WbPhoneNumber.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Project.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Proxy\InstanceProxy.cs" />
+    <Compile Include="Proxy\RussianAcountProxy.cs" />
+    <Compile Include="Proxy\IAccountProxy.cs" />
+    <Compile Include="BrowserTab\TabActionsExecutor.cs" />
+    <Compile Include="RegisterController.cs" />
+    <Compile Include="AccountStore\WB\WbFemalePersonalInfo.cs" />
+    <Compile Include="AccountStore\WB\WbMalePersonalInfo.cs" />
+    <Compile Include="WB\WbRegister.cs" />
+    <Compile Include="WB\WbTabClickDataBuilder.cs" />
+    <Compile Include="WB\WbTabInputDataBuilder.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.6.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.6.2 %28x86 и x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ZennoPoster\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Core\Compression\Snappy\lib\linux\libsnappy64.so" />
+    <None Include="Core\Compression\Snappy\lib\osx\libsnappy64.dylib" />
+    <None Include="Core\Compression\Zstandard\lib\linux\libzstd.so" />
+    <None Include="Core\Compression\Zstandard\lib\osx\libzstd.dylib" />
+    <None Include="libmongocrypt.dylib" />
+    <None Include="libmongocrypt.so" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Core\Compression\Snappy\lib\win\snappy32.dll" />
+    <Content Include="Core\Compression\Snappy\lib\win\snappy64.dll" />
+    <Content Include="Core\Compression\Zstandard\lib\win\libzstd.dll" />
+    <Content Include="mongocrypt.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="ValidateZennoPosterDllPath" BeforeTargets="BeforeBuild">
+    <Error Text="Environment variable ZennoPosterDllPath must be set to ZennoPoster installation folder, try to launch ProjectMaker or ZennoPoster" Condition="'$(ZennoPosterDllPath)' == ''" />
+  </Target>
+  <Import Project="..\packages\MongoDB.Libmongocrypt.1.5.2\build\MongoDB.Libmongocrypt.targets" Condition="Exists('..\packages\MongoDB.Libmongocrypt.1.5.2\build\MongoDB.Libmongocrypt.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>Данный проект ссылается на пакеты NuGet, отсутствующие на этом компьютере. Используйте восстановление пакетов NuGet, чтобы скачать их.  Дополнительную информацию см. по адресу: http://go.microsoft.com/fwlink/?LinkID=322105. Отсутствует следующий файл: {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MongoDB.Libmongocrypt.1.5.2\build\MongoDB.Libmongocrypt.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MongoDB.Libmongocrypt.1.5.2\build\MongoDB.Libmongocrypt.targets'))" />
+    <Error Condition="!Exists('..\packages\MongoDB.Driver.Core.2.16.0\build\MongoDB.Driver.Core.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MongoDB.Driver.Core.2.16.0\build\MongoDB.Driver.Core.targets'))" />
+  </Target>
+  <Import Project="..\packages\MongoDB.Driver.Core.2.16.0\build\MongoDB.Driver.Core.targets" Condition="Exists('..\packages\MongoDB.Driver.Core.2.16.0\build\MongoDB.Driver.Core.targets')" />
+</Project>

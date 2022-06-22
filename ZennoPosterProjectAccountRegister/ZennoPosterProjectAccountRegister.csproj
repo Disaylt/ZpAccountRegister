@@ -151,7 +151,9 @@
     <Compile Include="Models\Objects\StandardTabElementsModel.cs" />
     <Compile Include="Models\Objects\WB\BirthdayRequestModel.cs" />
     <Compile Include="Models\Objects\WB\GenderRequestModel.cs" />
+    <Compile Include="MongoDB\IMongoCollectionModel.cs" />
     <Compile Include="MongoDB\MongoConnector.cs" />
+    <Compile Include="MongoDB\WB\WbMongoAccounts.cs" />
     <Compile Include="OnlineSim\CodeScaner.cs" />
     <Compile Include="OnlineSim\MessageDefiner.cs" />
     <Compile Include="OnlineSim\PhoneCountryCodeConverter.cs" />

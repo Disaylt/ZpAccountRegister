@@ -19,7 +19,7 @@ namespace ZennoPosterProjectAccountRegister.MongoDB
             }
         }
 
-        protected IMongoCollection<T> GetCollection<T>(string collectionName, string databaseName)
+        internal IMongoCollection<T> GetCollection<T>(string collectionName, string databaseName) where T : IMongoCollectionModel
         {
             IMongoDatabase database = _client.GetDatabase(databaseName);
             IMongoCollection<T> collection = database.GetCollection<T>(collectionName);

@@ -13,5 +13,7 @@ namespace ZennoPosterProjectAccountRegister.Models.Objects
         public DateTime MaxRegisterBirthDate { get; set; }
         public string Marketplace { get; set; }
         public string MongoConnectionString { get; set; }
+        public string PathForSaveGoodAccount { get; set; }
+        public string PathForSaveBadAccount { get; set; }
     }
 }

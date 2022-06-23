@@ -13,6 +13,8 @@
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -27,8 +29,6 @@
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <NuGetPackageImportStamp>
-    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -127,6 +127,8 @@
     <Compile Include="AccountStore\GenderOptions.cs" />
     <Compile Include="AccountStore\IPersonalInfo.cs" />
     <Compile Include="AccountStore\PersonalInfoLoader.cs" />
+    <Compile Include="AccountStore\SessionBuilder.cs" />
+    <Compile Include="AccountStore\WB\WbGenderOptions.cs" />
     <Compile Include="AccountStore\WB\WbPersonalInfoWriter.cs" />
     <Compile Include="BrowserTabHandler.cs" />
     <Compile Include="BrowserTab\ITabAction.cs" />
@@ -151,7 +153,9 @@
     <Compile Include="Models\Objects\StandardTabElementsModel.cs" />
     <Compile Include="Models\Objects\WB\BirthdayRequestModel.cs" />
     <Compile Include="Models\Objects\WB\GenderRequestModel.cs" />
+    <Compile Include="MongoDB\IMongoCollectionModel.cs" />
     <Compile Include="MongoDB\MongoConnector.cs" />
+    <Compile Include="MongoDB\WB\WbBuyoutsShopMongoAccounts.cs" />
     <Compile Include="OnlineSim\CodeScaner.cs" />
     <Compile Include="OnlineSim\MessageDefiner.cs" />
     <Compile Include="OnlineSim\PhoneCountryCodeConverter.cs" />
@@ -160,7 +164,8 @@
     <Compile Include="OnlineSim\OnlineSimTzHandler.cs" />
     <Compile Include="OnlineSim\OnlineSimHttpRequest.cs" />
     <Compile Include="OnlineSim\OnlineSimSettings.cs" />
-    <Compile Include="OnlineSim\WbPhoneNumber.cs" />
+    <Compile Include="OnlineSim\PhoneNumberController.cs" />
+    <Compile Include="OnlineSim\WB\WbPhoneNumber.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -174,6 +179,7 @@
     <Compile Include="WB\WbRegister.cs" />
     <Compile Include="WB\WbTabClickDataBuilder.cs" />
     <Compile Include="WB\WbTabInputDataBuilder.cs" />
+    <Compile Include="ZennoPoster\ZennoProfile.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.2">
@@ -187,9 +193,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ZennoPoster\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Core\Compression\Snappy\lib\linux\libsnappy64.so" />

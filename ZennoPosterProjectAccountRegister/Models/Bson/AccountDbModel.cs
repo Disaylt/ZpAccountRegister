@@ -5,10 +5,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZennoPosterProjectAccountRegister.MongoDB;
 
 namespace ZennoPosterProjectAccountRegister.Models.Bson
 {
-    internal class AccountDbModel
+    internal class AccountDbModel : IMongoCollectionModel
     {
         [BsonId]
         public BsonObjectId Id { get; set; }
@@ -46,4 +47,6 @@ namespace ZennoPosterProjectAccountRegister.Models.Bson
         [BsonElement("user_some_id")]
         public string UserSomeId { get; set; } = string.Empty;
     }
+
+
 }

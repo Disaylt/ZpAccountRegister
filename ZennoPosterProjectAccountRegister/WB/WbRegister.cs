@@ -10,10 +10,15 @@ using ZennoLab.InterfacesLibrary.ProjectModel;
 using ZennoPosterProjectAccountRegister.AccountStore;
 using ZennoPosterProjectAccountRegister.AccountStore.WB;
 using ZennoPosterProjectAccountRegister.BrowserTab;
+using ZennoPosterProjectAccountRegister.Http;
 using ZennoPosterProjectAccountRegister.Http.WB;
+using ZennoPosterProjectAccountRegister.Models.Bson;
 using ZennoPosterProjectAccountRegister.Models.Json.WB;
+using ZennoPosterProjectAccountRegister.MongoDB.WB;
 using ZennoPosterProjectAccountRegister.OnlineSim;
+using ZennoPosterProjectAccountRegister.OnlineSim.WB;
 using ZennoPosterProjectAccountRegister.Proxy;
+using ZennoPosterProjectAccountRegister.ZennoPoster;
 
 namespace ZennoPosterProjectAccountRegister.WB
 {
@@ -21,11 +26,15 @@ namespace ZennoPosterProjectAccountRegister.WB
     {
         public override Account Account { get; }
         public IPhoneNumberActions PhoneNumberActions { get; }
+        protected string ProfileName { get; }
 
         internal WbRegister()
         {
-            Account = CreateWbAccount();
+            WbGenderOptions genderOptions = new WbGenderOptions();
+            Account = new AccountBuilder(genderOptions);
             PhoneNumberActions = new WbPhoneNumber();
+            SessionBuilder sessionBuilder = new SessionBuilder(true, true);
+            ProfileName = sessionBuilder.CreateSessionName(16);
         }
         public override void StartRegistration()
         {
@@ -67,9 +76,9 @@ namespace ZennoPosterProjectAccountRegister.WB
 
         private string GetPhoneNumberWithoutCountryCode()
         {
-            string phoneNumberWithCode = PhoneNumberActions.GetPhoneDataAsync()
-                .GetAwaiter()
-                .GetResult()
+            string phoneNumberWithCode = PhoneNumberActions
+                .GetPhoneDataAsync()
+                .Result
                 .Number;
             PhoneCountryCodeConverter phoneCountryCodeConverter = new PhoneCountryCodeConverter(phoneNumberWithCode);
             string phoneNumberWithoutCode = phoneCountryCodeConverter.GetPhoneNumberWithoutCountryCode(Country.Russian);
@@ -85,16 +94,29 @@ namespace ZennoPosterProjectAccountRegister.WB
             ActionsExecutor.Input(WbTabInputDataBuilder.InputPhoneCode, code);
         }
 
-        private Account CreateWbAccount()
+        private void SaveProfile(string path)
         {
-            Dictionary<string, IPersonalInfo> genderPersonalInfo = new Dictionary<string, IPersonalInfo>
+            ZennoProfile zennoProfile = new ZennoProfile(ProfileName);
+            zennoProfile.SaveProfile(path);
+        }
+
+        private AccountDbModel CreateAccountDbData(bool isActive, bool inWork)
+        {
+            ZennoCookieContainer zennoCookieContainer = new ZennoCookieContainer(ZennoPosterProject.Profile.CookieContainer);
+            string jsonCookies = zennoCookieContainer.ConvertToJsonString();
+            AccountDbModel accountDbModel = new AccountDbModel
             {
-                {"male", new WbMalePersonalInfo() },
-                {"female", new WbFemalePersonalInfo() }
+                Cookies = jsonCookies,
+                IsActive = isActive,
+                InWork = inWork,
+                CreateDate = DateTime.Now,
+                FirstName = Account.FirstName,
+                Gender = Account.Gender,
+                LastName = Account.LastName,
+                PhoneNumber = PhoneNumberActions.PhoneNumber,
+                Session = ProfileName
             };
-            GenderOptions genderOptions = new GenderOptions(genderPersonalInfo);
-            Account account = new AccountBuilder(genderOptions);
-            return account;
+            return accountDbModel;
         }
     }
 }

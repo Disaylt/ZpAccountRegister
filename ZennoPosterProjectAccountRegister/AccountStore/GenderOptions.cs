@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace ZennoPosterProjectAccountRegister.AccountStore
 {
-    internal class GenderOptions
+    public class GenderOptions
     {
         private readonly Dictionary<string, IPersonalInfo> _genderPersonalInfo;
-        internal GenderOptions(Dictionary<string, IPersonalInfo> genderPersonalInfo)
+        public GenderOptions(Dictionary<string, IPersonalInfo> genderPersonalInfo)
         {
             _genderPersonalInfo = genderPersonalInfo;
         }
 
-        internal IPersonalInfo GetGenderPersonalInfo(string gender)
+        public IPersonalInfo GetGenderPersonalInfo(string gender)
         {
             if(_genderPersonalInfo.ContainsKey(gender))
             {

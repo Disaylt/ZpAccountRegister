@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZennoPosterProjectAccountRegister.AccountStore
 {
-    interface IPersonalInfo
+    public interface IPersonalInfo
     {
         string[] FirstNames { get; }
         string[] LastNames { get; }

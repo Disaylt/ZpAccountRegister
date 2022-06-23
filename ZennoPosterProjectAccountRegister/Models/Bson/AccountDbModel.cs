@@ -47,4 +47,6 @@ namespace ZennoPosterProjectAccountRegister.Models.Bson
         [BsonElement("user_some_id")]
         public string UserSomeId { get; set; } = string.Empty;
     }
+
+
 }

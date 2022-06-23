@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Global.ZennoLab.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -10,10 +11,18 @@ namespace ZennoPosterProjectAccountRegister.Http
 {
     class ZennoCookieContainer : CookieContainer
     {
+        private readonly CookieCollection _cookieCollection;
         public ZennoCookieContainer(ICookieContainer cookieContainer) : base(200)
         {
-            CookieCollection cookieCollection = ConvertToCookieCollection(cookieContainer);
-            Add(cookieCollection);
+            _cookieCollection = ConvertToCookieCollection(cookieContainer);
+            Add(_cookieCollection);
+        }
+
+        public string ConvertToJsonString()
+        {
+            List<Cookie> cookies = _cookieCollection.OfType<Cookie>().ToList();
+            string jsonString = JsonConvert.SerializeObject(cookies);
+            return jsonString;
         }
 
         private CookieCollection ConvertToCookieCollection(ICookieContainer cookieContainer)

@@ -11,7 +11,9 @@ using ZennoPosterProjectAccountRegister.AccountStore;
 using ZennoPosterProjectAccountRegister.AccountStore.WB;
 using ZennoPosterProjectAccountRegister.BrowserTab;
 using ZennoPosterProjectAccountRegister.Http.WB;
+using ZennoPosterProjectAccountRegister.Models.Bson;
 using ZennoPosterProjectAccountRegister.Models.Json.WB;
+using ZennoPosterProjectAccountRegister.MongoDB.WB;
 using ZennoPosterProjectAccountRegister.OnlineSim;
 using ZennoPosterProjectAccountRegister.Proxy;
 
@@ -39,8 +41,9 @@ namespace ZennoPosterProjectAccountRegister.WB
             }
         }
 
-        private void InsertInGoodCollection()
+        private void InsertInGoodCollection(string collection)
         {
+            WbBuyoutsShopMongoAccounts<AccountDbModel> wbBuyoutsShopMongo = new WbBuyoutsShopMongoAccounts<AccountDbModel>(collection);
 
         }
 

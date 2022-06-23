@@ -101,5 +101,25 @@ namespace ZennoPosterProjectAccountRegister.WB
             Account account = new AccountBuilder(genderOptions);
             return account;
         }
+
+        private void InsertInGoodCollection(string collection, bool isActive, bool inWork)
+        {
+            ZennoCookieContainer zennoCookieContainer = new ZennoCookieContainer(ZennoPosterProject.Profile.CookieContainer);
+            SessionBuilder sessionBuilder = new SessionBuilder(true, true);
+            AccountDbModel accountDbModel = new AccountDbModel
+            {
+                Cookies = zennoCookieContainer.ConvertToJsonString(),
+                IsActive = isActive,
+                InWork = inWork,
+                CreateDate = DateTime.Now,
+                FirstName = Account.FirstName,
+                Gender = Account.Gender,
+                LastName = Account.LastName,
+                PhoneNumber = PhoneNumberActions.PhoneNumber,
+                Session = sessionBuilder.CreateSessionName(16)
+            };
+            WbBuyoutsShopMongoAccounts<AccountDbModel> wbBuyoutsShopMongoAccounts = new WbBuyoutsShopMongoAccounts<AccountDbModel>(collection);
+            wbBuyoutsShopMongoAccounts.Insert(accountDbModel);
+        }
     }
 }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZennoPosterProjectAccountRegister.AccountStore.WB;
+using ZennoPosterProjectAccountRegister.WB;
 
 namespace ZennoPosterProjectAccountRegister.AccountStore
 {
@@ -20,7 +22,7 @@ namespace ZennoPosterProjectAccountRegister.AccountStore
 
         public override string Gender { get; }
 
-        internal AccountBuilder(GenderOptions genderOptions)
+        internal AccountBuilder(WbGenderOptions genderOptions)
         {
             Random = new Random();
             Gender = GetGender();

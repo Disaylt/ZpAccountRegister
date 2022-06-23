@@ -18,6 +18,7 @@ using ZennoPosterProjectAccountRegister.MongoDB.WB;
 using ZennoPosterProjectAccountRegister.OnlineSim;
 using ZennoPosterProjectAccountRegister.OnlineSim.WB;
 using ZennoPosterProjectAccountRegister.Proxy;
+using ZennoPosterProjectAccountRegister.ZennoPoster;
 
 namespace ZennoPosterProjectAccountRegister.WB
 {
@@ -25,11 +26,15 @@ namespace ZennoPosterProjectAccountRegister.WB
     {
         public override Account Account { get; }
         public IPhoneNumberActions PhoneNumberActions { get; }
+        protected string ProfileName { get; }
 
         internal WbRegister()
         {
-            Account = CreateWbAccount();
+            WbGenderOptions genderOptions = new WbGenderOptions();
+            Account = new AccountBuilder(genderOptions);
             PhoneNumberActions = new WbPhoneNumber();
+            SessionBuilder sessionBuilder = new SessionBuilder(true, true);
+            ProfileName = sessionBuilder.CreateSessionName(16);
         }
         public override void StartRegistration()
         {
@@ -89,27 +94,19 @@ namespace ZennoPosterProjectAccountRegister.WB
             ActionsExecutor.Input(WbTabInputDataBuilder.InputPhoneCode, code);
         }
 
-        private Account CreateWbAccount()
+        private void SaveProfile(string path)
         {
-            Dictionary<string, IPersonalInfo> genderPersonalInfo = new Dictionary<string, IPersonalInfo>
-            {
-                {"male", new WbMalePersonalInfo() },
-                {"female", new WbFemalePersonalInfo() }
-            };
-            GenderOptions genderOptions = new GenderOptions(genderPersonalInfo);
-            Account account = new AccountBuilder(genderOptions);
-            return account;
+            ZennoProfile zennoProfile = new ZennoProfile(ProfileName);
+            zennoProfile.SaveProfile(path);
         }
-
-
 
         private AccountDbModel CreateAccountDbData(bool isActive, bool inWork)
         {
             ZennoCookieContainer zennoCookieContainer = new ZennoCookieContainer(ZennoPosterProject.Profile.CookieContainer);
-            SessionBuilder sessionBuilder = new SessionBuilder(true, true);
+            string jsonCookies = zennoCookieContainer.ConvertToJsonString();
             AccountDbModel accountDbModel = new AccountDbModel
             {
-                Cookies = zennoCookieContainer.ConvertToJsonString(),
+                Cookies = jsonCookies,
                 IsActive = isActive,
                 InWork = inWork,
                 CreateDate = DateTime.Now,
@@ -117,7 +114,7 @@ namespace ZennoPosterProjectAccountRegister.WB
                 Gender = Account.Gender,
                 LastName = Account.LastName,
                 PhoneNumber = PhoneNumberActions.PhoneNumber,
-                Session = sessionBuilder.CreateSessionName(16)
+                Session = ProfileName
             };
             return accountDbModel;
         }

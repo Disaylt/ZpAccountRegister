@@ -40,7 +40,6 @@ namespace ZennoPosterProjectAccountRegister.WB
                 InputCode();
                 WarmUpCookies();
                 SendPersonalInfo(acountProxy.Proxy);
-                InsertInGoodCollection("accounts", true, true);
             }
         }
 
@@ -102,7 +101,9 @@ namespace ZennoPosterProjectAccountRegister.WB
             return account;
         }
 
-        private void InsertInGoodCollection(string collection, bool isActive, bool inWork)
+
+
+        private AccountDbModel CreateAccountDbData(bool isActive, bool inWork)
         {
             ZennoCookieContainer zennoCookieContainer = new ZennoCookieContainer(ZennoPosterProject.Profile.CookieContainer);
             SessionBuilder sessionBuilder = new SessionBuilder(true, true);
@@ -118,8 +119,7 @@ namespace ZennoPosterProjectAccountRegister.WB
                 PhoneNumber = PhoneNumberActions.PhoneNumber,
                 Session = sessionBuilder.CreateSessionName(16)
             };
-            WbBuyoutsShopMongoAccounts<AccountDbModel> wbBuyoutsShopMongoAccounts = new WbBuyoutsShopMongoAccounts<AccountDbModel>(collection);
-            wbBuyoutsShopMongoAccounts.Insert(accountDbModel);
+            return accountDbModel;
         }
     }
 }

@@ -178,6 +178,7 @@
     <Compile Include="WB\WbRegister.cs" />
     <Compile Include="WB\WbTabClickDataBuilder.cs" />
     <Compile Include="WB\WbTabInputDataBuilder.cs" />
+    <Compile Include="ZennoPoster\ZennoProfile.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.2">
@@ -191,9 +192,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ZennoPoster\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Core\Compression\Snappy\lib\linux\libsnappy64.so" />

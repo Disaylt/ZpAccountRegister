@@ -9,6 +9,7 @@ namespace ZennoPosterProjectAccountRegister.OnlineSim
 {
     internal interface IPhoneNumberActions
     {
+        string PhoneNumber { get; }
         Task<PhoneModel> GetPhoneDataAsync();
         Task<bool> CloseNumberAsync();
     }

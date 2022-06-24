@@ -19,6 +19,8 @@ namespace ZennoPosterProjectAccountRegister
     {
         public static Instance Instance { get; private set; }
         public static IZennoPosterProjectModel ZennoPosterProject { get; private set; }
+
+
         /// <summary>
         /// Метод для запуска выполнения скрипта
         /// </summary>
@@ -30,8 +32,9 @@ namespace ZennoPosterProjectAccountRegister
             Instance = instance;
             ZennoPosterProject = project;
 
-            WbRegister wbRegister = new WbRegister();
-            wbRegister.StartRegistration();
+            var registerControllerStore = new RegisterControllerStore();
+            var registerController = registerControllerStore.GetRegisterController(Project.Settings.Marketplace);
+            registerController.StartRegistration();
 
             int executionResult = 0;
             return executionResult;

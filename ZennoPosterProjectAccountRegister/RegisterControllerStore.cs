@@ -31,6 +31,13 @@ namespace ZennoPosterProjectAccountRegister
             }
         }
 
+        public RegisterController GetRegisterController()
+        {
+            string service = Project.Settings.Marketplace;
+            RegisterController registerController = GetRegisterController(service);
+            return registerController;
+        }
+
         public RegisterController GetRegisterController(string service)
         {
             if(_registerControllerStore.ContainsKey(service))

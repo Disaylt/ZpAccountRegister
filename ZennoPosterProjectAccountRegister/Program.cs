@@ -33,7 +33,7 @@ namespace ZennoPosterProjectAccountRegister
             ZennoPosterProject = project;
 
             var registerControllerStore = new RegisterControllerStore();
-            var registerController = registerControllerStore.GetRegisterController(Project.Settings.Marketplace);
+            var registerController = registerControllerStore.GetRegisterController();
             registerController.StartRegistration();
 
             int executionResult = 0;

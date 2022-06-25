@@ -26,7 +26,7 @@ namespace ZennoPosterProjectAccountRegister
         /// </summary>
         /// <param name="instance">Объект инстанса выделеный для данного скрипта</param>
         /// <param name="project">Объект проекта выделеный для данного скрипта</param>
-        /// <returns>Код выполнения скрипта</returns>		
+        /// <returns>Код выполнения скрипта</returns>
         public int Execute(Instance instance, IZennoPosterProjectModel project)
         {
             Instance = instance;

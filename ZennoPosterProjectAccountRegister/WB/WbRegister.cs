@@ -27,6 +27,7 @@ namespace ZennoPosterProjectAccountRegister.WB
         public override Account Account { get; }
         public IPhoneNumberActions PhoneNumberActions { get; }
         protected string ProfileName { get; }
+        private bool _isWriteAccount { get; set; }
 
         internal WbRegister()
         {
@@ -35,16 +36,38 @@ namespace ZennoPosterProjectAccountRegister.WB
             PhoneNumberActions = new WbPhoneNumber();
             SessionBuilder sessionBuilder = new SessionBuilder(true, true);
             ProfileName = sessionBuilder.CreateSessionName(16);
+            _isWriteAccount = false;
         }
         public override void StartRegistration()
         {
             using (var acountProxy = new RussianAcountProxy())
             {
-                BrowserProxy.SetProxy(acountProxy.Proxy);
-                BeginBrowserRegister();
-                InputCode();
-                WarmUpCookies();
-                SendPersonalInfo(acountProxy.Proxy);
+                try
+                {
+                    BrowserProxy.SetProxy(acountProxy.Proxy);
+                    BeginBrowserRegister();
+                    InputCode();
+                    _isWriteAccount = true;
+                    WarmUpCookies();
+                    SendPersonalInfo(acountProxy.Proxy);
+                }
+                catch (Exception ex)
+                {
+                    //add nlog
+                    if (_isWriteAccount)
+                    {
+                        _isWriteAccount = false;
+                        SaveProfile(Project.Settings.PathForSaveBadAccount);
+                    }
+                }
+                finally
+                {
+
+                    if (_isWriteAccount)
+                    {
+                        SaveProfile(Project.Settings.PathForSaveGoodAccount);
+                    }
+                }
             }
         }
 

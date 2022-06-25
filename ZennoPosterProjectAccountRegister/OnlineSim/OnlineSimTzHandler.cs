@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using ZennoPosterProjectAccountRegister.Models.Json.OnlineSim;
@@ -47,11 +48,12 @@ namespace ZennoPosterProjectAccountRegister.OnlineSim
             TzModel tzModel = JToken.Parse(responseContent).ToObject<TzModel>();
             if(tzModel != null && tzModel.ResponseCode == 1)
             {
+                Thread.Sleep(5 * 1000); //await registration tzId 
                 return tzModel.Id;
             }
             else
             {
-                return 0;
+                return default;
             }
         }
     }

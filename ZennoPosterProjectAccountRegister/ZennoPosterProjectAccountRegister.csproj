@@ -66,6 +66,9 @@
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json.Bson, Version=1.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.Bson.1.0.2\lib\net45\Newtonsoft.Json.Bson.dll</HintPath>
+    </Reference>
     <Reference Include="SharpCompress, Version=0.30.1.0, Culture=neutral, PublicKeyToken=afb0a02973931d96, processorArchitecture=MSIL">
       <HintPath>..\packages\SharpCompress.0.30.1\lib\net461\SharpCompress.dll</HintPath>
     </Reference>
@@ -176,6 +179,7 @@
     <Compile Include="RegisterController.cs" />
     <Compile Include="AccountStore\WB\WbFemalePersonalInfo.cs" />
     <Compile Include="AccountStore\WB\WbMalePersonalInfo.cs" />
+    <Compile Include="RegisterControllerStore.cs" />
     <Compile Include="WB\WbRegister.cs" />
     <Compile Include="WB\WbTabClickDataBuilder.cs" />
     <Compile Include="WB\WbTabInputDataBuilder.cs" />

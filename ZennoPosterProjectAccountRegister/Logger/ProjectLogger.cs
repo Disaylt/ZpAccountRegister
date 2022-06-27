@@ -9,14 +9,13 @@ namespace ZennoPosterProjectAccountRegister.Logger
 {
     internal class ProjectLogger
     {
-        private static ProjectLogger _instance;
         private const string _logPath = @"\logs";
 
         public ProjectLogger()
         {
-            if(null == _instance)
+            if(!Directory.Exists(_logPath))
             {
-                _instance = new ProjectLogger();
+                Directory.CreateDirectory(_logPath);
             }
         }
 

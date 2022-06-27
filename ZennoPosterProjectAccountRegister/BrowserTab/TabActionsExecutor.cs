@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using ZennoLab.CommandCenter;
+using ZennoPosterProjectAccountRegister.Logger;
 using ZennoPosterProjectAccountRegister.Models.Objects;
 
 namespace ZennoPosterProjectAccountRegister.BrowserTab
@@ -17,11 +18,11 @@ namespace ZennoPosterProjectAccountRegister.BrowserTab
     {
         private const int _maxWhileCheck = 60;
         private readonly Instance _instance;
-        private readonly Logger _logger;
+        private readonly ProjectLogger _logger;
         internal TabActionsExecutor(Instance instance) 
         {
             _instance = instance;
-            _logger = LogManager.GetCurrentClassLogger();
+            _logger = new ProjectLogger();
         }
 
         public virtual void Click(ClickElement<StandardTabElementsModel> clickElement)
@@ -31,11 +32,11 @@ namespace ZennoPosterProjectAccountRegister.BrowserTab
                 StandardTabElementsModel standardTabElements = clickElement.Invoke();
                 ITabAction tabAction = new TabClickAction(standardTabElements, _instance);
                 WaitAction(tabAction, standardTabElements);
-                _logger.Info($"{Project.Settings.SessionName} - Click: {standardTabElements.CurrentXPathElement}");
+                _logger.Info($"Click: {standardTabElements.CurrentXPathElement}");
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, Project.Settings.SessionName);
+                _logger.Error(ex);
             }
         }
 
@@ -46,11 +47,11 @@ namespace ZennoPosterProjectAccountRegister.BrowserTab
                 InputTabElementsModel inputTabElements = inputElement.Invoke(inputText);
                 ITabAction tabAction = new TabInputAction(inputTabElements, _instance);
                 WaitAction(tabAction, inputTabElements);
-                _logger.Info($"{Project.Settings.SessionName} - Input: {inputTabElements.CurrentXPathElement}| Text: {inputText}");
+                _logger.Info($"Input: {inputTabElements.CurrentXPathElement}| Text: {inputText}");
             }
             catch (Exception ex)
             {
-                _logger.Error(ex, Project.Settings.SessionName);
+                _logger.Error(ex);
             }
         }
 

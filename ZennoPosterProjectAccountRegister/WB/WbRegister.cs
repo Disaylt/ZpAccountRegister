@@ -13,6 +13,7 @@ using ZennoPosterProjectAccountRegister.AccountStore.WB;
 using ZennoPosterProjectAccountRegister.BrowserTab;
 using ZennoPosterProjectAccountRegister.Http;
 using ZennoPosterProjectAccountRegister.Http.WB;
+using ZennoPosterProjectAccountRegister.Logger;
 using ZennoPosterProjectAccountRegister.Models.Bson;
 using ZennoPosterProjectAccountRegister.Models.Json.WB;
 using ZennoPosterProjectAccountRegister.MongoDB.WB;
@@ -27,18 +28,17 @@ namespace ZennoPosterProjectAccountRegister.WB
     {
         public override Account Account { get; }
         public IPhoneNumberActions PhoneNumberActions { get; }
-        private Logger _logger { get; }
+        private ProjectLogger _logger { get; }
 
         internal WbRegister()
         {
             WbGenderOptions genderOptions = new WbGenderOptions();
             Account = new AccountBuilder(genderOptions);
             PhoneNumberActions = new WbPhoneNumber();
-            _logger = LogManager.GetCurrentClassLogger();
+            _logger = new ProjectLogger();
         }
         public override void StartRegistration()
         {
-            _logger.Info($"{ZennoProfile.SessionName} - start registration");
             bool isWriteAccount = false;
             using (var acountProxy = new RussianAcountProxy())
             {
@@ -58,7 +58,7 @@ namespace ZennoPosterProjectAccountRegister.WB
                         isWriteAccount = false;
                         BadSave();
                     }
-                    _logger.Error(ex, Project.Settings.SessionName);
+                    _logger.Error(ex);
                 }
                 finally
                 {

@@ -27,7 +27,6 @@ namespace ZennoPosterProjectAccountRegister.WB
         public override Account Account { get; }
         public IPhoneNumberActions PhoneNumberActions { get; }
         protected ZennoProfile ZennoProfile { get; }
-        private bool _isWriteAccount { get; set; }
 
         internal WbRegister()
         {
@@ -35,10 +34,10 @@ namespace ZennoPosterProjectAccountRegister.WB
             Account = new AccountBuilder(genderOptions);
             PhoneNumberActions = new WbPhoneNumber();
             ZennoProfile = CreateZennoProfile();
-            _isWriteAccount = false;
         }
         public override void StartRegistration()
         {
+            bool isWriteAccount = false;
             using (var acountProxy = new RussianAcountProxy())
             {
                 try
@@ -46,25 +45,26 @@ namespace ZennoPosterProjectAccountRegister.WB
                     BrowserProxy.SetProxy(acountProxy.Proxy);
                     BeginBrowserRegister();
                     InputCode();
-                    _isWriteAccount = true;
+                    isWriteAccount = true;
                     WarmUpCookies();
                     SendPersonalInfo(acountProxy.Proxy);
                 }
                 catch (Exception ex)
                 {
-                    if (_isWriteAccount)
+                    if (isWriteAccount)
                     {
-                        _isWriteAccount = false;
+                        isWriteAccount = false;
                         BadSave();
                     }
                 }
                 finally
                 {
 
-                    if (_isWriteAccount)
+                    if (isWriteAccount)
                     {
                         GoodSave();
                     }
+                    PhoneNumberActions.CloseNumberAsync().Wait();
                 }
             }
         }
@@ -115,7 +115,7 @@ namespace ZennoPosterProjectAccountRegister.WB
         private ZennoProfile CreateZennoProfile()
         {
             SessionBuilder sessionBuilder = new SessionBuilder(true, true);
-            string profileName = sessionBuilder.CreateSessionName(16);
+            string profileName = sessionBuilder.CreateSessionName(32);
             var zennoProfile = new ZennoProfile(profileName);
             return zennoProfile;
         }
@@ -123,7 +123,7 @@ namespace ZennoPosterProjectAccountRegister.WB
         private void BadSave()
         {
             ZennoProfile.SaveProfile(Project.Settings.PathForSaveBadAccount);
-            AccountDbModel accountDb = CreateAccountDbData(true, true);
+            AccountDbModel accountDb = CreateAccountDbData(false, false);
             WbBuyoutsShopMongoAccounts<AccountDbModel> wbBuyoutsShopMongo = new WbBuyoutsShopMongoAccounts<AccountDbModel>("badAccounts");
             wbBuyoutsShopMongo.Insert(accountDb);
         }
@@ -131,7 +131,7 @@ namespace ZennoPosterProjectAccountRegister.WB
         private void GoodSave()
         {
             ZennoProfile.SaveProfile(Project.Settings.PathForSaveGoodAccount);
-            AccountDbModel accountDb = CreateAccountDbData(true, true);
+            AccountDbModel accountDb = CreateAccountDbData(true, false);
             WbBuyoutsShopMongoAccounts<AccountDbModel> wbBuyoutsShopMongo = new WbBuyoutsShopMongoAccounts<AccountDbModel>("accounts");
             wbBuyoutsShopMongo.Insert(accountDb);
         }

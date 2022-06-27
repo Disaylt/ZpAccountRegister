@@ -1,4 +1,5 @@
-﻿using SmartProxyV2_ZennoLabVersion.Models;
+﻿using NLog;
+using SmartProxyV2_ZennoLabVersion.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,14 +27,14 @@ namespace ZennoPosterProjectAccountRegister.WB
     {
         public override Account Account { get; }
         public IPhoneNumberActions PhoneNumberActions { get; }
-        protected ZennoProfile ZennoProfile { get; }
+        private Logger _logger { get; }
 
         internal WbRegister()
         {
             WbGenderOptions genderOptions = new WbGenderOptions();
             Account = new AccountBuilder(genderOptions);
             PhoneNumberActions = new WbPhoneNumber();
-            ZennoProfile = CreateZennoProfile();
+            _logger = LogManager.GetCurrentClassLogger();
         }
         public override void StartRegistration()
         {
@@ -56,6 +57,7 @@ namespace ZennoPosterProjectAccountRegister.WB
                         isWriteAccount = false;
                         BadSave();
                     }
+                    _logger.Error(ex, Project.Settings.SessionName);
                 }
                 finally
                 {
@@ -111,15 +113,6 @@ namespace ZennoPosterProjectAccountRegister.WB
             string code = codeScaner.GetCode();
             ActionsExecutor.Input(WbTabInputDataBuilder.InputPhoneCode, code);
         }
-
-        private ZennoProfile CreateZennoProfile()
-        {
-            SessionBuilder sessionBuilder = new SessionBuilder(true, true);
-            string profileName = sessionBuilder.CreateSessionName(32);
-            var zennoProfile = new ZennoProfile(profileName);
-            return zennoProfile;
-        }
-
         private void BadSave()
         {
             ZennoProfile.SaveProfile(Project.Settings.PathForSaveBadAccount);

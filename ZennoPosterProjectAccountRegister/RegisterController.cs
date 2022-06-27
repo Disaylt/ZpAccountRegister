@@ -9,6 +9,7 @@ using ZennoPosterProjectAccountRegister.AccountStore;
 using ZennoPosterProjectAccountRegister.BrowserTab;
 using ZennoPosterProjectAccountRegister.OnlineSim;
 using ZennoPosterProjectAccountRegister.Proxy;
+using ZennoPosterProjectAccountRegister.ZennoPoster;
 
 namespace ZennoPosterProjectAccountRegister
 {
@@ -20,6 +21,8 @@ namespace ZennoPosterProjectAccountRegister
         protected BrowserTabHandler BrowserTab { get; }
         protected TabActionsExecutor ActionsExecutor { get; }
         protected InstanceProxy BrowserProxy { get; }
+        protected ZennoProfile ZennoProfile { get; }
+
         internal RegisterController()
         {
             Instance = Program.Instance;
@@ -27,7 +30,26 @@ namespace ZennoPosterProjectAccountRegister
             BrowserTab = new BrowserTabHandler(Instance);
             ActionsExecutor = new TabActionsExecutor(Instance);
             BrowserProxy = new InstanceProxy(Instance);
+            ZennoProfile = CreateZennoProfile();
+
         }
         public abstract void StartRegistration();
+
+        private ZennoProfile CreateZennoProfile()
+        {
+            string profileName;
+            if(string.IsNullOrEmpty(Project.Settings.SessionName))
+            {
+                SessionBuilder sessionBuilder = new SessionBuilder(true, true);
+                profileName = sessionBuilder.CreateSessionName(32);
+                Project.Settings.SessionName = profileName;
+            }
+            else
+            {
+                profileName = Project.Settings.SessionName;
+            }
+            var zennoProfile = new ZennoProfile(profileName);
+            return zennoProfile;
+        }
     }
 }

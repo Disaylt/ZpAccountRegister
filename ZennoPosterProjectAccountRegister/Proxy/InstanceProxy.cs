@@ -1,4 +1,5 @@
-﻿using SmartProxyV2_ZennoLabVersion.Models;
+﻿using NLog;
+using SmartProxyV2_ZennoLabVersion.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,9 +12,12 @@ namespace ZennoPosterProjectAccountRegister.Proxy
     internal class InstanceProxy
     {
         private readonly Instance _instance;
+        private Logger _logger { get; }
+
         internal InstanceProxy(Instance instance)
         {
             _instance = instance;
+            _logger = LogManager.GetCurrentClassLogger();
         }
 
         internal void SetProxy(ProxyModel proxyModel)
@@ -24,6 +28,7 @@ namespace ZennoPosterProjectAccountRegister.Proxy
                 true,
                 true,
                 true);
+            _logger.Info($"{Project.Settings.SessionName} - Set proxy {proxy}");
         }
     }
 }

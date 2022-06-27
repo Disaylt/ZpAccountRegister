@@ -9,17 +9,17 @@ namespace ZennoPosterProjectAccountRegister.ZennoPoster
 {
     internal class ZennoProfile
     {
+        public string SessionName { get; }
         private readonly IProfile _profile;
-        private readonly string _name;
         public ZennoProfile(string profileName)
         {
+            SessionName = profileName;
             _profile = Program.ZennoPosterProject.Profile;
-            _name = profileName;
         }
 
         public void SaveProfile(string pathFolder)
         {
-            string path = $@"{pathFolder}\{_name}.zpprofile";
+            string path = $@"{pathFolder}\{SessionName}.zpprofile";
             _profile.Save(path,
                 false,
                 true,

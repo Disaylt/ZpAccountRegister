@@ -26,7 +26,7 @@ namespace ZennoPosterProjectAccountRegister.WB
     {
         public override Account Account { get; }
         public IPhoneNumberActions PhoneNumberActions { get; }
-        protected string ProfileName { get; }
+        protected ZennoProfile ZennoProfile { get; }
         private bool _isWriteAccount { get; set; }
 
         internal WbRegister()
@@ -34,8 +34,7 @@ namespace ZennoPosterProjectAccountRegister.WB
             WbGenderOptions genderOptions = new WbGenderOptions();
             Account = new AccountBuilder(genderOptions);
             PhoneNumberActions = new WbPhoneNumber();
-            SessionBuilder sessionBuilder = new SessionBuilder(true, true);
-            ProfileName = sessionBuilder.CreateSessionName(16);
+            ZennoProfile = CreateZennoProfile();
             _isWriteAccount = false;
         }
         public override void StartRegistration()
@@ -53,11 +52,10 @@ namespace ZennoPosterProjectAccountRegister.WB
                 }
                 catch (Exception ex)
                 {
-                    //add nlog
                     if (_isWriteAccount)
                     {
                         _isWriteAccount = false;
-                        SaveProfile(Project.Settings.PathForSaveBadAccount);
+                        BadSave();
                     }
                 }
                 finally
@@ -65,7 +63,7 @@ namespace ZennoPosterProjectAccountRegister.WB
 
                     if (_isWriteAccount)
                     {
-                        SaveProfile(Project.Settings.PathForSaveGoodAccount);
+                        GoodSave();
                     }
                 }
             }
@@ -99,10 +97,7 @@ namespace ZennoPosterProjectAccountRegister.WB
 
         private string GetPhoneNumberWithoutCountryCode()
         {
-            string phoneNumberWithCode = PhoneNumberActions
-                .GetPhoneDataAsync()
-                .Result
-                .Number;
+            string phoneNumberWithCode = PhoneNumberActions.PhoneNumber;
             PhoneCountryCodeConverter phoneCountryCodeConverter = new PhoneCountryCodeConverter(phoneNumberWithCode);
             string phoneNumberWithoutCode = phoneCountryCodeConverter.GetPhoneNumberWithoutCountryCode(Country.Russian);
             return phoneNumberWithoutCode;
@@ -117,10 +112,28 @@ namespace ZennoPosterProjectAccountRegister.WB
             ActionsExecutor.Input(WbTabInputDataBuilder.InputPhoneCode, code);
         }
 
-        private void SaveProfile(string path)
+        private ZennoProfile CreateZennoProfile()
         {
-            ZennoProfile zennoProfile = new ZennoProfile(ProfileName);
-            zennoProfile.SaveProfile(path);
+            SessionBuilder sessionBuilder = new SessionBuilder(true, true);
+            string profileName = sessionBuilder.CreateSessionName(16);
+            var zennoProfile = new ZennoProfile(profileName);
+            return zennoProfile;
+        }
+
+        private void BadSave()
+        {
+            ZennoProfile.SaveProfile(Project.Settings.PathForSaveBadAccount);
+            AccountDbModel accountDb = CreateAccountDbData(true, true);
+            WbBuyoutsShopMongoAccounts<AccountDbModel> wbBuyoutsShopMongo = new WbBuyoutsShopMongoAccounts<AccountDbModel>("badAccounts");
+            wbBuyoutsShopMongo.Insert(accountDb);
+        }
+
+        private void GoodSave()
+        {
+            ZennoProfile.SaveProfile(Project.Settings.PathForSaveGoodAccount);
+            AccountDbModel accountDb = CreateAccountDbData(true, true);
+            WbBuyoutsShopMongoAccounts<AccountDbModel> wbBuyoutsShopMongo = new WbBuyoutsShopMongoAccounts<AccountDbModel>("accounts");
+            wbBuyoutsShopMongo.Insert(accountDb);
         }
 
         private AccountDbModel CreateAccountDbData(bool isActive, bool inWork)
@@ -137,7 +150,7 @@ namespace ZennoPosterProjectAccountRegister.WB
                 Gender = Account.Gender,
                 LastName = Account.LastName,
                 PhoneNumber = PhoneNumberActions.PhoneNumber,
-                Session = ProfileName
+                Session = ZennoProfile.SessionName
             };
             return accountDbModel;
         }

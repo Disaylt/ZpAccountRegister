@@ -148,6 +148,7 @@
     <Compile Include="Http\WB\WbPersonalInfoHttpSender.cs" />
     <Compile Include="AccountStore\IPersonalInfoWriter.cs" />
     <Compile Include="JsonFileLoader.cs" />
+    <Compile Include="Logger\ProjectLogger.cs" />
     <Compile Include="Models\Bson\AccountDbModel.cs" />
     <Compile Include="Models\Json\OnlineSim\MessageStateModel.cs" />
     <Compile Include="Models\Json\OnlineSim\OnlineSimSettingModel.cs" />

@@ -38,6 +38,7 @@ namespace ZennoPosterProjectAccountRegister.WB
         }
         public override void StartRegistration()
         {
+            _logger.Info($"{ZennoProfile.SessionName} - start registration");
             bool isWriteAccount = false;
             using (var acountProxy = new RussianAcountProxy())
             {

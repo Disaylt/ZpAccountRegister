@@ -5,6 +5,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using ZennoPosterProjectAccountRegister.Http;
+using ZennoPosterProjectAccountRegister.Models.Json.OnlineSim;
 
 namespace ZennoPosterProjectAccountRegister.OnlineSim
 {
@@ -16,46 +17,22 @@ namespace ZennoPosterProjectAccountRegister.OnlineSim
             _token = token;
         }
 
-        internal async Task<string> RequestForGetTzIdAsync(string serviceName)
+        internal async Task<TzModel> RequestForGetTzIdAsync(string serviceName)
         {
-            HttpResponseMessage response;
-            using(var client = new HttpClient())
-            {
-                using(var request = new HttpRequestMessage(HttpMethod.Post, $"https://onlinesim.ru/api/getNum.php?apikey={_token}&service={serviceName}"))
-                {
-                    SetHeaders(request);
-                    response = await client.SendAsync(request);
-                    return await response.Content.ReadAsStringAsync();
-                }
-            }
+            TzModel tzModel = await SendRequestAsync<TzModel>(HttpMethod.Post, $"https://onlinesim.ru/api/getNum.php?apikey={_token}&service={serviceName}");
+            return tzModel;
         }
 
-        internal async Task<string> RequestForClosePhoneNumberAsync(int tzId)
+        internal async Task<TzModel> RequestForClosePhoneNumberAsync(int tzId)
         {
-            HttpResponseMessage response;
-            using(var client = new HttpClient())
-            {
-                using(var request = new HttpRequestMessage(HttpMethod.Get, $"https://onlinesim.ru/api/setOperationOk.php?apikey={_token}&tzid={tzId}"))
-                {
-                    SetHeaders(request);
-                    response = await client.SendAsync(request);
-                    return await response.Content.ReadAsStringAsync();
-                }
-            }
+            TzModel tzModel = await SendRequestAsync<TzModel>(HttpMethod.Get, $"https://onlinesim.ru/api/setOperationOk.php?apikey={_token}&tzid={tzId}");
+            return tzModel;
         }
 
-        internal async Task<string> RequestForGetNumberDataAsync()
+        internal async Task<List<PhoneModel>> RequestForGetNumberDataAsync()
         {
-            HttpResponseMessage httpResponseMessage;
-            using(var client = new HttpClient())
-            {
-                using(var request = new HttpRequestMessage(HttpMethod.Get, $"https://onlinesim.ru/api/getState.php?apikey={_token}"))
-                {
-                    SetHeaders(request);
-                    httpResponseMessage = await client.SendAsync(request);
-                    return await httpResponseMessage.Content.ReadAsStringAsync();
-                }
-            }
+            List<PhoneModel> phones = await SendRequestAsync<List<PhoneModel>>(HttpMethod.Get, $"https://onlinesim.ru/api/getState.php?apikey={_token}");
+            return phones;
         }
 
         protected override void SetHeaders(HttpRequestMessage requestMessage)

@@ -7,6 +7,7 @@ using ZennoLab.CommandCenter;
 using ZennoLab.InterfacesLibrary.ProjectModel;
 using ZennoPosterProjectAccountRegister.AccountStore;
 using ZennoPosterProjectAccountRegister.BrowserTab;
+using ZennoPosterProjectAccountRegister.Logger;
 using ZennoPosterProjectAccountRegister.OnlineSim;
 using ZennoPosterProjectAccountRegister.Proxy;
 using ZennoPosterProjectAccountRegister.ZennoPoster;
@@ -22,6 +23,7 @@ namespace ZennoPosterProjectAccountRegister
         protected TabActionsExecutor ActionsExecutor { get; }
         protected InstanceProxy BrowserProxy { get; }
         protected ZennoProfile ZennoProfile { get; }
+        protected ProjectLogger Logger { get; }
 
         internal RegisterController()
         {
@@ -31,6 +33,7 @@ namespace ZennoPosterProjectAccountRegister
             ActionsExecutor = new TabActionsExecutor(Instance);
             BrowserProxy = new InstanceProxy(Instance);
             ZennoProfile = CreateZennoProfile();
+            Logger = new ProjectLogger();
 
         }
         public abstract void StartRegistration();

@@ -28,14 +28,12 @@ namespace ZennoPosterProjectAccountRegister.WB
     {
         public override Account Account { get; }
         public IPhoneNumberActions PhoneNumberActions { get; }
-        private ProjectLogger _logger { get; }
 
         internal WbRegister()
         {
             WbGenderOptions genderOptions = new WbGenderOptions();
             Account = new AccountBuilder(genderOptions);
             PhoneNumberActions = new WbPhoneNumber();
-            _logger = new ProjectLogger();
         }
         public override void StartRegistration()
         {
@@ -59,7 +57,7 @@ namespace ZennoPosterProjectAccountRegister.WB
                         isWriteAccount = false;
                         BadSave();
                     }
-                    _logger.Error(ex);
+                    Logger.Error(ex);
                 }
                 finally
                 {
@@ -67,6 +65,7 @@ namespace ZennoPosterProjectAccountRegister.WB
                     if (isWriteAccount)
                     {
                         GoodSave();
+                        Logger.Info($"Регистрация завершена успешно.");
                     }
                     PhoneNumberActions.CloseNumberAsync().Wait();
                 }

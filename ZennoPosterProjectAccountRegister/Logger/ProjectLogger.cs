@@ -9,13 +9,13 @@ namespace ZennoPosterProjectAccountRegister.Logger
 {
     internal class ProjectLogger
     {
-        private const string _logPath = @"\logs";
+        private const string _logFolderName = "logs";
 
         public ProjectLogger()
         {
-            if(!Directory.Exists(_logPath))
+            if(!Directory.Exists(_logFolderName))
             {
-                Directory.CreateDirectory(_logPath);
+                Directory.CreateDirectory(_logFolderName);
             }
         }
 
@@ -56,11 +56,11 @@ namespace ZennoPosterProjectAccountRegister.Logger
         {
             if(string.IsNullOrEmpty(Project.Settings.SessionName))
             {
-                return $@"{_logPath}\GeneralLog.log";
+                return $@"{_logFolderName}\GeneralLog.log";
             }
             else
             {
-                return $@"{_logPath}\{Project.Settings.SessionName}.log";
+                return $@"{_logFolderName}\{Project.Settings.SessionName}.log";
             }
         }
     }

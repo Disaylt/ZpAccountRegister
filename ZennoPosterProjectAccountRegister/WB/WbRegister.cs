@@ -50,6 +50,7 @@ namespace ZennoPosterProjectAccountRegister.WB
                     isWriteAccount = true;
                     WarmUpCookies();
                     SendPersonalInfo(acountProxy.Proxy);
+                    WarmUpCookies();
                 }
                 catch (Exception ex)
                 {

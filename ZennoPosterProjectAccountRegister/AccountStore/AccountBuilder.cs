@@ -31,6 +31,7 @@ namespace ZennoPosterProjectAccountRegister.AccountStore
             FirstName = ChoosePersonalInfo(personalInfo.FirstNames);
             LastName = ChoosePersonalInfo(personalInfo.LastNames);
             MiddleName = ChoosePersonalInfo(personalInfo.MiddleNames);
+            Logger.Info($"Create account - Gender: {Gender}, Birth: {BirthDate}, FirstName: {FirstName}, LastName: {LastName}, MiddleName: {MiddleName}");
         }
 
         public virtual string ChoosePersonalInfo(string[] names)

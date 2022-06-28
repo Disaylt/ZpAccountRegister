@@ -21,7 +21,5 @@ namespace ZennoPosterProjectAccountRegister.MongoDB.WB
         {
             Collection.InsertOneAsync(model).Wait();
         }
-
-
     }
 }

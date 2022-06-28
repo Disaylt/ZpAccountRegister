@@ -4,10 +4,11 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using ZennoPosterProjectAccountRegister.Http;
 
 namespace ZennoPosterProjectAccountRegister.OnlineSim
 {
-    public class OnlineSimHttpRequest
+    internal class OnlineSimHttpRequest : HttpSenderClient
     {
         private readonly string _token;
         public OnlineSimHttpRequest(string token)
@@ -57,7 +58,7 @@ namespace ZennoPosterProjectAccountRegister.OnlineSim
             }
         }
 
-        private void SetHeaders(HttpRequestMessage requestMessage)
+        protected override void SetHeaders(HttpRequestMessage requestMessage)
         {
             requestMessage.Headers.TryAddWithoutValidation("Accept-Encoding", "UTF-8");
             requestMessage.Headers.TryAddWithoutValidation("Content-Type", "application/json");

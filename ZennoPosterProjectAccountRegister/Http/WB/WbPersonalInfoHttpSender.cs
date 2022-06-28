@@ -33,7 +33,7 @@ namespace ZennoPosterProjectAccountRegister.Http.WB
             await SendRequestAsync<object, PersonalInfoModel>(httpMethod, url, personalInfo);
         }
 
-        public async Task<T> GetAccountDataAsync<T>()
+        public async Task<T> GetAccountDataAsync<T>() where T : class
         {
             string url = "https://www.wildberries.ru/webapi/lk/details/data";
             HttpMethod httpMethod = HttpMethod.Post;

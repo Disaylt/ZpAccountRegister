@@ -10,7 +10,7 @@ using ZennoPosterProjectAccountRegister.Models.Json.OnlineSim;
 
 namespace ZennoPosterProjectAccountRegister.OnlineSim
 {
-    public class OnlineSimTzHandler : OnlineSimSettings
+    internal class OnlineSimTzHandler : OnlineSimSettings
     {
         protected readonly OnlineSimHttpRequest OnlineSimHttpRequest;
         protected int TzId { get; set; }

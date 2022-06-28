@@ -24,16 +24,24 @@ namespace ZennoPosterProjectAccountRegister.Http
         protected IProfile Profile { get; }
         protected ProjectLogger Logger { get; }
 
-        public HttpSenderClient(IZennoPosterProjectModel project, ProxyModel proxyModel)
+        public HttpSenderClient()
         {
-            HttpClientHandler = new HttpClientHandler();
-            Profile = project.Profile;
-            SetCookies();
-            SetProxy(proxyModel);
             Logger = new ProjectLogger();
+            HttpClientHandler = new HttpClientHandler();
         }
 
-        protected async Task<T> SendRequestAsync<T>(HttpMethod httpMethod, string url, SetHeaders setHeaders)
+        public HttpSenderClient(IZennoPosterProjectModel project) : this()
+        {
+            Profile = project.Profile;
+            SetCookies(project.Profile.CookieContainer);
+        }
+
+        public HttpSenderClient(IZennoPosterProjectModel project, ProxyModel proxyModel) : this(project)
+        {
+            SetProxy(proxyModel);
+        }
+
+        protected async Task<T> SendRequestAsync<T>(HttpMethod httpMethod, string url, SetHeaders setHeaders) where T : class
         {
             try
             {
@@ -55,37 +63,37 @@ namespace ZennoPosterProjectAccountRegister.Http
             }
         }
 
-        protected async Task<T> SendRequestAsync<T>(HttpMethod httpMethod, string url)
+        protected async Task<T> SendRequestAsync<T>(HttpMethod httpMethod, string url) where T : class
         {
             T responceBody = await SendRequestAsync<T>(httpMethod, url, SetHeaders);
             return responceBody;
         }
 
-        protected async Task<T> SendRequestAsync<T, K>(HttpMethod httpMethod, string url, K jsonBodyContent)
+        protected async Task<T> SendRequestAsync<T, K>(HttpMethod httpMethod, string url, K jsonBodyContent) where T : class
         {
             T responceBody = await SendRequestAsync<T, K>(httpMethod, url, jsonBodyContent, SetHeaders, SetJsonRequestContent);
             return responceBody;
         }
 
-        protected async Task<T> SendRequestAsync<T, K>(HttpMethod httpMethod, string url, K jsonBodyContent, SetHeaders setHeaders)
+        protected async Task<T> SendRequestAsync<T, K>(HttpMethod httpMethod, string url, K jsonBodyContent, SetHeaders setHeaders) where T : class
         {
             T responceBody = await SendRequestAsync<T, K>(httpMethod, url, jsonBodyContent, setHeaders, SetJsonRequestContent);
             return responceBody;
         }
 
-        protected async Task<T> SendRequestAsync<T>(HttpMethod httpMethod, string url, IBodyStringConverter bodyContent)
+        protected async Task<T> SendRequestAsync<T>(HttpMethod httpMethod, string url, IBodyStringConverter bodyContent) where T : class
         {
             T responceBody = await SendRequestAsync<T, IBodyStringConverter>(httpMethod, url, bodyContent, SetHeaders, SetObjectRequestContent);
             return responceBody;
         }
 
-        protected async Task<T> SendRequestAsync<T>(HttpMethod httpMethod, string url, IBodyStringConverter bodyContent, SetHeaders setHeaders)
+        protected async Task<T> SendRequestAsync<T>(HttpMethod httpMethod, string url, IBodyStringConverter bodyContent, SetHeaders setHeaders) where T : class
         {
             T responceBody = await SendRequestAsync<T, IBodyStringConverter>(httpMethod, url, bodyContent, setHeaders, SetObjectRequestContent);
             return responceBody;
         }
 
-        private async Task<T> SendRequestAsync<T, K>(HttpMethod httpMethod, string url, K bodyContent, SetHeaders setHeaders, SetBody<K> setBody)
+        private async Task<T> SendRequestAsync<T, K>(HttpMethod httpMethod, string url, K bodyContent, SetHeaders setHeaders, SetBody<K> setBody) where T : class
         {
             try
             {
@@ -114,9 +122,13 @@ namespace ZennoPosterProjectAccountRegister.Http
             requestMessage.Headers.TryAddWithoutValidation("User-Agent", Profile.UserAgent);
         }
 
-        private T WriteResponse<T>(HttpResponseMessage responseMessage)
+        private T WriteResponse<T>(HttpResponseMessage responseMessage) where T : class
         {
             string bodyResponse = responseMessage.Content.ReadAsStringAsync().Result;
+            if(typeof(string) == typeof(T))
+            {
+                return bodyResponse as T;
+            }
             T responceBody = JToken.Parse(bodyResponse).ToObject<T>();
             return responceBody;
         }
@@ -137,11 +149,11 @@ namespace ZennoPosterProjectAccountRegister.Http
             requestMessage.Content.Headers.ContentType = MediaTypeHeaderValue.Parse("application/json");
         }
 
-        private void SetCookies()
+        private void SetCookies(ICookieContainer cookieContainer)
         {
             HttpClientHandler.UseCookies = true;
-            ZennoCookieContainer cookieContainer = new ZennoCookieContainer(Profile.CookieContainer);
-            HttpClientHandler.CookieContainer = cookieContainer;
+            ZennoCookieContainer zennoCookieContainer = new ZennoCookieContainer(cookieContainer);
+            HttpClientHandler.CookieContainer = zennoCookieContainer;
         }
 
         private void SetProxy(ProxyModel proxyModel)

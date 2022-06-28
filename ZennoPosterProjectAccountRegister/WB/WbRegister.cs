@@ -1,4 +1,5 @@
-﻿using SmartProxyV2_ZennoLabVersion.Models;
+﻿using NLog;
+using SmartProxyV2_ZennoLabVersion.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,7 @@ using ZennoPosterProjectAccountRegister.AccountStore.WB;
 using ZennoPosterProjectAccountRegister.BrowserTab;
 using ZennoPosterProjectAccountRegister.Http;
 using ZennoPosterProjectAccountRegister.Http.WB;
+using ZennoPosterProjectAccountRegister.Logger;
 using ZennoPosterProjectAccountRegister.Models.Bson;
 using ZennoPosterProjectAccountRegister.Models.Json.WB;
 using ZennoPosterProjectAccountRegister.MongoDB.WB;
@@ -26,20 +28,16 @@ namespace ZennoPosterProjectAccountRegister.WB
     {
         public override Account Account { get; }
         public IPhoneNumberActions PhoneNumberActions { get; }
-        protected string ProfileName { get; }
-        private bool _isWriteAccount { get; set; }
 
         internal WbRegister()
         {
             WbGenderOptions genderOptions = new WbGenderOptions();
             Account = new AccountBuilder(genderOptions);
             PhoneNumberActions = new WbPhoneNumber();
-            SessionBuilder sessionBuilder = new SessionBuilder(true, true);
-            ProfileName = sessionBuilder.CreateSessionName(16);
-            _isWriteAccount = false;
         }
         public override void StartRegistration()
         {
+            bool isWriteAccount = false;
             using (var acountProxy = new RussianAcountProxy())
             {
                 try
@@ -47,26 +45,29 @@ namespace ZennoPosterProjectAccountRegister.WB
                     BrowserProxy.SetProxy(acountProxy.Proxy);
                     BeginBrowserRegister();
                     InputCode();
-                    _isWriteAccount = true;
+                    isWriteAccount = true;
                     WarmUpCookies();
                     SendPersonalInfo(acountProxy.Proxy);
+                    WarmUpCookies();
                 }
                 catch (Exception ex)
                 {
-                    //add nlog
-                    if (_isWriteAccount)
+                    if (isWriteAccount)
                     {
-                        _isWriteAccount = false;
-                        SaveProfile(Project.Settings.PathForSaveBadAccount);
+                        isWriteAccount = false;
+                        BadSave();
                     }
+                    Logger.Error(ex);
                 }
                 finally
                 {
 
-                    if (_isWriteAccount)
+                    if (isWriteAccount)
                     {
-                        SaveProfile(Project.Settings.PathForSaveGoodAccount);
+                        GoodSave();
+                        Logger.Info($"Регистрация завершена успешно.");
                     }
+                    PhoneNumberActions.CloseNumberAsync().Wait();
                 }
             }
         }
@@ -99,10 +100,7 @@ namespace ZennoPosterProjectAccountRegister.WB
 
         private string GetPhoneNumberWithoutCountryCode()
         {
-            string phoneNumberWithCode = PhoneNumberActions
-                .GetPhoneDataAsync()
-                .Result
-                .Number;
+            string phoneNumberWithCode = PhoneNumberActions.PhoneNumber;
             PhoneCountryCodeConverter phoneCountryCodeConverter = new PhoneCountryCodeConverter(phoneNumberWithCode);
             string phoneNumberWithoutCode = phoneCountryCodeConverter.GetPhoneNumberWithoutCountryCode(Country.Russian);
             return phoneNumberWithoutCode;
@@ -116,11 +114,20 @@ namespace ZennoPosterProjectAccountRegister.WB
             string code = codeScaner.GetCode();
             ActionsExecutor.Input(WbTabInputDataBuilder.InputPhoneCode, code);
         }
-
-        private void SaveProfile(string path)
+        private void BadSave()
         {
-            ZennoProfile zennoProfile = new ZennoProfile(ProfileName);
-            zennoProfile.SaveProfile(path);
+            ZennoProfile.SaveProfile(Project.Settings.PathForSaveBadAccount);
+            AccountDbModel accountDb = CreateAccountDbData(false, false);
+            WbBuyoutsShopMongoAccounts<AccountDbModel> wbBuyoutsShopMongo = new WbBuyoutsShopMongoAccounts<AccountDbModel>("badAccounts");
+            wbBuyoutsShopMongo.Insert(accountDb);
+        }
+
+        private void GoodSave()
+        {
+            ZennoProfile.SaveProfile(Project.Settings.PathForSaveGoodAccount);
+            AccountDbModel accountDb = CreateAccountDbData(true, false);
+            WbBuyoutsShopMongoAccounts<AccountDbModel> wbBuyoutsShopMongo = new WbBuyoutsShopMongoAccounts<AccountDbModel>("accounts");
+            wbBuyoutsShopMongo.Insert(accountDb);
         }
 
         private AccountDbModel CreateAccountDbData(bool isActive, bool inWork)
@@ -137,7 +144,7 @@ namespace ZennoPosterProjectAccountRegister.WB
                 Gender = Account.Gender,
                 LastName = Account.LastName,
                 PhoneNumber = PhoneNumberActions.PhoneNumber,
-                Session = ProfileName
+                Session = ZennoProfile.SessionName
             };
             return accountDbModel;
         }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZennoPosterProjectAccountRegister.Logger;
 
 namespace ZennoPosterProjectAccountRegister.AccountStore
 {
@@ -13,5 +14,11 @@ namespace ZennoPosterProjectAccountRegister.AccountStore
         public abstract string MiddleName { get; }
         public abstract DateTime BirthDate { get; }
         public abstract string Gender { get; }
+        protected ProjectLogger Logger { get; }
+
+        public Account()
+        {
+            Logger = new ProjectLogger();
+        }
     }
 }

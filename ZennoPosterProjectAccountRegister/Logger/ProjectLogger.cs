@@ -29,7 +29,7 @@ namespace ZennoPosterProjectAccountRegister.Logger
         {
             string[] logMeesage = new string[]
             {
-                $"{DateTime.Now} | {Project.Settings.SessionName} | ERROR | {exception.Message}\r\n",
+                $"{DateTime.Now} | {Project.Settings.SessionName} | ERROR | {exception.Message}",
                 $"{exception.StackTrace}\r\n"
             };
             WriteLogMessage(logMeesage);
@@ -39,8 +39,8 @@ namespace ZennoPosterProjectAccountRegister.Logger
         {
             string[] logMeesage = new string[]
             {
-                $"{DateTime.Now} | {Project.Settings.SessionName} | ERROR | {message}\r\n",
-                $"{exception.Message}\r\n",
+                $"{DateTime.Now} | {Project.Settings.SessionName} | ERROR | {message}",
+                $"{exception.Message}",
                 $"{exception.StackTrace}\r\n"
             };
             WriteLogMessage(logMeesage);

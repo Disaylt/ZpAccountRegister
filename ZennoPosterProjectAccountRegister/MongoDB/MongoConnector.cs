@@ -26,7 +26,7 @@ namespace ZennoPosterProjectAccountRegister.MongoDB
         {
             IMongoDatabase database = _client.GetDatabase(databaseName);
             IMongoCollection<T> collection = database.GetCollection<T>(collectionName);
-            Logger.Info($"{nameof(GetCollection)} - Collection: {collection}, database:{database}");
+            Logger.Info($"{nameof(GetCollection)} - Collection: {collectionName}, database:{databaseName}");
             return collection;
         }
     }

@@ -12,6 +12,7 @@ using ZennoLab.InterfacesLibrary.ProjectModel.Collections;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using ZennoPosterProjectAccountRegister.Models.Objects;
+using ZennoPosterProjectAccountRegister.Logger;
 
 namespace ZennoPosterProjectAccountRegister.Http
 {
@@ -21,6 +22,7 @@ namespace ZennoPosterProjectAccountRegister.Http
     {
         protected HttpClientHandler HttpClientHandler { get; }
         protected IProfile Profile { get; }
+        protected ProjectLogger Logger { get; }
 
         public HttpSenderClient(IZennoPosterProjectModel project, ProxyModel proxyModel)
         {
@@ -28,19 +30,29 @@ namespace ZennoPosterProjectAccountRegister.Http
             Profile = project.Profile;
             SetCookies();
             SetProxy(proxyModel);
+            Logger = new ProjectLogger();
         }
 
         protected async Task<T> SendRequestAsync<T>(HttpMethod httpMethod, string url, SetHeaders setHeaders)
         {
-            T responceBody;
-            HttpClient httpClient = new HttpClient(HttpClientHandler);
-            using (var request = new HttpRequestMessage(httpMethod, url))
+            try
             {
-                setHeaders.Invoke(request);
-                var response = await httpClient.SendAsync(request);
-                responceBody = WriteResponse<T>(response);
+                T responceBody;
+                HttpClient httpClient = new HttpClient(HttpClientHandler);
+                using (var request = new HttpRequestMessage(httpMethod, url))
+                {
+                    setHeaders.Invoke(request);
+                    var response = await httpClient.SendAsync(request);
+                    responceBody = WriteResponse<T>(response);
+                    Logger.Info($"HTTP request - URL: {url}, Method: {httpMethod.Method}\r\n ResponseBody: {response.Content.ReadAsStringAsync()}");
+                }
+                return responceBody;
             }
-            return responceBody;
+            catch (Exception ex)
+            {
+                Logger.Error(ex, $"HTTP request - URL: {url}, Method: {httpMethod.Method}");
+                return default(T);
+            }
         }
 
         protected async Task<T> SendRequestAsync<T>(HttpMethod httpMethod, string url)
@@ -75,16 +87,25 @@ namespace ZennoPosterProjectAccountRegister.Http
 
         private async Task<T> SendRequestAsync<T, K>(HttpMethod httpMethod, string url, K bodyContent, SetHeaders setHeaders, SetBody<K> setBody)
         {
-            T responceBody;
-            HttpClient httpClient = new HttpClient(HttpClientHandler);
-            using (var request = new HttpRequestMessage(httpMethod, url))
+            try
             {
-                setHeaders.Invoke(request);
-                setBody.Invoke(bodyContent, request);
-                var response = await httpClient.SendAsync(request);
-                responceBody = WriteResponse<T>(response);
+                T responceBody;
+                HttpClient httpClient = new HttpClient(HttpClientHandler);
+                using (var request = new HttpRequestMessage(httpMethod, url))
+                {
+                    setHeaders.Invoke(request);
+                    setBody.Invoke(bodyContent, request);
+                    var response = await httpClient.SendAsync(request);
+                    responceBody = WriteResponse<T>(response);
+                    Logger.Info($"HTTP request - URL: {url}, Method: {httpMethod.Method}\r\nRequestBody: {request.Content.ReadAsStringAsync()}\r\nResponseBody: {response.Content.ReadAsStringAsync()}");
+                }
+                return responceBody;
             }
-            return responceBody;
+            catch (Exception ex)
+            {
+                Logger.Error(ex, $"HTTP request - URL: {url}, Method: {httpMethod.Method}");
+                return default(T);
+            }
         }
 
         protected virtual void SetHeaders(HttpRequestMessage requestMessage)

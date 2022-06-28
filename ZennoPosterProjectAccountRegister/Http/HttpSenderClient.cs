@@ -44,7 +44,7 @@ namespace ZennoPosterProjectAccountRegister.Http
                     setHeaders.Invoke(request);
                     var response = await httpClient.SendAsync(request);
                     responceBody = WriteResponse<T>(response);
-                    Logger.Info($"HTTP request - URL: {url}, Method: {httpMethod.Method}\r\n ResponseBody: {response.Content.ReadAsStringAsync()}");
+                    Logger.Info($"HTTP request - URL: {url}, Method: {httpMethod.Method}\r\n ResponseBody: {response.Content.ReadAsStringAsync().Result}");
                 }
                 return responceBody;
             }
@@ -95,9 +95,10 @@ namespace ZennoPosterProjectAccountRegister.Http
                 {
                     setHeaders.Invoke(request);
                     setBody.Invoke(bodyContent, request);
+                    string requestBody = request.Content.ReadAsStringAsync().Result;
                     var response = await httpClient.SendAsync(request);
                     responceBody = WriteResponse<T>(response);
-                    Logger.Info($"HTTP request - URL: {url}, Method: {httpMethod.Method}\r\nRequestBody: {request.Content.ReadAsStringAsync()}\r\nResponseBody: {response.Content.ReadAsStringAsync()}");
+                    Logger.Info($"HTTP request - URL: {url}, Method: {httpMethod.Method}\r\nRequestBody: {requestBody}\r\nResponseBody: {response.Content.ReadAsStringAsync().Result}");
                 }
                 return responceBody;
             }

@@ -29,7 +29,7 @@ namespace ZennoPosterProjectAccountRegister.OnlineSim
                     return message;
                 }
             }
-            return string.Empty;
+            throw new Exception("Message code not found!");
         }
     }
 }

@@ -19,7 +19,15 @@ namespace ZennoPosterProjectAccountRegister.MongoDB.WB
 
         public void Insert(T model)
         {
-            Collection.InsertOneAsync(model).Wait();
+            try
+            {
+                Collection.InsertOneAsync(model).Wait();
+                Logger.Info($"Insert BSON document - Type: {typeof(T)}");
+            }
+            catch (Exception ex)
+            {
+                Logger.Error(ex);
+            }
         }
     }
 }

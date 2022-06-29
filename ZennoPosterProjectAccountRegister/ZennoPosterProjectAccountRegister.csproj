@@ -156,6 +156,7 @@
     <Compile Include="Models\Json\OnlineSim\PhoneModel.cs" />
     <Compile Include="Models\Json\OnlineSim\TzModel.cs" />
     <Compile Include="Models\Json\WB\PersonalInfoModel.cs" />
+    <Compile Include="Models\Json\WB\WbAccountSettingsModel.cs" />
     <Compile Include="Models\Json\WB\WbProfileModel.cs" />
     <Compile Include="Models\Objects\HttpRequestContentModel.cs" />
     <Compile Include="Models\Objects\HttpRequestModel.cs" />

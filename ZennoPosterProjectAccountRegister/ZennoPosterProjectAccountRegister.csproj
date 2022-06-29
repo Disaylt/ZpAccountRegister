@@ -186,6 +186,7 @@
     <Compile Include="AccountStore\WB\WbFemalePersonalInfo.cs" />
     <Compile Include="AccountStore\WB\WbMalePersonalInfo.cs" />
     <Compile Include="RegisterControllerStore.cs" />
+    <Compile Include="WB\RegisterChecker\HttpRegisterChecker.cs" />
     <Compile Include="WB\WbRegister.cs" />
     <Compile Include="WB\WbRegisterChecker.cs" />
     <Compile Include="WB\WbTabClickDataBuilder.cs" />

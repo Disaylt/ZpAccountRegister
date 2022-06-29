@@ -17,19 +17,19 @@ namespace ZennoPosterProjectAccountRegister.Models.Json.WB
     internal class WbAccountSettingsValue
     {
         [JsonProperty("data")]
-        public WbAccountSettingsData Data { get; set; }
+        public WbAccountSettingsDataModel Data { get; set; }
     }
 
-    internal class WbAccountSettingsData
+    internal class WbAccountSettingsDataModel
     {
         [JsonProperty("mySafety")]
-        WbAccountSettingsMySafety MySafety { get; set; }
+        public WbAccountSettingsMySafety MySafety { get; set; }
     }
 
     internal class WbAccountSettingsMySafety
     {
         [JsonProperty("sessions")]
-        List<WbAccountSettingsSession> Sessions { get; set; }
+        public List<WbAccountSettingsSession> Sessions { get; set; }
     }
 
     internal class WbAccountSettingsSession

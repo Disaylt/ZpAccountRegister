@@ -23,7 +23,7 @@ namespace ZennoPosterProjectAccountRegister.WB.RegisterChecker
 
         public bool CompareAccountData(Account account)
         {
-            WbProfile accountData = _httpRegisterChecker.GetPersonalDataAsync().Result;
+            WbProfile accountData = _httpRegisterChecker.GetPersonalData();
             if(accountData != null
                 && accountData.IsAuthenticated
                 && accountData.FirstName == account.FirstName
@@ -35,6 +35,12 @@ namespace ZennoPosterProjectAccountRegister.WB.RegisterChecker
             {
                 return false;
             }
+        }
+
+        public WbAccountSettingsDataModel GetAccountSettings()
+        {
+            WbAccountSettingsDataModel wbAccountSettingsData = _httpRegisterChecker.GetAccountSettins();
+            return wbAccountSettingsData;
         }
     }
 }

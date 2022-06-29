@@ -50,7 +50,7 @@ namespace ZennoPosterProjectAccountRegister.WB
                     WarmUpCookies();
                     SendPersonalInfo(acountProxy.Proxy);
                     CheckAuthorization(acountProxy.Proxy);
-                    CloseActiveSessions();
+                    CloseActiveSessions(acountProxy.Proxy);
                 }
                 catch (Exception ex)
                 {
@@ -75,19 +75,25 @@ namespace ZennoPosterProjectAccountRegister.WB
         }
 
         private void CheckAuthorization(ProxyModel proxy)
-        {
+        {ы
             Thread.Sleep(5 * 1000);
-            WbAccountHandler wbRegisterChecker = new WbAccountHandler(proxy, ZennoPosterProject);
-            if(!wbRegisterChecker.CompareAccountData(Account))
+            WbAccountHandler wbAccount = new WbAccountHandler(proxy, ZennoPosterProject);
+            if(!wbAccount.CompareAccountData(Account))
             {
                 throw new Exception("Different account data");
             }
         }
 
-        private void CloseActiveSessions()
+        private void CloseActiveSessions(ProxyModel proxy)
         {
             BrowserTab.UpdateToNextPage("https://www.wildberries.ru/lk/details");
-            ActionsExecutor.Click(WbTabClickDataBuilder.ClickCloseActiveSessions);
+            WbAccountHandler wbAccount = new WbAccountHandler(proxy, ZennoPosterProject);
+            WbAccountSettingsDataModel wbAccountSettingsData = wbAccount.GetAccountSettings();
+            int numSessions = wbAccountSettingsData.MySafety.Sessions.Count;
+            if (numSessions > 1)
+            {
+                ActionsExecutor.Click(WbTabClickDataBuilder.ClickCloseActiveSessions);
+            }
         }
 
         private void WarmUpCookies()

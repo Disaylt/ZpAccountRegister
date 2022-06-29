@@ -17,10 +17,16 @@ namespace ZennoPosterProjectAccountRegister.Http.WB
 
         }
 
-        public async Task<WbProfile> GetPersonalDataAsync()
+        public WbProfile GetPersonalData()
         {
-            WbProfileModel wbProfileModel = await SendRequestAsync<WbProfileModel>(HttpMethod.Post, "https://www.wildberries.ru/webapi/personalinfo");
+            WbProfileModel wbProfileModel = SendRequestAsync<WbProfileModel>(HttpMethod.Post, "https://www.wildberries.ru/webapi/personalinfo").Result;
             return wbProfileModel.ProfileData;
+        }
+
+        public WbAccountSettingsDataModel GetAccountSettins()
+        {
+            WbAccountSettingsModel settings = SendRequestAsync<WbAccountSettingsModel>(HttpMethod.Post, "https://www.wildberries.ru/webapi/lk/details/data").Result;
+            return settings.Value.Data;
         }
     }
 }

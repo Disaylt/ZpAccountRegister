@@ -187,6 +187,7 @@
     <Compile Include="AccountStore\WB\WbMalePersonalInfo.cs" />
     <Compile Include="RegisterControllerStore.cs" />
     <Compile Include="WB\WbRegister.cs" />
+    <Compile Include="WB\WbRegisterChecker.cs" />
     <Compile Include="WB\WbTabClickDataBuilder.cs" />
     <Compile Include="WB\WbTabInputDataBuilder.cs" />
     <Compile Include="ZennoPoster\ZennoProfile.cs" />

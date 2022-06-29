@@ -59,7 +59,7 @@ namespace ZennoPosterProjectAccountRegister.Http
             catch (Exception ex)
             {
                 Logger.Error(ex, $"HTTP request - URL: {url}, Method: {httpMethod.Method}");
-                return default(T);
+                return default;
             }
         }
 
@@ -113,7 +113,7 @@ namespace ZennoPosterProjectAccountRegister.Http
             catch (Exception ex)
             {
                 Logger.Error(ex, $"HTTP request - URL: {url}, Method: {httpMethod.Method}");
-                return default(T);
+                return default;
             }
         }
 

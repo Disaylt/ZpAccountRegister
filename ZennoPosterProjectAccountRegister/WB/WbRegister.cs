@@ -75,7 +75,7 @@ namespace ZennoPosterProjectAccountRegister.WB
         }
 
         private void CheckAuthorization(ProxyModel proxy)
-        {ы
+        {
             Thread.Sleep(5 * 1000);
             WbAccountHandler wbAccount = new WbAccountHandler(proxy, ZennoPosterProject);
             if(!wbAccount.CompareAccountData(Account))

@@ -207,7 +207,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Tests\WB\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="Core\Compression\Snappy\lib\linux\libsnappy64.so" />

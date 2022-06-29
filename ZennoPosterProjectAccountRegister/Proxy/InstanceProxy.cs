@@ -12,13 +12,13 @@ namespace ZennoPosterProjectAccountRegister.Proxy
 {
     internal class InstanceProxy
     {
+        protected ProjectLogger Logger { get; }
         private readonly Instance _instance;
-        private ProjectLogger _logger { get; }
 
         internal InstanceProxy(Instance instance)
         {
             _instance = instance;
-            _logger = new ProjectLogger();
+            Logger = new ProjectLogger();
         }
 
         internal void SetProxy(ProxyModel proxyModel)
@@ -29,7 +29,7 @@ namespace ZennoPosterProjectAccountRegister.Proxy
                 true,
                 true,
                 true);
-            _logger.Info($"Set proxy {proxy}");
+            Logger.Info($"Set proxy {proxy}");
         }
     }
 }

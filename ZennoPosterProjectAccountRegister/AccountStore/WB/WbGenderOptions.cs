@@ -8,13 +8,13 @@ namespace ZennoPosterProjectAccountRegister.AccountStore.WB
 {
     public class WbGenderOptions : GenderOptions
     {
-        private static Dictionary<string, IPersonalInfo> genderPersonalInfo = new Dictionary<string, IPersonalInfo>
+        private readonly static Dictionary<string, IPersonalInfo> _genderPersonalInfo = new Dictionary<string, IPersonalInfo>
             {
                 {"male", new WbMalePersonalInfo() },
                 {"female", new WbFemalePersonalInfo() }
             };
 
-        public WbGenderOptions() : base(genderPersonalInfo)
+        public WbGenderOptions() : base(_genderPersonalInfo)
         {
 
         }

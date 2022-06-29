@@ -77,7 +77,7 @@ namespace ZennoPosterProjectAccountRegister.WB
         private void CheckAuthorization(ProxyModel proxy)
         {
             Thread.Sleep(5 * 1000);
-            WbRegisterChecker wbRegisterChecker = new WbRegisterChecker(proxy, ZennoPosterProject);
+            WbAccountHandler wbRegisterChecker = new WbAccountHandler(proxy, ZennoPosterProject);
             if(!wbRegisterChecker.CompareAccountData(Account))
             {
                 throw new Exception("Different account data");

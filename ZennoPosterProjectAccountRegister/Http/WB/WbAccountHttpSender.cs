@@ -6,19 +6,18 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using ZennoLab.InterfacesLibrary.ProjectModel;
-using ZennoPosterProjectAccountRegister.Http;
 using ZennoPosterProjectAccountRegister.Models.Json.WB;
 
-namespace ZennoPosterProjectAccountRegister.WB.RegisterChecker
+namespace ZennoPosterProjectAccountRegister.Http.WB
 {
-    internal class HttpRegisterChecker : HttpSenderClient
+    internal class WbAccountHttpSender : HttpSenderClient
     {
-        public HttpRegisterChecker(ProxyModel proxy, IZennoPosterProjectModel project) : base(project, proxy)
+        public WbAccountHttpSender(ProxyModel proxy, IZennoPosterProjectModel project) : base(project, proxy)
         {
 
         }
 
-        public async Task<WbProfile> GetProfileInfoAsync()
+        public async Task<WbProfile> GetPersonalDataAsync()
         {
             WbProfileModel wbProfileModel = await SendRequestAsync<WbProfileModel>(HttpMethod.Post, "https://www.wildberries.ru/webapi/personalinfo");
             return wbProfileModel.ProfileData;

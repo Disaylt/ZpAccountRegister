@@ -7,22 +7,23 @@ using System.Threading.Tasks;
 using ZennoLab.InterfacesLibrary.ProjectModel;
 using ZennoPosterProjectAccountRegister.AccountStore;
 using ZennoPosterProjectAccountRegister.Http;
+using ZennoPosterProjectAccountRegister.Http.WB;
 using ZennoPosterProjectAccountRegister.Models.Json.WB;
 using ZennoPosterProjectAccountRegister.WB.RegisterChecker;
 
 namespace ZennoPosterProjectAccountRegister.WB.RegisterChecker
 {
-    internal class WbRegisterChecker
+    internal class WbAccountHandler
     {
-        private readonly HttpRegisterChecker _httpRegisterChecker;
-        public WbRegisterChecker(ProxyModel proxy, IZennoPosterProjectModel project)
+        private readonly WbAccountHttpSender _httpRegisterChecker;
+        public WbAccountHandler(ProxyModel proxy, IZennoPosterProjectModel project)
         {
-            _httpRegisterChecker = new HttpRegisterChecker(proxy, project);
+            _httpRegisterChecker = new WbAccountHttpSender(proxy, project);
         }
 
         public bool CompareAccountData(Account account)
         {
-            WbProfile accountData = _httpRegisterChecker.GetProfileInfoAsync().Result;
+            WbProfile accountData = _httpRegisterChecker.GetPersonalDataAsync().Result;
             if(accountData != null
                 && accountData.IsAuthenticated
                 && accountData.FirstName == account.FirstName

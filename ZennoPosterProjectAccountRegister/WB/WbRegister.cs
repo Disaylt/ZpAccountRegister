@@ -86,7 +86,7 @@ namespace ZennoPosterProjectAccountRegister.WB
 
         private void CloseActiveSessions()
         {
-            BrowserTab.UpdateToNextPage("https://www.wildberries.ru/");
+            BrowserTab.UpdateToNextPage("https://www.wildberries.ru/lk/details");
             ActionsExecutor.Click(WbTabClickDataBuilder.ClickCloseActiveSessions);
         }
 

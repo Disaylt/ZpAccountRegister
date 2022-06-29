@@ -20,7 +20,7 @@ namespace ZennoPosterProjectAccountRegister.WB.RegisterChecker
 
         public async Task<WbProfile> GetProfileInfoAsync()
         {
-            WbProfileModel wbProfileModel = await SendRequestAsync<WbProfileModel>(HttpMethod.Post, "https://www.wildberries.ru/webapi/lk/details/data");
+            WbProfileModel wbProfileModel = await SendRequestAsync<WbProfileModel>(HttpMethod.Post, "https://www.wildberries.ru/webapi/personalinfo");
             return wbProfileModel.ProfileData;
         }
     }

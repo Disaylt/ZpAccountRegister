@@ -1,0 +1,39 @@
+﻿using SmartProxyV2_ZennoLabVersion.Models;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ZennoLab.InterfacesLibrary.ProjectModel;
+using ZennoPosterProjectAccountRegister.AccountStore;
+using ZennoPosterProjectAccountRegister.Http;
+using ZennoPosterProjectAccountRegister.Models.Json.WB;
+using ZennoPosterProjectAccountRegister.WB.RegisterChecker;
+
+namespace ZennoPosterProjectAccountRegister.WB.RegisterChecker
+{
+    internal class WbRegisterChecker
+    {
+        private readonly HttpRegisterChecker _httpRegisterChecker;
+        public WbRegisterChecker(ProxyModel proxy, IZennoPosterProjectModel project)
+        {
+            _httpRegisterChecker = new HttpRegisterChecker(proxy, project);
+        }
+
+        public bool CompareAccountData(Account account)
+        {
+            WbProfile accountData = _httpRegisterChecker.GetProfileInfoAsync().Result;
+            if(accountData != null
+                && accountData.IsAuthenticated
+                && accountData.FirstName == account.FirstName
+                && accountData.LastName == account.LastName)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+}

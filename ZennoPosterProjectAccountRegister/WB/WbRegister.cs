@@ -20,6 +20,7 @@ using ZennoPosterProjectAccountRegister.MongoDB.WB;
 using ZennoPosterProjectAccountRegister.OnlineSim;
 using ZennoPosterProjectAccountRegister.OnlineSim.WB;
 using ZennoPosterProjectAccountRegister.Proxy;
+using ZennoPosterProjectAccountRegister.WB.RegisterChecker;
 using ZennoPosterProjectAccountRegister.ZennoPoster;
 
 namespace ZennoPosterProjectAccountRegister.WB
@@ -48,7 +49,8 @@ namespace ZennoPosterProjectAccountRegister.WB
                     isWriteAccount = true;
                     WarmUpCookies();
                     SendPersonalInfo(acountProxy.Proxy);
-                    WarmUpCookies();
+                    CheckAuthorization(acountProxy.Proxy);
+                    CloseActiveSessions();
                 }
                 catch (Exception ex)
                 {
@@ -65,11 +67,27 @@ namespace ZennoPosterProjectAccountRegister.WB
                     if (isWriteAccount)
                     {
                         GoodSave();
-                        Logger.Info($"Регистрация завершена успешно.");
+                        Logger.Info($"Registration completed");
                     }
                     PhoneNumberActions.CloseNumberAsync().Wait();
                 }
             }
+        }
+
+        private void CheckAuthorization(ProxyModel proxy)
+        {
+            Thread.Sleep(5 * 1000);
+            WbRegisterChecker wbRegisterChecker = new WbRegisterChecker(proxy, ZennoPosterProject);
+            if(!wbRegisterChecker.CompareAccountData(Account))
+            {
+                throw new Exception("Different account data");
+            }
+        }
+
+        private void CloseActiveSessions()
+        {
+            BrowserTab.UpdateToNextPage("https://www.wildberries.ru/");
+            ActionsExecutor.Click(WbTabClickDataBuilder.ClickCloseActiveSessions);
         }
 
         private void WarmUpCookies()

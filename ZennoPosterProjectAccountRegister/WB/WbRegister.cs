@@ -20,6 +20,7 @@ using ZennoPosterProjectAccountRegister.MongoDB.WB;
 using ZennoPosterProjectAccountRegister.OnlineSim;
 using ZennoPosterProjectAccountRegister.OnlineSim.WB;
 using ZennoPosterProjectAccountRegister.Proxy;
+using ZennoPosterProjectAccountRegister.WB.RegisterChecker;
 using ZennoPosterProjectAccountRegister.ZennoPoster;
 
 namespace ZennoPosterProjectAccountRegister.WB
@@ -48,7 +49,8 @@ namespace ZennoPosterProjectAccountRegister.WB
                     isWriteAccount = true;
                     WarmUpCookies();
                     SendPersonalInfo(acountProxy.Proxy);
-                    WarmUpCookies();
+                    CheckAuthorization(acountProxy.Proxy);
+                    CloseActiveSessions(acountProxy.Proxy);
                 }
                 catch (Exception ex)
                 {
@@ -65,10 +67,32 @@ namespace ZennoPosterProjectAccountRegister.WB
                     if (isWriteAccount)
                     {
                         GoodSave();
-                        Logger.Info($"Регистрация завершена успешно.");
+                        Logger.Info($"Registration completed");
                     }
                     PhoneNumberActions.CloseNumberAsync().Wait();
                 }
+            }
+        }
+
+        private void CheckAuthorization(ProxyModel proxy)
+        {
+            Thread.Sleep(5 * 1000);
+            WbAccountHandler wbAccount = new WbAccountHandler(proxy, ZennoPosterProject);
+            if(!wbAccount.CompareAccountData(Account))
+            {
+                throw new Exception("Different account data");
+            }
+        }
+
+        private void CloseActiveSessions(ProxyModel proxy)
+        {
+            BrowserTab.UpdateToNextPage("https://www.wildberries.ru/lk/details");
+            WbAccountHandler wbAccount = new WbAccountHandler(proxy, ZennoPosterProject);
+            WbAccountSettingsDataModel wbAccountSettingsData = wbAccount.GetAccountSettings();
+            int numSessions = wbAccountSettingsData.MySafety.Sessions.Count;
+            if (numSessions > 1)
+            {
+                ActionsExecutor.Click(WbTabClickDataBuilder.ClickCloseActiveSessions);
             }
         }
 

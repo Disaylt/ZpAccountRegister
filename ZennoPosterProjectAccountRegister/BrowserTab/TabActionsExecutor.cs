@@ -37,6 +37,7 @@ namespace ZennoPosterProjectAccountRegister.BrowserTab
             catch (Exception ex)
             {
                 _logger.Error(ex);
+                throw new Exception("Bad click");
             }
         }
 
@@ -52,6 +53,7 @@ namespace ZennoPosterProjectAccountRegister.BrowserTab
             catch (Exception ex)
             {
                 _logger.Error(ex);
+                throw new Exception("Bad input");
             }
         }
 
@@ -62,12 +64,12 @@ namespace ZennoPosterProjectAccountRegister.BrowserTab
                 tabAction.Begin();
                 if (!ElementExists(standardTabElements.NextPageXpathElement))
                 {
-                    throw new Exception("Html element not found");
+                    throw new Exception($"Next html element not found\r\nxPath: {standardTabElements.NextPageXpathElement}");
                 }
             }
             else
             {
-                throw new Exception("Html element not found");
+                throw new Exception($"Current html element not found\r\nxPath: {standardTabElements.CurrentXPathElement}");
             }
         }
 

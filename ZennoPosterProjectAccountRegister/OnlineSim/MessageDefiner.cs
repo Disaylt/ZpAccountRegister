@@ -30,7 +30,7 @@ namespace ZennoPosterProjectAccountRegister.OnlineSim
 
         private bool IsPhoneNumber()
         {
-            if(int.TryParse(MessageText, out int reslt))
+            if(int.TryParse(MessageText, out int result))
             {
                 return true;
             }

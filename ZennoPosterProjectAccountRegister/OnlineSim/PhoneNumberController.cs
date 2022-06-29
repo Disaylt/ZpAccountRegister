@@ -22,8 +22,7 @@ namespace ZennoPosterProjectAccountRegister.OnlineSim
         public async Task<PhoneModel> GetPhoneDataAsync()
         {
             var responseContent = await OnlineSimHttpRequest.RequestForGetNumberDataAsync();
-            PhoneModel phone = JToken.Parse(responseContent).ToObject<List<PhoneModel>>()
-                .FirstOrDefault(x => x.TzId == TzId);
+            PhoneModel phone = responseContent.FirstOrDefault(x => x.TzId == TzId);
             return phone;
         }
     }

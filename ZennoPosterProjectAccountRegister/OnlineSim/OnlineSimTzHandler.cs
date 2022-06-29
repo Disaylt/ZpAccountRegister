@@ -10,7 +10,7 @@ using ZennoPosterProjectAccountRegister.Models.Json.OnlineSim;
 
 namespace ZennoPosterProjectAccountRegister.OnlineSim
 {
-    public class OnlineSimTzHandler : OnlineSimSettings
+    internal class OnlineSimTzHandler : OnlineSimSettings
     {
         protected readonly OnlineSimHttpRequest OnlineSimHttpRequest;
         protected int TzId { get; set; }
@@ -25,8 +25,7 @@ namespace ZennoPosterProjectAccountRegister.OnlineSim
         {
             try
             {
-                string responseContent = await OnlineSimHttpRequest.RequestForClosePhoneNumberAsync(TzId);
-                TzModel tzModel = JToken.Parse(responseContent).ToObject<TzModel>();
+                TzModel tzModel = await OnlineSimHttpRequest.RequestForClosePhoneNumberAsync(TzId);
                 if (tzModel != null && tzModel.ResponseCode == 1)
                 {
                     return true;
@@ -44,9 +43,8 @@ namespace ZennoPosterProjectAccountRegister.OnlineSim
 
         private async Task<int> GetTzIdAsync(string serviceName)
         {
-            string responseContent = await OnlineSimHttpRequest.RequestForGetTzIdAsync(serviceName);
-            TzModel tzModel = JToken.Parse(responseContent).ToObject<TzModel>();
-            if(tzModel != null && tzModel.ResponseCode == 1)
+            TzModel tzModel = await OnlineSimHttpRequest.RequestForGetTzIdAsync(serviceName);
+            if (tzModel != null && tzModel.ResponseCode == 1)
             {
                 Thread.Sleep(5 * 1000); //await registration tzId 
                 return tzModel.Id;

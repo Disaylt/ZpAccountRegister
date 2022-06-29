@@ -35,5 +35,12 @@ namespace ZennoPosterProjectAccountRegister.WB
             StandardTabElementsModel standardTabElementsModel = new StandardTabElementsModel(xPathProfileButton, xPathNextElement);
             return standardTabElementsModel;
         }
+
+        public static StandardTabElementsModel ClickCloseActiveSessions()
+        {
+            string xPathCloseActiveSessions = "//button[@class='personal-safety__close-all']";
+            StandardTabElementsModel standardTabElements = new StandardTabElementsModel(xPathCloseActiveSessions);
+            return standardTabElements;
+        }
     }
 }

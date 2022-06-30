@@ -9,14 +9,13 @@ using ZennoPosterProjectAccountRegister.AccountStore;
 using ZennoPosterProjectAccountRegister.Http;
 using ZennoPosterProjectAccountRegister.Http.WB;
 using ZennoPosterProjectAccountRegister.Models.Json.WB;
-using ZennoPosterProjectAccountRegister.WB.RegisterChecker;
 
-namespace ZennoPosterProjectAccountRegister.WB.RegisterChecker
+namespace ZennoPosterProjectAccountRegister.WB
 {
-    internal class WbAccountHandler
+    internal class WebWbAccount
     {
         private readonly WbAccountHttpSender _httpRegisterChecker;
-        public WbAccountHandler(ProxyModel proxy, IZennoPosterProjectModel project)
+        public WebWbAccount(ProxyModel proxy, IZennoPosterProjectModel project)
         {
             _httpRegisterChecker = new WbAccountHttpSender(proxy, project);
         }

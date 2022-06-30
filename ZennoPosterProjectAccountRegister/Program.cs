@@ -9,6 +9,7 @@ using ZennoPosterProjectAccountRegister.AccountStore;
 using Newtonsoft.Json;
 using System.IO;
 using System.Collections.Generic;
+using ZennoPosterProjectAccountRegister.RegisterService;
 
 namespace ZennoPosterProjectAccountRegister
 {
@@ -32,8 +33,9 @@ namespace ZennoPosterProjectAccountRegister
             Instance = instance;
             ZennoPosterProject = project;
 
-            var registerControllerStore = new RegisterControllerStore();
-            var registerController = registerControllerStore.GetRegisterController();
+            var services = new RussianMarketplaceServices();
+            var registrationServices = new RegistrationService(services);
+            var registerController = registrationServices.GetRegistrationController(Project.Settings.Marketplace);
             registerController.StartRegistration();
 
             int executionResult = 0;

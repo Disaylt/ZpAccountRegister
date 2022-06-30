@@ -13,18 +13,18 @@ namespace ZennoPosterProjectAccountRegister.AccountStore
         public string[] LastNames { get; }
         public string[] MiddleNames { get; }
 
-        internal PersonalInfoLoader(string firstNameFilePath, string lastNameFilePath, string middleNameFilePath)
+        internal PersonalInfoLoader(string firstNameFileName, string lastNameFileName, string middleNameFileName)
         {
-            FirstNames = LoadPersonalInfo(firstNameFilePath);
-            LastNames = LoadPersonalInfo(lastNameFilePath);
-            MiddleNames = LoadPersonalInfo(middleNameFilePath);
+            FirstNames = LoadPersonalInfo(firstNameFileName);
+            LastNames = LoadPersonalInfo(lastNameFileName);
+            MiddleNames = LoadPersonalInfo(middleNameFileName);
         }
 
-        private string[] LoadPersonalInfo(string filePath)
+        private string[] LoadPersonalInfo(string fileName)
         {
             try
             {
-                string[] personalInfo = File.ReadAllLines(filePath);
+                string[] personalInfo = File.ReadAllLines($@"{Project.ProjectFolder}\{fileName}");
                 return personalInfo;
             }
             catch

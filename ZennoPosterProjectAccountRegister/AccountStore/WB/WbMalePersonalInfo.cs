@@ -9,11 +9,11 @@ namespace ZennoPosterProjectAccountRegister.AccountStore.WB
 {
     class WbMalePersonalInfo : PersonalInfoLoader
     {
-        private const string _firstNameFilePath = "MaleFirstName.txt";
-        private const string _lastNameFilePath = "MaleLastName.txt";
-        private const string _middleNameFilePath = "";
+        private const string _firstNameFileName = "MaleFirstName.txt";
+        private const string _lastNameFileName = "MaleLastName.txt";
+        private const string _middleNameFileName = "";
 
-        internal WbMalePersonalInfo() : base(_firstNameFilePath, _lastNameFilePath, _middleNameFilePath)
+        internal WbMalePersonalInfo() : base(_firstNameFileName, _lastNameFileName, _middleNameFileName)
         {
         }
     }

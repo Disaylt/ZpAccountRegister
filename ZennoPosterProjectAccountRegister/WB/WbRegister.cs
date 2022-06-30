@@ -20,7 +20,6 @@ using ZennoPosterProjectAccountRegister.MongoDB.WB;
 using ZennoPosterProjectAccountRegister.OnlineSim;
 using ZennoPosterProjectAccountRegister.OnlineSim.WB;
 using ZennoPosterProjectAccountRegister.Proxy;
-using ZennoPosterProjectAccountRegister.WB.RegisterChecker;
 using ZennoPosterProjectAccountRegister.ZennoPoster;
 
 namespace ZennoPosterProjectAccountRegister.WB
@@ -77,7 +76,7 @@ namespace ZennoPosterProjectAccountRegister.WB
         private void CheckAuthorization(ProxyModel proxy)
         {
             Thread.Sleep(5 * 1000);
-            WbAccountHandler wbAccount = new WbAccountHandler(proxy, ZennoPosterProject);
+            WebWbAccount wbAccount = new WebWbAccount(proxy, ZennoPosterProject);
             if(!wbAccount.CompareAccountData(Account))
             {
                 throw new Exception("Different account data");
@@ -87,7 +86,7 @@ namespace ZennoPosterProjectAccountRegister.WB
         private void CloseActiveSessions(ProxyModel proxy)
         {
             BrowserTab.UpdateToNextPage("https://www.wildberries.ru/lk/details");
-            WbAccountHandler wbAccount = new WbAccountHandler(proxy, ZennoPosterProject);
+            WebWbAccount wbAccount = new WebWbAccount(proxy, ZennoPosterProject);
             WbAccountSettingsDataModel wbAccountSettingsData = wbAccount.GetAccountSettings();
             int numSessions = wbAccountSettingsData.MySafety.Sessions.Count;
             if (numSessions > 1)

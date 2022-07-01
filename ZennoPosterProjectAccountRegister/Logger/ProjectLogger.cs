@@ -9,14 +9,16 @@ namespace ZennoPosterProjectAccountRegister.Logger
 {
     internal class ProjectLogger
     {
-        private const string _logFolderName = "logs";
+        private readonly string _logFileName = "logs";
 
         public ProjectLogger()
         {
-            if (!Directory.Exists($@"{Configuration.ProjectFolder}\{_logFolderName}"))
-            {
-                Directory.CreateDirectory($@"{Configuration.ProjectFolder}\{_logFolderName}");
-            }
+
+        }
+
+        public ProjectLogger(string logFileName)
+        {
+            _logFileName = logFileName;
         }
 
         public void Info(string message)
@@ -47,7 +49,7 @@ namespace ZennoPosterProjectAccountRegister.Logger
 
         private void WriteLogMessage(string[] lineMessage)
         {
-            string filePath = $@"{Configuration.ProjectFolder}\{_logFolderName}\GeneralLog.log";
+            string filePath = $@"{Configuration.ProjectFolder}\{_logFileName}.log";
             File.AppendAllLines(filePath, lineMessage);
         }
     }

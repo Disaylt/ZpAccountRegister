@@ -41,15 +41,15 @@ namespace ZennoPosterProjectAccountRegister
         private ZennoProfile CreateZennoProfile()
         {
             string profileName;
-            if(string.IsNullOrEmpty(Project.Settings.SessionName))
+            if(string.IsNullOrEmpty(Configuration.Settings.SessionName))
             {
                 SessionBuilder sessionBuilder = new SessionBuilder(true, true);
                 profileName = sessionBuilder.CreateSessionName(32);
-                Project.Settings.SessionName = profileName;
+                Configuration.Settings.SessionName = profileName;
             }
             else
             {
-                profileName = Project.Settings.SessionName;
+                profileName = Configuration.Settings.SessionName;
             }
             var zennoProfile = new ZennoProfile(profileName);
             return zennoProfile;

@@ -139,7 +139,7 @@ namespace ZennoPosterProjectAccountRegister.WB
         }
         private void BadSave()
         {
-            ZennoProfile.SaveProfile(Project.Settings.PathForSaveBadAccount);
+            ZennoProfile.SaveProfile(Configuration.Settings.PathForSaveBadAccount);
             AccountDbModel accountDb = CreateAccountDbData(false, false);
             WbBuyoutsShopMongoAccounts<AccountDbModel> wbBuyoutsShopMongo = new WbBuyoutsShopMongoAccounts<AccountDbModel>("badAccounts");
             wbBuyoutsShopMongo.Insert(accountDb);
@@ -147,7 +147,7 @@ namespace ZennoPosterProjectAccountRegister.WB
 
         private void GoodSave()
         {
-            ZennoProfile.SaveProfile(Project.Settings.PathForSaveGoodAccount);
+            ZennoProfile.SaveProfile(Configuration.Settings.PathForSaveGoodAccount);
             AccountDbModel accountDb = CreateAccountDbData(true, false);
             WbBuyoutsShopMongoAccounts<AccountDbModel> wbBuyoutsShopMongo = new WbBuyoutsShopMongoAccounts<AccountDbModel>("accounts");
             wbBuyoutsShopMongo.Insert(accountDb);

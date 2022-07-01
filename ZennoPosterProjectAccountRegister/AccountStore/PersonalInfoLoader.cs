@@ -24,7 +24,7 @@ namespace ZennoPosterProjectAccountRegister.AccountStore
         {
             try
             {
-                string[] personalInfo = File.ReadAllLines($@"{Project.ProjectFolder}\{fileName}");
+                string[] personalInfo = File.ReadAllLines($@"{Configuration.ProjectFolder}\{fileName}");
                 return personalInfo;
             }
             catch

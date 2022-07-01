@@ -50,13 +50,13 @@ namespace ZennoPosterProjectAccountRegister.AccountStore
 
         public virtual DateTime GetBirthDate()
         {
-            int rangeDay = (Project.Settings.MaxRegisterBirthDate - Project.Settings.MinRegisterBirthDate).Days;
-            return Project.Settings.MinRegisterBirthDate.AddDays(Random.Next(rangeDay));
+            int rangeDay = (Configuration.Settings.MaxRegisterBirthDate - Configuration.Settings.MinRegisterBirthDate).Days;
+            return Configuration.Settings.MinRegisterBirthDate.AddDays(Random.Next(rangeDay));
         }
 
         public virtual string GetGender()
         {
-            switch (Project.Settings.GenderRegister)
+            switch (Configuration.Settings.GenderRegister)
             {
                 case "male":
                     return "male";

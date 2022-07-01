@@ -13,7 +13,7 @@ namespace ZennoPosterProjectAccountRegister.Logger
 
         public ProjectLogger()
         {
-            if(!Directory.Exists($@"{Configuration.ProjectFolder}\{_logFolderName}"))
+            if (!Directory.Exists($@"{Configuration.ProjectFolder}\{_logFolderName}"))
             {
                 Directory.CreateDirectory($@"{Configuration.ProjectFolder}\{_logFolderName}");
             }
@@ -21,7 +21,6 @@ namespace ZennoPosterProjectAccountRegister.Logger
 
         public void Info(string message)
         {
-
             string[] logMessage = new string[] { $"{DateTime.Now} | {Configuration.Settings.SessionName} | INFO | {message}\r\n" };
             WriteLogMessage(logMessage);
         }
@@ -54,13 +53,13 @@ namespace ZennoPosterProjectAccountRegister.Logger
 
         private string GetLogFileName()
         {
-            if(string.IsNullOrEmpty(Configuration.Settings.SessionName))
+            if (string.IsNullOrEmpty(Configuration.Settings.SessionName))
             {
-                return $@"{_logFolderName}\GeneralLog.log";
+                return $@"{Configuration.ProjectFolder}\{_logFolderName}\GeneralLog.log";
             }
             else
             {
-                return $@"{_logFolderName}\{Configuration.Settings.SessionName}.log";
+                return $@"{Configuration.ProjectFolder}\{_logFolderName}\{Configuration.Settings.SessionName}.log";
             }
         }
     }

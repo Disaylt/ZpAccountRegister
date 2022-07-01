@@ -55,7 +55,7 @@ namespace ZennoPosterProjectAccountRegister.OnlineSim
         {
             var numbers = await OnlineSimHttpRequest.RequestForGetNumberDataAsync();
             int workPhoneTimer = numbers.FirstOrDefault(x => x.TzId == TzId).Time;
-            int awaitTimer = workPhoneTimer - 860; //время жизни номера 900 сек, выключить можно только через с начала использования 30 сек + 10 сек запаса.
+            int awaitTimer = workPhoneTimer - 779; //время жизни номера 900 сек, выключить можно только через 120 сек с начала использования + 1 сек запаса.
             if (awaitTimer > 0)
             {
                 Thread.Sleep(1000 * awaitTimer);

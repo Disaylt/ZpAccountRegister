@@ -21,14 +21,14 @@ namespace ZennoPosterProjectAccountRegister.Logger
 
         public void Info(string message)
         {
-            string[] logMessage = new string[] { $"{DateTime.Now} | {Configuration.Settings.SessionName} | INFO | {message}\r\n" };
+            string[] logMessage = new string[] { $"{DateTime.Now} | INFO | {message}\r\n" };
             WriteLogMessage(logMessage);
         }
         public void Error(Exception exception)
         {
             string[] logMeesage = new string[]
             {
-                $"{DateTime.Now} | {Configuration.Settings.SessionName} | ERROR | {exception.Message}",
+                $"{DateTime.Now} | ERROR | {exception.Message}",
                 $"{exception.StackTrace}\r\n"
             };
             WriteLogMessage(logMeesage);
@@ -38,7 +38,7 @@ namespace ZennoPosterProjectAccountRegister.Logger
         {
             string[] logMeesage = new string[]
             {
-                $"{DateTime.Now} | {Configuration.Settings.SessionName} | ERROR | {message}",
+                $"{DateTime.Now} | ERROR | {message}",
                 $"{exception.Message}",
                 $"{exception.StackTrace}\r\n"
             };
@@ -47,20 +47,8 @@ namespace ZennoPosterProjectAccountRegister.Logger
 
         private void WriteLogMessage(string[] lineMessage)
         {
-            string filePath = GetLogFileName();
+            string filePath = $@"{Configuration.ProjectFolder}\{_logFolderName}\GeneralLog.log";
             File.AppendAllLines(filePath, lineMessage);
-        }
-
-        private string GetLogFileName()
-        {
-            if (string.IsNullOrEmpty(Configuration.Settings.SessionName))
-            {
-                return $@"{Configuration.ProjectFolder}\{_logFolderName}\GeneralLog.log";
-            }
-            else
-            {
-                return $@"{Configuration.ProjectFolder}\{_logFolderName}\{Configuration.Settings.SessionName}.log";
-            }
         }
     }
 }

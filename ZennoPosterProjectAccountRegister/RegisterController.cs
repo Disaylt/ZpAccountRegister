@@ -39,17 +39,8 @@ namespace ZennoPosterProjectAccountRegister
         public abstract void StartRegistration();
         private ZennoProfile CreateZennoProfile()
         {
-            string profileName;
-            if(string.IsNullOrEmpty(Configuration.Settings.SessionName))
-            {
-                SessionBuilder sessionBuilder = new SessionBuilder(true, true);
-                profileName = sessionBuilder.CreateSessionName(32);
-                Configuration.Settings.SessionName = profileName;
-            }
-            else
-            {
-                profileName = Configuration.Settings.SessionName;
-            }
+            SessionBuilder sessionBuilder = new SessionBuilder(true, true);
+            string profileName = sessionBuilder.CreateSessionName(32);
             var zennoProfile = new ZennoProfile(profileName, ZennoPosterProject.Profile);
             return zennoProfile;
         }

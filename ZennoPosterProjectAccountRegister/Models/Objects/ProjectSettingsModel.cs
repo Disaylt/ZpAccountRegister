@@ -15,6 +15,5 @@ namespace ZennoPosterProjectAccountRegister.Models.Objects
         public string MongoConnectionString { get; set; }
         public string PathForSaveGoodAccount { get; set; }
         public string PathForSaveBadAccount { get; set; }
-        public string SessionName { get; set; } = string.Empty;
     }
 }

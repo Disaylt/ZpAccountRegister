@@ -29,6 +29,7 @@ namespace ZennoPosterProjectAccountRegister
         {
             int executionResult = default;
 
+            Configuration.Load();
             var services = new RussianMarketplaceServices(instance, project);
             var registrationServices = new RegistrationService(services);
             var registerController = registrationServices.GetRegistrationController(Configuration.Settings.Marketplace);

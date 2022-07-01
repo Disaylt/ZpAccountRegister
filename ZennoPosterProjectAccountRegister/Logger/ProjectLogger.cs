@@ -9,27 +9,28 @@ namespace ZennoPosterProjectAccountRegister.Logger
 {
     internal class ProjectLogger
     {
-        private const string _logFolderName = "logs";
+        private readonly string _logFileName = "logs";
 
         public ProjectLogger()
         {
-            if(!Directory.Exists(_logFolderName))
-            {
-                Directory.CreateDirectory(_logFolderName);
-            }
+
+        }
+
+        public ProjectLogger(string logFileName)
+        {
+            _logFileName = logFileName;
         }
 
         public void Info(string message)
         {
-
-            string[] logMessage = new string[] { $"{DateTime.Now} | {Project.Settings.SessionName} | INFO | {message}\r\n" };
+            string[] logMessage = new string[] { $"{DateTime.Now} | INFO | {message}\r\n" };
             WriteLogMessage(logMessage);
         }
         public void Error(Exception exception)
         {
             string[] logMeesage = new string[]
             {
-                $"{DateTime.Now} | {Project.Settings.SessionName} | ERROR | {exception.Message}",
+                $"{DateTime.Now} | ERROR | {exception.Message}",
                 $"{exception.StackTrace}\r\n"
             };
             WriteLogMessage(logMeesage);
@@ -39,7 +40,7 @@ namespace ZennoPosterProjectAccountRegister.Logger
         {
             string[] logMeesage = new string[]
             {
-                $"{DateTime.Now} | {Project.Settings.SessionName} | ERROR | {message}",
+                $"{DateTime.Now} | ERROR | {message}",
                 $"{exception.Message}",
                 $"{exception.StackTrace}\r\n"
             };
@@ -48,20 +49,8 @@ namespace ZennoPosterProjectAccountRegister.Logger
 
         private void WriteLogMessage(string[] lineMessage)
         {
-            string filePath = GetLogFileName();
+            string filePath = $@"{Configuration.ProjectFolder}\{_logFileName}.log";
             File.AppendAllLines(filePath, lineMessage);
-        }
-
-        private string GetLogFileName()
-        {
-            if(string.IsNullOrEmpty(Project.Settings.SessionName))
-            {
-                return $@"{_logFolderName}\GeneralLog.log";
-            }
-            else
-            {
-                return $@"{_logFolderName}\{Project.Settings.SessionName}.log";
-            }
         }
     }
 }

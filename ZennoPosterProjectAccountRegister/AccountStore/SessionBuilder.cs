@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Global;
 
 namespace ZennoPosterProjectAccountRegister.AccountStore
 {
@@ -27,9 +28,8 @@ namespace ZennoPosterProjectAccountRegister.AccountStore
             int charSum = CharacterSet.Count;
             if (charSum != 0)
             {
-                Random random = new Random();
                 char[] letters = Enumerable.Range(0, size)
-                    .Select(i => CharacterSet[random.Next(0, charSum)])
+                    .Select(i => CharacterSet[Classes.rnd.Next(0, charSum)])
                     .ToArray();
                 return new string(letters);
             }

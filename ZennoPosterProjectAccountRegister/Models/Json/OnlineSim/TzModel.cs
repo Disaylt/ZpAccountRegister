@@ -10,7 +10,7 @@ namespace ZennoPosterProjectAccountRegister.Models.Json.OnlineSim
     class TzModel
     {
         [JsonProperty("response")]
-        public int ResponseCode { get; set; }
+        public string ResponseCode { get; set; }
         
         [JsonProperty("tzid")]
         public int Id { get; set; }

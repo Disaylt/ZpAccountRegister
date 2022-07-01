@@ -25,26 +25,48 @@ namespace ZennoPosterProjectAccountRegister.OnlineSim
         {
             try
             {
+                
                 TzModel tzModel = await OnlineSimHttpRequest.RequestForClosePhoneNumberAsync(TzId);
-                if (tzModel != null && tzModel.ResponseCode == 1)
+                if(tzModel != null)
                 {
-                    return true;
-                }
-                else
-                {
-                    return false;
+                    if (tzModel.ResponseCode == "1")
+                    {
+                        return true;
+                    }
+                    else if (tzModel.ResponseCode == "NO_COMPLETE_TZID")
+                    {
+                        await AwaitWorkNumberAsync();
+                        tzModel = await OnlineSimHttpRequest.RequestForClosePhoneNumberAsync(TzId);
+                        if (tzModel.ResponseCode == "1")
+                        {
+                            return true;
+                        }
+                    }
                 }
             }
             catch
             {
                 return false;
             }
+            return false;
+        }
+
+        private async Task AwaitWorkNumberAsync()
+        {
+            var numbers = await OnlineSimHttpRequest.RequestForGetNumberDataAsync();
+            int workPhoneTimer = numbers.FirstOrDefault(x => x.TzId == TzId).Time;
+            int awaitTimer = workPhoneTimer - 779; //время жизни номера 900 сек, выключить можно только через 120 сек с начала использования + 1 сек запаса.
+            if (awaitTimer > 0)
+            {
+                Thread.Sleep(1000 * awaitTimer);
+            }
+
         }
 
         private async Task<int> GetTzIdAsync(string serviceName)
         {
             TzModel tzModel = await OnlineSimHttpRequest.RequestForGetTzIdAsync(serviceName);
-            if (tzModel != null && tzModel.ResponseCode == 1)
+            if (tzModel != null && tzModel.ResponseCode == "1")
             {
                 Thread.Sleep(5 * 1000); //await registration tzId 
                 return tzModel.Id;

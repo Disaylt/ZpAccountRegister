@@ -179,7 +179,7 @@
     <Compile Include="OnlineSim\PhoneNumberController.cs" />
     <Compile Include="OnlineSim\WB\WbPhoneNumber.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Project.cs" />
+    <Compile Include="Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proxy\InstanceProxy.cs" />
     <Compile Include="Proxy\RussianAcountProxy.cs" />

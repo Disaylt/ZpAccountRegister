@@ -19,11 +19,6 @@ namespace ZennoPosterProjectAccountRegister
     /// </summary>
     public class Program : IZennoExternalCode
     {
-        public static Instance Instance { get; private set; }
-        public static IZennoPosterProjectModel ZennoPosterProject { get; private set; }
-        private ProjectLogger _logger { get; set; }
-        
-
         /// <summary>
         /// Метод для запуска выполнения скрипта
         /// </summary>
@@ -32,23 +27,14 @@ namespace ZennoPosterProjectAccountRegister
         /// <returns>Код выполнения скрипта</returns>
         public int Execute(Instance instance, IZennoPosterProjectModel project)
         {
-            _logger = new ProjectLogger();
             int executionResult = default;
-            try
-            {
-                Instance = instance;
-                ZennoPosterProject = project;
 
+            Configuration.Load();
+            var services = new RussianMarketplaceServices(instance, project);
+            var registrationServices = new RegistrationService(services);
+            var registerController = registrationServices.GetRegistrationController(Configuration.Settings.Marketplace);
+            registerController.StartRegistration();
 
-                var services = new RussianMarketplaceServices();
-                var registrationServices = new RegistrationService(services);
-                var registerController = registrationServices.GetRegistrationController(Project.Settings.Marketplace);
-                registerController.StartRegistration();
-            }
-            catch (Exception ex)
-            {
-                _logger.Error(ex);
-            }
             return executionResult;
         }
     }

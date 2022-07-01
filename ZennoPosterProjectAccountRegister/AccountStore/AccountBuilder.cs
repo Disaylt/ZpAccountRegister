@@ -5,12 +5,12 @@ using System.Text;
 using System.Threading.Tasks;
 using ZennoPosterProjectAccountRegister.AccountStore.WB;
 using ZennoPosterProjectAccountRegister.WB;
+using Global;
 
 namespace ZennoPosterProjectAccountRegister.AccountStore
 {
     internal class AccountBuilder : Account
     {
-        protected readonly Random Random;
 
         public override string FirstName { get; }
 
@@ -24,7 +24,6 @@ namespace ZennoPosterProjectAccountRegister.AccountStore
 
         internal AccountBuilder(WbGenderOptions genderOptions)
         {
-            Random = new Random();
             Gender = GetGender();
             BirthDate = GetBirthDate();
             var personalInfo = genderOptions.GetGenderPersonalInfo(Gender);
@@ -39,7 +38,7 @@ namespace ZennoPosterProjectAccountRegister.AccountStore
             if(names != null && names.Length > 0)
             {
                 int sumFirstNames = names.Length;
-                int indexFirstName = Random.Next(sumFirstNames);
+                int indexFirstName = Classes.rnd.Next(sumFirstNames);
                 return names[indexFirstName];
             }
             else
@@ -50,13 +49,13 @@ namespace ZennoPosterProjectAccountRegister.AccountStore
 
         public virtual DateTime GetBirthDate()
         {
-            int rangeDay = (Project.Settings.MaxRegisterBirthDate - Project.Settings.MinRegisterBirthDate).Days;
-            return Project.Settings.MinRegisterBirthDate.AddDays(Random.Next(rangeDay));
+            int rangeDay = (Configuration.Settings.MaxRegisterBirthDate - Configuration.Settings.MinRegisterBirthDate).Days;
+            return Configuration.Settings.MinRegisterBirthDate.AddDays(Classes.rnd.Next(rangeDay));
         }
 
         public virtual string GetGender()
         {
-            switch (Project.Settings.GenderRegister)
+            switch (Configuration.Settings.GenderRegister)
             {
                 case "male":
                     return "male";
@@ -70,7 +69,7 @@ namespace ZennoPosterProjectAccountRegister.AccountStore
 
         private string ChooseRandomGender()
         {
-            int randomNum = Random.Next(2);
+            int randomNum = Classes.rnd.Next(2);
             if (randomNum == 0)
             {
                 return "male";

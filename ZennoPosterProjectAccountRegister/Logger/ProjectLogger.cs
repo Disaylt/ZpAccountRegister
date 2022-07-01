@@ -13,9 +13,9 @@ namespace ZennoPosterProjectAccountRegister.Logger
 
         public ProjectLogger()
         {
-            if(!Directory.Exists(_logFolderName))
+            if(!Directory.Exists($@"{Configuration.ProjectFolder}\{_logFolderName}"))
             {
-                Directory.CreateDirectory(_logFolderName);
+                Directory.CreateDirectory($@"{Configuration.ProjectFolder}\{_logFolderName}");
             }
         }
 

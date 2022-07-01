@@ -19,10 +19,6 @@ namespace ZennoPosterProjectAccountRegister
     /// </summary>
     public class Program : IZennoExternalCode
     {
-        public static Instance Instance { get; private set; }
-        public static IZennoPosterProjectModel ZennoPosterProject { get; private set; }
-        
-
         /// <summary>
         /// Метод для запуска выполнения скрипта
         /// </summary>
@@ -33,10 +29,7 @@ namespace ZennoPosterProjectAccountRegister
         {
             int executionResult = default;
 
-            Instance = instance;
-            ZennoPosterProject = project;
-
-            var services = new RussianMarketplaceServices();
+            var services = new RussianMarketplaceServices(instance, project);
             var registrationServices = new RegistrationService(services);
             var registerController = registrationServices.GetRegistrationController(Configuration.Settings.Marketplace);
             registerController.StartRegistration();

@@ -25,10 +25,10 @@ namespace ZennoPosterProjectAccountRegister
         protected ZennoProfile ZennoProfile { get; }
         protected ProjectLogger Logger { get; }
 
-        internal RegisterController()
+        internal RegisterController(Instance instance, IZennoPosterProjectModel project)
         {
-            Instance = Program.Instance;
-            ZennoPosterProject = Program.ZennoPosterProject;
+            Instance = instance;
+            ZennoPosterProject = project;
             BrowserTab = new BrowserTabHandler(Instance);
             ActionsExecutor = new TabActionsExecutor(Instance);
             BrowserProxy = new InstanceProxy(Instance);
@@ -37,7 +37,6 @@ namespace ZennoPosterProjectAccountRegister
 
         }
         public abstract void StartRegistration();
-
         private ZennoProfile CreateZennoProfile()
         {
             string profileName;
@@ -51,7 +50,7 @@ namespace ZennoPosterProjectAccountRegister
             {
                 profileName = Configuration.Settings.SessionName;
             }
-            var zennoProfile = new ZennoProfile(profileName);
+            var zennoProfile = new ZennoProfile(profileName, ZennoPosterProject.Profile);
             return zennoProfile;
         }
     }

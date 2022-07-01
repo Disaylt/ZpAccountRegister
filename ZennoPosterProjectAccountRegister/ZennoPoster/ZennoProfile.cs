@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZennoLab.InterfacesLibrary.ProjectModel;
 using ZennoLab.InterfacesLibrary.ProjectModel.Collections;
 
 namespace ZennoPosterProjectAccountRegister.ZennoPoster
@@ -11,10 +12,10 @@ namespace ZennoPosterProjectAccountRegister.ZennoPoster
     {
         public string SessionName { get; }
         private readonly IProfile _profile;
-        public ZennoProfile(string profileName)
+        public ZennoProfile(string profileName, IProfile profile)
         {
             SessionName = profileName;
-            _profile = Program.ZennoPosterProject.Profile;
+            _profile = profile;
         }
 
         public void SaveProfile(string pathFolder)

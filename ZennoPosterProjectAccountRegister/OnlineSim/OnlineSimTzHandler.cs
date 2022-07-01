@@ -36,7 +36,7 @@ namespace ZennoPosterProjectAccountRegister.OnlineSim
                     else if (tzModel.ResponseCode == "NO_COMPLETE_TZID")
                     {
                         await AwaitWorkNumberAsync();
-                        await OnlineSimHttpRequest.RequestForClosePhoneNumberAsync(TzId);
+                        tzModel = await OnlineSimHttpRequest.RequestForClosePhoneNumberAsync(TzId);
                         if (tzModel.ResponseCode == "1")
                         {
                             return true;

@@ -117,7 +117,7 @@ namespace ZennoPosterProjectAccountRegister.WB
             BrowserTab.UpdateToNextPage("https://www.wildberries.ru/", "https://www.google.com/");
             ActionsExecutor.Click(WbTabClickDataBuilder.ClickSignIn);
             string phoneNumber = GetPhoneNumberWithoutCountryCode();
-            ActionsExecutor.Input(WbTabInputDataBuilder.InputPhoneCode, phoneNumber);
+            ActionsExecutor.Input(WbTabInputDataBuilder.InputPhoneNumberToLogIn, phoneNumber);
             ActionsExecutor.Click(WbTabClickDataBuilder.ClickGetCode);
         }
 

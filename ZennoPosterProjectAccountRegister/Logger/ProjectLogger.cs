@@ -9,6 +9,7 @@ namespace ZennoPosterProjectAccountRegister.Logger
 {
     internal class ProjectLogger
     {
+        private static object _sync = new object();
         private readonly string _logFileName = "logs";
 
         public ProjectLogger()
@@ -49,8 +50,11 @@ namespace ZennoPosterProjectAccountRegister.Logger
 
         private void WriteLogMessage(string[] lineMessage)
         {
-            string filePath = $@"{Configuration.ProjectFolder}\{_logFileName}.log";
-            File.AppendAllLines(filePath, lineMessage);
+            lock(_sync)
+            {
+                string filePath = $@"{Configuration.ProjectFolder}\{_logFileName}.log";
+                File.AppendAllLines(filePath, lineMessage);
+            }
         }
     }
 }

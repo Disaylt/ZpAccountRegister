@@ -23,10 +23,12 @@ namespace ZennoPosterProjectAccountRegister.OnlineSim
 
         public int GetSumAvailableNumbers(string serviceName)
         {
+            string serviceKey = $"service_{serviceName.ToLower()}";
             var services = OnlineSimHttpRequest.RequestGetRussianNumbersStateAsync().Result;
             int sumNumbers = services
                 .Services
-                .FirstOrDefault(x => x.Service == serviceName)
+                .FirstOrDefault(x => x.Key == serviceKey)
+                .Value
                 .Count;
             return sumNumbers;
         }

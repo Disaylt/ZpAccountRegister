@@ -24,5 +24,7 @@ namespace ZennoPosterProjectAccountRegister.OnlineSim
             var responseContent = await OnlineSimHttpRequest.RequestForGetNumberDataAsync();
             PhoneModel phone = responseContent.FirstOrDefault(x => x.TzId == TzId);
             return phone;
-        }    }
+        }    
+    }
+
 }

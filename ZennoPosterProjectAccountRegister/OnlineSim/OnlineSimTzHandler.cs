@@ -18,7 +18,17 @@ namespace ZennoPosterProjectAccountRegister.OnlineSim
         public OnlineSimTzHandler(string serviceName)
         {
             OnlineSimHttpRequest = new OnlineSimHttpRequest(Settings.Token);
-            TzId = GetTzIdAsync(serviceName).GetAwaiter().GetResult();
+            TzId = CreateTzId(serviceName);
+        }
+
+        public int GetSumAvailableNumbers(string serviceName)
+        {
+            var services = OnlineSimHttpRequest.RequestGetRussianNumbersStateAsync().Result;
+            int sumNumbers = services
+                .Services
+                .FirstOrDefault(x => x.Service == serviceName)
+                .Count;
+            return sumNumbers;
         }
 
         public async Task<bool> CloseNumberAsync()
@@ -49,6 +59,19 @@ namespace ZennoPosterProjectAccountRegister.OnlineSim
                 return false;
             }
             return false;
+        }
+
+        private int CreateTzId(string serviceName)
+        {
+            int sumNumbers = GetSumAvailableNumbers(serviceName);
+            if(sumNumbers > 20)
+            {
+                return GetTzIdAsync(serviceName).Result;
+            }
+            else
+            {
+                throw new Exception("Available numbers < 20");
+            }
         }
 
         private async Task AwaitWorkNumberAsync()

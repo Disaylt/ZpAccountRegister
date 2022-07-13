@@ -17,6 +17,11 @@ namespace ZennoPosterProjectAccountRegister.OnlineSim
             _token = token;
         }
 
+        internal async Task<CountryNumbersStateModel> RequestGetRussianNumbersStateAsync()
+        {
+            CountryNumbersStateModel countryNumbersState = await SendRequestAsync<CountryNumbersStateModel>(HttpMethod.Get, $"https://onlinesim.ru/api/getNumbersStats.php?apikey={_token}");
+            return countryNumbersState;
+        }
         internal async Task<TzModel> RequestForGetTzIdAsync(string serviceName)
         {
             TzModel tzModel = await SendRequestAsync<TzModel>(HttpMethod.Post, $"https://onlinesim.ru/api/getNum.php?apikey={_token}&service={serviceName}");

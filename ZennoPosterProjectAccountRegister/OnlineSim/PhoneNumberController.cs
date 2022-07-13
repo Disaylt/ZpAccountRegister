@@ -25,5 +25,15 @@ namespace ZennoPosterProjectAccountRegister.OnlineSim
             PhoneModel phone = responseContent.FirstOrDefault(x => x.TzId == TzId);
             return phone;
         }
+
+        public int GetSumAvailableNumbers(string serviceName)
+        {
+            var services = OnlineSimHttpRequest.RequestGetRussianNumbersStateAsync().Result;
+            int sumNumbers = services
+                .Services
+                .FirstOrDefault(x => x.Service == serviceName)
+                .Count;
+            return sumNumbers;
+        }
     }
 }

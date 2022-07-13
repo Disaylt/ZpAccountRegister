@@ -12,5 +12,6 @@ namespace ZennoPosterProjectAccountRegister.OnlineSim
         string PhoneNumber { get; }
         Task<PhoneModel> GetPhoneDataAsync();
         Task<bool> CloseNumberAsync();
+        int GetSumAvailableNumbers(string serviceName);
     }
 }

@@ -12,6 +12,6 @@ namespace ZennoPosterProjectAccountRegister.Models.Json.OnlineSim
         public int Position { get; set; }
         public int Code { get; set; }
         public bool Enabled { get; set; }
-        public List<ServiceModel> Services { get; set; }
+        public Dictionary<string, ServiceModel> Services { get; set; }
     }
 }

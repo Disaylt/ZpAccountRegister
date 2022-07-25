@@ -136,6 +136,8 @@
     <Compile Include="AccountStore\General\GeneralFemalePersonalInfo.cs" />
     <Compile Include="AccountStore\General\GeneralMalePersonalInfo.cs" />
     <Compile Include="AccountStore\IPersonalInfo.cs" />
+    <Compile Include="AccountStore\Letu\LetuGenderOptions.cs" />
+    <Compile Include="AccountStore\Letu\LetuPersonalInfoWriter.cs" />
     <Compile Include="AccountStore\PersonalInfoLoader.cs" />
     <Compile Include="AccountStore\SessionBuilder.cs" />
     <Compile Include="AccountStore\WB\WbGenderOptions.cs" />

@@ -22,7 +22,7 @@ namespace ZennoPosterProjectAccountRegister.AccountStore
 
         public override string Gender { get; }
 
-        internal AccountBuilder(WbGenderOptions genderOptions)
+        internal AccountBuilder(GenderOptions genderOptions)
         {
             Gender = GetGender();
             BirthDate = GetBirthDate();

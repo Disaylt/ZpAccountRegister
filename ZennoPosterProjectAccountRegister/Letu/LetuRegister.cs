@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using ZennoLab.CommandCenter;
 using ZennoLab.InterfacesLibrary.ProjectModel;
 using ZennoPosterProjectAccountRegister.AccountStore;
+using ZennoPosterProjectAccountRegister.AccountStore.Letu;
+using ZennoPosterProjectAccountRegister.AccountStore.WB;
 
 namespace ZennoPosterProjectAccountRegister.Letu
 {
@@ -13,10 +15,11 @@ namespace ZennoPosterProjectAccountRegister.Letu
     {
         public LetuRegister(Instance instance, IZennoPosterProjectModel project) : base(instance, project)
         {
-
+            LetuGenderOptions genderOptions = new LetuGenderOptions();
+            Account = new AccountBuilder(genderOptions);
         }
 
-        public override Account Account => throw new NotImplementedException();
+        public override Account Account { get; }
 
         public override void StartRegistration()
         {

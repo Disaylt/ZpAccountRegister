@@ -133,6 +133,8 @@
     <Compile Include="AccountStore\Account.cs" />
     <Compile Include="AccountStore\AccountBuilder.cs" />
     <Compile Include="AccountStore\GenderOptions.cs" />
+    <Compile Include="AccountStore\General\GeneralFemalePersonalInfo.cs" />
+    <Compile Include="AccountStore\General\GeneralMalePersonalInfo.cs" />
     <Compile Include="AccountStore\IPersonalInfo.cs" />
     <Compile Include="AccountStore\PersonalInfoLoader.cs" />
     <Compile Include="AccountStore\SessionBuilder.cs" />

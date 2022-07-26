@@ -141,7 +141,7 @@
     <Compile Include="AccountStore\Letu\LetuGenderOptions.cs" />
     <Compile Include="AccountStore\Letu\LetuPersonalInfoWriter.cs" />
     <Compile Include="AccountStore\PersonalInfoLoader.cs" />
-    <Compile Include="AccountStore\SessionBuilder.cs" />
+    <Compile Include="AccountStore\SessionNameBuilder.cs" />
     <Compile Include="AccountStore\WB\WbGenderOptions.cs" />
     <Compile Include="AccountStore\WB\WbPersonalInfoWriter.cs" />
     <Compile Include="BrowserTabHandler.cs" />

@@ -39,7 +39,7 @@ namespace ZennoPosterProjectAccountRegister
         public abstract void StartRegistration();
         private ZennoProfile CreateZennoProfile()
         {
-            SessionBuilder sessionBuilder = new SessionBuilder(true, true);
+            SessionNameBuilder sessionBuilder = new SessionNameBuilder(true, true);
             string profileName = sessionBuilder.CreateSessionName(32);
             var zennoProfile = new ZennoProfile(profileName, ZennoPosterProject.Profile);
             return zennoProfile;

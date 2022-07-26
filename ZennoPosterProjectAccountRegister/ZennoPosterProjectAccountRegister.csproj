@@ -178,6 +178,7 @@
     <Compile Include="MongoDB\MongoConnector.cs" />
     <Compile Include="MongoDB\WB\WbBuyoutsShopMongoAccount.cs" />
     <Compile Include="OnlineSim\CodeScaner.cs" />
+    <Compile Include="OnlineSim\Letu\LetuPhoneNumber.cs" />
     <Compile Include="OnlineSim\MessageDefiner.cs" />
     <Compile Include="OnlineSim\PhoneCountryCodeConverter.cs" />
     <Compile Include="OnlineSim\IPhoneNumberActions.cs" />

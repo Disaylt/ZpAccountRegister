@@ -9,6 +9,7 @@ using ZennoPosterProjectAccountRegister.AccountStore;
 using ZennoPosterProjectAccountRegister.AccountStore.Letu;
 using ZennoPosterProjectAccountRegister.AccountStore.WB;
 using ZennoPosterProjectAccountRegister.OnlineSim;
+using ZennoPosterProjectAccountRegister.OnlineSim.Letu;
 using ZennoPosterProjectAccountRegister.Proxy;
 
 namespace ZennoPosterProjectAccountRegister.Letu
@@ -19,6 +20,7 @@ namespace ZennoPosterProjectAccountRegister.Letu
         {
             LetuGenderOptions genderOptions = new LetuGenderOptions();
             Account = new AccountBuilder(genderOptions);
+            PhoneNumberActions = new LetuPhoneNumber();
         }
 
         public override Account Account { get; }
@@ -45,6 +47,8 @@ namespace ZennoPosterProjectAccountRegister.Letu
             BrowserTab.UpdateToNextPage("https://www.letu.ru/", "https://www.google.com/");
             ActionsExecutor.Click(LetuTabClickDataBuilder.ClickStartRegister);
             string phoneNumber = GetPhoneNumberWithoutCountryCode();
+            ActionsExecutor.Input(LetuTabInputDataBuilder.InputPhoneNumberToLogIn, phoneNumber);
+            ActionsExecutor.Click(LetuTabClickDataBuilder.ClickGetCode);
         }
 
         private string GetPhoneNumberWithoutCountryCode()

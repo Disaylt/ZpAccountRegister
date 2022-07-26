@@ -19,5 +19,12 @@ namespace ZennoPosterProjectAccountRegister.Letu
             StandardTabElementsModel standardTabElements = new StandardTabElementsModel(xPathCloseActiveSessions);
             return standardTabElements;
         }
+
+        public static StandardTabElementsModel ClickGetCode()
+        {
+            string xPathCloseActiveSessions = "//button[@data-at-send-code-or-continue-button]";
+            StandardTabElementsModel standardTabElements = new StandardTabElementsModel(xPathCloseActiveSessions);
+            return standardTabElements;
+        }
     }
 }

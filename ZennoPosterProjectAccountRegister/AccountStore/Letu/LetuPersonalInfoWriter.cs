@@ -6,26 +6,8 @@ using System.Threading.Tasks;
 
 namespace ZennoPosterProjectAccountRegister.AccountStore.Letu
 {
-    internal class LetuPersonalInfoWriter : IPersonalInfoWriter
+    internal class LetuPersonalInfoWriter
     {
-        public void SetBirthDate()
-        {
-            throw new NotImplementedException();
-        }
 
-        public void SetEmail()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetGender()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetPersonalInfo()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

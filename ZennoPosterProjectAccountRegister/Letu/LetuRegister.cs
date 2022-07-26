@@ -35,6 +35,7 @@ namespace ZennoPosterProjectAccountRegister.Letu
                 {
                     BrowserProxy.SetProxy(acountProxy.Proxy);
                     FirstActionForRegistration();
+                    InputCode();
                 }
                 catch (Exception ex)
                 {
@@ -62,6 +63,15 @@ namespace ZennoPosterProjectAccountRegister.Letu
             PhoneCountryCodeConverter phoneCountryCodeConverter = new PhoneCountryCodeConverter(phoneNumberWithCode);
             string phoneNumberWithoutCode = phoneCountryCodeConverter.GetPhoneNumberWithoutCountryCode(Country.Russian);
             return phoneNumberWithoutCode;
+        }
+
+        private void InputCode()
+        {
+            OnlineSimMessageChecker messageChecker = new OnlineSimMessageChecker(90);
+            string message = messageChecker.GetMessageAsync(PhoneNumberActions).Result;
+            CodeScaner codeScaner = new CodeScaner(message);
+            string code = codeScaner.GetCode();
+            ActionsExecutor.Input(LetuTabInputDataBuilder.InputCode, code);
         }
     }
 }

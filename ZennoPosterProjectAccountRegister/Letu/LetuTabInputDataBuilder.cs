@@ -15,5 +15,12 @@ namespace ZennoPosterProjectAccountRegister.Letu
             InputTabElementsModel inputTabElements = new InputTabElementsModel(phoneNumber, xPathInputElement);
             return inputTabElements;
         }
+
+        public static InputTabElementsModel InputCode(string code)
+        {
+            string xPathInputElement = "//input[@data-at-code-input='inputCode-0']";
+            InputTabElementsModel inputTabElements = new InputTabElementsModel(code, xPathInputElement);
+            return inputTabElements;
+        }
     }
 }

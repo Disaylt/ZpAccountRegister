@@ -19,7 +19,8 @@ namespace ZennoPosterProjectAccountRegister.Letu
         public LetuRegister(Instance instance, IZennoPosterProjectModel project) : base(instance, project)
         {
             LetuGenderOptions genderOptions = new LetuGenderOptions();
-            Account = new AccountBuilder(genderOptions);
+            IEmailCreator emailCreator = new YandexEmailCreator(project.Profile);
+            Account = new AccountBuilder(genderOptions, emailCreator);
             PhoneNumberActions = new LetuPhoneNumber();
         }
 

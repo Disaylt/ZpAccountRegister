@@ -22,5 +22,26 @@ namespace ZennoPosterProjectAccountRegister.Letu
             InputTabElementsModel inputTabElements = new InputTabElementsModel(code, xPathInputElement);
             return inputTabElements;
         }
+
+        public static InputTabElementsModel InputFirstName(string firstName)
+        {
+            string xPathInputElement = "//input[@name='firstName']";
+            InputTabElementsModel inputTabElements = new InputTabElementsModel(firstName, xPathInputElement);
+            return inputTabElements;
+        }
+
+        public static InputTabElementsModel InputLastName(string lastName)
+        {
+            string xPathInputElement = "//input[@name='lastName']";
+            InputTabElementsModel inputTabElements = new InputTabElementsModel(lastName, xPathInputElement);
+            return inputTabElements;
+        }
+
+        public static InputTabElementsModel InputEmail(string email)
+        {
+            string xPathInputElement = "//input[@name='email']";
+            InputTabElementsModel inputTabElements = new InputTabElementsModel(email, xPathInputElement);
+            return inputTabElements;
+        }
     }
 }

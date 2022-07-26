@@ -9,7 +9,6 @@ using Global;
 
 namespace ZennoPosterProjectAccountRegister.AccountStore
 {
-    delegate string CreateEmail();
     internal class AccountBuilder : Account
     {
         public override string FirstName { get; }
@@ -36,9 +35,9 @@ namespace ZennoPosterProjectAccountRegister.AccountStore
             Logger.Info($"Create account - Gender: {Gender}, Birth: {BirthDate}, FirstName: {FirstName}, LastName: {LastName}, MiddleName: {MiddleName}");
         }
 
-        internal AccountBuilder(GenderOptions genderOptions, CreateEmail createEmail) : this(genderOptions)
+        internal AccountBuilder(GenderOptions genderOptions, IEmailCreator emailCreator) : this(genderOptions)
         {
-            Email = createEmail.Invoke();
+            Email = emailCreator.CreateEmail();
             Logger.Info($"Create email - {Email}");
         }
 

@@ -177,6 +177,7 @@
     <Compile Include="Models\Objects\WB\BirthdayRequestModel.cs" />
     <Compile Include="Models\Objects\WB\GenderRequestModel.cs" />
     <Compile Include="MongoDB\IMongoCollectionModel.cs" />
+    <Compile Include="MongoDB\Letu\LetuBuyoutsShopMongoAccounts.cs" />
     <Compile Include="MongoDB\MongoConnector.cs" />
     <Compile Include="MongoDB\WB\WbBuyoutsShopMongoAccount.cs" />
     <Compile Include="OnlineSim\CodeScaner.cs" />

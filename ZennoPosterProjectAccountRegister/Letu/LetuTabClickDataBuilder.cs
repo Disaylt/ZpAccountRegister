@@ -29,7 +29,7 @@ namespace ZennoPosterProjectAccountRegister.Letu
 
         public static StandardTabElementsModel ClickSavePersonalInfo()
         {
-            string xPathCloseActiveSessions = "//button[@class='le-button le-button--theme-primary le-button--size-md le-button--with-label le-button--fluid']//span[contains(text(),'Сохранить')]/ancestor::button";
+            string xPathCloseActiveSessions = "//button//span[contains(text(),'Сохранить')]/ancestor::button";
             StandardTabElementsModel standardTabElements = new StandardTabElementsModel(xPathCloseActiveSessions);
             return standardTabElements;
         }

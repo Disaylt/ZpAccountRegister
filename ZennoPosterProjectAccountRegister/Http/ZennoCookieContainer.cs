@@ -12,7 +12,7 @@ namespace ZennoPosterProjectAccountRegister.Http
     class ZennoCookieContainer : CookieContainer
     {
         private readonly CookieCollection _cookieCollection;
-        public ZennoCookieContainer(ICookieContainer cookieContainer) : base(200)
+        public ZennoCookieContainer(ICookieContainer cookieContainer) : base(200, 100, 4096)
         {
             _cookieCollection = ConvertToCookieCollection(cookieContainer);
             Add(_cookieCollection);

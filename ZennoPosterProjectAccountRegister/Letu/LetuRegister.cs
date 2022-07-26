@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using ZennoLab.CommandCenter;
 using ZennoLab.InterfacesLibrary.ProjectModel;
 using ZennoPosterProjectAccountRegister.AccountStore;
 using ZennoPosterProjectAccountRegister.AccountStore.Letu;
 using ZennoPosterProjectAccountRegister.AccountStore.WB;
+using ZennoPosterProjectAccountRegister.Http;
+using ZennoPosterProjectAccountRegister.Models.Bson;
+using ZennoPosterProjectAccountRegister.MongoDB.Letu;
+using ZennoPosterProjectAccountRegister.MongoDB.WB;
 using ZennoPosterProjectAccountRegister.OnlineSim;
 using ZennoPosterProjectAccountRegister.OnlineSim.Letu;
 using ZennoPosterProjectAccountRegister.Proxy;
@@ -37,13 +42,26 @@ namespace ZennoPosterProjectAccountRegister.Letu
                     BrowserProxy.SetProxy(acountProxy.Proxy);
                     FirstActionForRegistration();
                     InputCode();
+                    isWriteAccount = true;
+                    UpdatePersonalInfo();
+                    WarpUpCookies();
                 }
                 catch (Exception ex)
                 {
-
+                    if (isWriteAccount)
+                    {
+                        isWriteAccount = false;
+                        BadSave();
+                    }
+                    Logger.Error(ex);
                 }
                 finally
                 {
+                    if (isWriteAccount)
+                    {
+                        GoodSave();
+                        Logger.Info($"Registration completed");
+                    }
                     PhoneNumberActions.CloseNumberAsync().Wait();
                 }
             }
@@ -73,6 +91,57 @@ namespace ZennoPosterProjectAccountRegister.Letu
             CodeScaner codeScaner = new CodeScaner(message);
             string code = codeScaner.GetCode();
             ActionsExecutor.Input(LetuTabInputDataBuilder.InputCode, code);
+            Thread.Sleep(5 * 1000);
+        }
+
+        private void UpdatePersonalInfo()
+        {
+            BrowserTab.UpdateToNextPage("https://www.letu.ru/account/profile");
+            LetuPersonalInfoWriter letuPersonalInfoWriter = new LetuPersonalInfoWriter(Account, ActionsExecutor);
+            letuPersonalInfoWriter.UpdatePersonalInfo();
+            Thread.Sleep(5 * 1000);
+        }
+
+        private void WarpUpCookies()
+        {
+            Thread.Sleep(5 * 1000);
+            BrowserTab.UpdateToNextPage("https://www.letu.ru/account/profile");
+            Thread.Sleep(5 * 1000);
+        }
+
+        private void BadSave()
+        {
+            ZennoProfile.SaveProfile(Configuration.Settings.PathForSaveBadAccount);
+            AccountDbModel accountDb = CreateAccountDbData(false, false);
+            LetuBuyoutsShopMongoAccounts<AccountDbModel> wbBuyoutsShopMongo = new LetuBuyoutsShopMongoAccounts<AccountDbModel>("badAccounts");
+            wbBuyoutsShopMongo.Insert(accountDb);
+        }
+
+        private void GoodSave()
+        {
+            ZennoProfile.SaveProfile(Configuration.Settings.PathForSaveGoodAccount);
+            AccountDbModel accountDb = CreateAccountDbData(true, false);
+            WbBuyoutsShopMongoAccounts<AccountDbModel> wbBuyoutsShopMongo = new WbBuyoutsShopMongoAccounts<AccountDbModel>("accounts");
+            wbBuyoutsShopMongo.Insert(accountDb);
+        }
+
+        private AccountDbModel CreateAccountDbData(bool isActive, bool inWork)
+        {
+            ZennoCookieContainer zennoCookieContainer = new ZennoCookieContainer(ZennoPosterProject.Profile.CookieContainer);
+            string jsonCookies = zennoCookieContainer.ConvertToJsonString();
+            AccountDbModel accountDbModel = new AccountDbModel
+            {
+                Cookies = jsonCookies,
+                IsActive = isActive,
+                InWork = inWork,
+                CreateDate = DateTime.Now,
+                FirstName = Account.FirstName,
+                Gender = Account.Gender,
+                LastName = Account.LastName,
+                PhoneNumber = PhoneNumberActions.PhoneNumber,
+                Session = ZennoProfile.SessionName
+            };
+            return accountDbModel;
         }
     }
 }

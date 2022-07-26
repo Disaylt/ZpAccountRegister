@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ZennoLab.CommandCenter;
 using ZennoLab.InterfacesLibrary.ProjectModel;
+using ZennoPosterProjectAccountRegister.Letu;
 using ZennoPosterProjectAccountRegister.WB;
 
 namespace ZennoPosterProjectAccountRegister.RegisterService
@@ -26,6 +27,7 @@ namespace ZennoPosterProjectAccountRegister.RegisterService
         private void AddServices()
         {
             Services.Add("wb", new WbRegister(_instance, _project));
+            Services.Add("letu", new LetuRegister(_instance, _project));
         }
     }
 }

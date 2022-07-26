@@ -15,7 +15,7 @@ namespace ZennoPosterProjectAccountRegister.Letu
         /// <returns></returns>
         public static StandardTabElementsModel ClickStartRegister()
         {
-            string xPathCloseActiveSessions = "//div[@class='header-v3__content-item']//a[@data-at-authorization-modal-button]";
+            string xPathCloseActiveSessions = "//div[@class='header-menu-item']";
             StandardTabElementsModel standardTabElements = new StandardTabElementsModel(xPathCloseActiveSessions);
             return standardTabElements;
         }

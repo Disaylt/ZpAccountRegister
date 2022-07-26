@@ -34,10 +34,15 @@ namespace ZennoPosterProjectAccountRegister.Letu
                 try
                 {
                     BrowserProxy.SetProxy(acountProxy.Proxy);
+                    FirstActionForRegistration();
                 }
                 catch (Exception ex)
                 {
 
+                }
+                finally
+                {
+                    PhoneNumberActions.CloseNumberAsync().Wait();
                 }
             }
         }

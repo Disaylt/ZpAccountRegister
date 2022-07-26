@@ -154,6 +154,8 @@
     <Compile Include="AccountStore\IPersonalInfoWriter.cs" />
     <Compile Include="JsonFileLoader.cs" />
     <Compile Include="Letu\LetuRegister.cs" />
+    <Compile Include="Letu\LetuTabClickDataBuilder.cs" />
+    <Compile Include="Letu\LetuTabInputDataBuilder.cs" />
     <Compile Include="Logger\ProjectLogger.cs" />
     <Compile Include="Models\Bson\AccountDbModel.cs" />
     <Compile Include="Models\Json\OnlineSim\CountryNumbersStateModel.cs" />

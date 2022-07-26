@@ -8,6 +8,7 @@ using ZennoLab.InterfacesLibrary.ProjectModel;
 using ZennoPosterProjectAccountRegister.AccountStore;
 using ZennoPosterProjectAccountRegister.AccountStore.Letu;
 using ZennoPosterProjectAccountRegister.AccountStore.WB;
+using ZennoPosterProjectAccountRegister.OnlineSim;
 using ZennoPosterProjectAccountRegister.Proxy;
 
 namespace ZennoPosterProjectAccountRegister.Letu
@@ -21,6 +22,7 @@ namespace ZennoPosterProjectAccountRegister.Letu
         }
 
         public override Account Account { get; }
+        public IPhoneNumberActions PhoneNumberActions { get; }
 
         public override void StartRegistration()
         {
@@ -38,10 +40,19 @@ namespace ZennoPosterProjectAccountRegister.Letu
             }
         }
 
-        private void BeginRegister()
+        private void FirstActionForRegistration()
         {
             BrowserTab.UpdateToNextPage("https://www.letu.ru/", "https://www.google.com/");
-            ActionsExecutor.Click()
+            ActionsExecutor.Click(LetuTabClickDataBuilder.ClickStartRegister);
+            string phoneNumber = GetPhoneNumberWithoutCountryCode();
+        }
+
+        private string GetPhoneNumberWithoutCountryCode()
+        {
+            string phoneNumberWithCode = PhoneNumberActions.PhoneNumber;
+            PhoneCountryCodeConverter phoneCountryCodeConverter = new PhoneCountryCodeConverter(phoneNumberWithCode);
+            string phoneNumberWithoutCode = phoneCountryCodeConverter.GetPhoneNumberWithoutCountryCode(Country.Russian);
+            return phoneNumberWithoutCode;
         }
     }
 }

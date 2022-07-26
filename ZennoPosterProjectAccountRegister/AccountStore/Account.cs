@@ -14,6 +14,7 @@ namespace ZennoPosterProjectAccountRegister.AccountStore
         public abstract string MiddleName { get; }
         public abstract DateTime BirthDate { get; }
         public abstract string Gender { get; }
+        public abstract string Email { get; }
         protected ProjectLogger Logger { get; }
 
         public Account()

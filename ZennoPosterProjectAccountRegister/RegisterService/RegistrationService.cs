@@ -8,7 +8,7 @@ namespace ZennoPosterProjectAccountRegister.RegisterService
 {
     internal class RegistrationService
     {
-        private readonly Dictionary<string, RegisterController> _controllers;
+        private readonly Dictionary<string, CreateRegisterContoller> _controllers;
         public RegistrationService(RegistrationServices registrationServices)
         {
             _controllers = registrationServices.Services;
@@ -18,7 +18,7 @@ namespace ZennoPosterProjectAccountRegister.RegisterService
         {
             if(_controllers.ContainsKey(nameService))
             {
-                return _controllers[nameService];
+                return _controllers[nameService].Invoke();
             }
             else
             {

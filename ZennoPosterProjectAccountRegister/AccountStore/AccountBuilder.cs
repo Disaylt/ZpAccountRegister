@@ -11,7 +11,6 @@ namespace ZennoPosterProjectAccountRegister.AccountStore
 {
     internal class AccountBuilder : Account
     {
-
         public override string FirstName { get; }
 
         public override string LastName { get; }
@@ -22,7 +21,9 @@ namespace ZennoPosterProjectAccountRegister.AccountStore
 
         public override string Gender { get; }
 
-        internal AccountBuilder(WbGenderOptions genderOptions)
+        public override string Email { get; }
+
+        internal AccountBuilder(GenderOptions genderOptions)
         {
             Gender = GetGender();
             BirthDate = GetBirthDate();
@@ -30,7 +31,14 @@ namespace ZennoPosterProjectAccountRegister.AccountStore
             FirstName = ChoosePersonalInfo(personalInfo.FirstNames);
             LastName = ChoosePersonalInfo(personalInfo.LastNames);
             MiddleName = ChoosePersonalInfo(personalInfo.MiddleNames);
+            Email = string.Empty;
             Logger.Info($"Create account - Gender: {Gender}, Birth: {BirthDate}, FirstName: {FirstName}, LastName: {LastName}, MiddleName: {MiddleName}");
+        }
+
+        internal AccountBuilder(GenderOptions genderOptions, IEmailCreator emailCreator) : this(genderOptions)
+        {
+            Email = emailCreator.CreateEmail();
+            Logger.Info($"Create email - {Email}");
         }
 
         public virtual string ChoosePersonalInfo(string[] names)

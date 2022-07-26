@@ -5,19 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using ZennoLab.CommandCenter;
 using ZennoLab.InterfacesLibrary.ProjectModel;
+using ZennoPosterProjectAccountRegister.Letu;
 using ZennoPosterProjectAccountRegister.WB;
 
 namespace ZennoPosterProjectAccountRegister.RegisterService
 {
+    delegate RegisterController CreateRegisterContoller();
     internal class RussianMarketplaceServices : RegistrationServices
     {
-        public override Dictionary<string, RegisterController> Services { get; }
+        public override Dictionary<string, CreateRegisterContoller> Services { get; }
         private readonly Instance _instance;
         private readonly IZennoPosterProjectModel _project;
 
         public RussianMarketplaceServices(Instance instance, IZennoPosterProjectModel project)
         {
-            Services = new Dictionary<string, RegisterController>();
+            Services = new Dictionary<string, CreateRegisterContoller>();
             _instance = instance;
             _project = project;
             AddServices();
@@ -25,7 +27,8 @@ namespace ZennoPosterProjectAccountRegister.RegisterService
 
         private void AddServices()
         {
-            Services.Add("wb", new WbRegister(_instance, _project));
+            Services.Add("wb", () => new WbRegister(_instance, _project));
+            Services.Add("letu", () => new LetuRegister(_instance, _project));
         }
     }
 }

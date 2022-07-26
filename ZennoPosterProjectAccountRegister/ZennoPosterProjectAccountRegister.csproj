@@ -160,6 +160,7 @@
     <Compile Include="Letu\LetuTabInputDataBuilder.cs" />
     <Compile Include="Logger\ProjectLogger.cs" />
     <Compile Include="Models\Bson\AccountDbModel.cs" />
+    <Compile Include="Models\Bson\Letu\LetuAccountDbModel.cs" />
     <Compile Include="Models\Json\OnlineSim\CountryNumbersStateModel.cs" />
     <Compile Include="Models\Json\OnlineSim\MessageStateModel.cs" />
     <Compile Include="Models\Json\OnlineSim\OnlineSimSettingModel.cs" />

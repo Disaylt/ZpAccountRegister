@@ -11,6 +11,7 @@ using ZennoPosterProjectAccountRegister.AccountStore.Letu;
 using ZennoPosterProjectAccountRegister.AccountStore.WB;
 using ZennoPosterProjectAccountRegister.Http;
 using ZennoPosterProjectAccountRegister.Models.Bson;
+using ZennoPosterProjectAccountRegister.Models.Bson.Letu;
 using ZennoPosterProjectAccountRegister.MongoDB.Letu;
 using ZennoPosterProjectAccountRegister.MongoDB.WB;
 using ZennoPosterProjectAccountRegister.OnlineSim;
@@ -112,26 +113,24 @@ namespace ZennoPosterProjectAccountRegister.Letu
         private void BadSave()
         {
             ZennoProfile.SaveProfile(Configuration.Settings.PathForSaveBadAccount);
-            AccountDbModel accountDb = CreateAccountDbData(false, false);
-            LetuBuyoutsShopMongoAccounts<AccountDbModel> wbBuyoutsShopMongo = new LetuBuyoutsShopMongoAccounts<AccountDbModel>("badAccounts");
+            LetuAccountDbModel accountDb = CreateAccountDbData(false, false);
+            LetuBuyoutsShopMongoAccounts<LetuAccountDbModel> wbBuyoutsShopMongo = new LetuBuyoutsShopMongoAccounts<LetuAccountDbModel>("badAccounts");
             wbBuyoutsShopMongo.Insert(accountDb);
         }
 
         private void GoodSave()
         {
             ZennoProfile.SaveProfile(Configuration.Settings.PathForSaveGoodAccount);
-            AccountDbModel accountDb = CreateAccountDbData(true, false);
-            WbBuyoutsShopMongoAccounts<AccountDbModel> wbBuyoutsShopMongo = new WbBuyoutsShopMongoAccounts<AccountDbModel>("accounts");
+            LetuAccountDbModel accountDb = CreateAccountDbData(true, false);
+            LetuBuyoutsShopMongoAccounts<LetuAccountDbModel> wbBuyoutsShopMongo = new LetuBuyoutsShopMongoAccounts<LetuAccountDbModel>("accounts");
             wbBuyoutsShopMongo.Insert(accountDb);
         }
 
-        private AccountDbModel CreateAccountDbData(bool isActive, bool inWork)
+        private LetuAccountDbModel CreateAccountDbData(bool isActive, bool inWork)
         {
-            ZennoCookieContainer zennoCookieContainer = new ZennoCookieContainer(ZennoPosterProject.Profile.CookieContainer);
-            string jsonCookies = zennoCookieContainer.ConvertToJsonString();
-            AccountDbModel accountDbModel = new AccountDbModel
+            LetuAccountDbModel accountDbModel = new LetuAccountDbModel
             {
-                Cookies = jsonCookies,
+                Cookies = string.Empty,
                 IsActive = isActive,
                 InWork = inWork,
                 CreateDate = DateTime.Now,
@@ -139,7 +138,8 @@ namespace ZennoPosterProjectAccountRegister.Letu
                 Gender = Account.Gender,
                 LastName = Account.LastName,
                 PhoneNumber = PhoneNumberActions.PhoneNumber,
-                Session = ZennoProfile.SessionName
+                Session = ZennoProfile.SessionName,
+                Email = Account.Email
             };
             return accountDbModel;
         }

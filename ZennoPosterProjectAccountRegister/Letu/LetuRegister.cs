@@ -8,6 +8,7 @@ using ZennoLab.InterfacesLibrary.ProjectModel;
 using ZennoPosterProjectAccountRegister.AccountStore;
 using ZennoPosterProjectAccountRegister.AccountStore.Letu;
 using ZennoPosterProjectAccountRegister.AccountStore.WB;
+using ZennoPosterProjectAccountRegister.Proxy;
 
 namespace ZennoPosterProjectAccountRegister.Letu
 {
@@ -23,7 +24,24 @@ namespace ZennoPosterProjectAccountRegister.Letu
 
         public override void StartRegistration()
         {
-            throw new NotImplementedException();
+            bool isWriteAccount = false;
+            using (var acountProxy = new RussianAcountProxy())
+            {
+                try
+                {
+                    BrowserProxy.SetProxy(acountProxy.Proxy);
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
+        }
+
+        private void BeginRegister()
+        {
+            BrowserTab.UpdateToNextPage("https://www.letu.ru/", "https://www.google.com/");
+            ActionsExecutor.Click()
         }
     }
 }

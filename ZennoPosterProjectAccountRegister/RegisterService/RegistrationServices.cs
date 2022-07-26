@@ -8,6 +8,6 @@ namespace ZennoPosterProjectAccountRegister.RegisterService
 {
     abstract internal class RegistrationServices
     {
-        public abstract Dictionary<string, RegisterController> Services { get;}
+        public abstract Dictionary<string, CreateRegisterContoller> Services { get;}
     }
 }

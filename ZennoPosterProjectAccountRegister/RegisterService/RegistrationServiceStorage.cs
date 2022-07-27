@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace ZennoPosterProjectAccountRegister.RegisterService
 {
-    internal class RegistrationService
+    internal class RegistrationServiceStorage
     {
         private readonly Dictionary<string, CreateRegisterContoller> _controllers;
-        public RegistrationService(RegistrationServices registrationServices)
+        public RegistrationServiceStorage(RegistrationServices registrationServices)
         {
             _controllers = registrationServices.Services;
         }

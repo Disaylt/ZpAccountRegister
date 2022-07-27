@@ -5,11 +5,13 @@ using System.Text;
 using System.Threading.Tasks;
 using ZennoLab.CommandCenter;
 using ZennoLab.InterfacesLibrary.ProjectModel;
+using ZennoLab.InterfacesLibrary.ProjectModel.Collections;
 using ZennoPosterProjectAccountRegister.AccountStore;
 using ZennoPosterProjectAccountRegister.BrowserTab;
 using ZennoPosterProjectAccountRegister.Logger;
 using ZennoPosterProjectAccountRegister.OnlineSim;
 using ZennoPosterProjectAccountRegister.Proxy;
+using ZennoPosterProjectAccountRegister.RegisterService;
 using ZennoPosterProjectAccountRegister.ZennoPoster;
 
 namespace ZennoPosterProjectAccountRegister
@@ -25,23 +27,22 @@ namespace ZennoPosterProjectAccountRegister
         protected ZennoProfile ZennoProfile { get; }
         protected ProjectLogger Logger { get; }
 
-        internal RegisterController(Instance instance, IZennoPosterProjectModel project)
+        internal RegisterController(Instance instance, IZennoPosterProjectModel project, RegisterOptions registerOptions)
         {
             Instance = instance;
             ZennoPosterProject = project;
             BrowserTab = new BrowserTabHandler(Instance);
             ActionsExecutor = new TabActionsExecutor(Instance);
             BrowserProxy = new InstanceProxy(Instance);
-            ZennoProfile = CreateZennoProfile();
+            ZennoProfile = CreateZennoProfile(registerOptions.SessionNameBuilder , project.Profile);
             Logger = new ProjectLogger();
 
         }
         public abstract void StartRegistration();
-        private ZennoProfile CreateZennoProfile()
+        protected virtual ZennoProfile CreateZennoProfile(SessionNameBuilder sessionBuilder, IProfile profile)
         {
-            SessionNameBuilder sessionBuilder = new SessionNameBuilder(true, true);
             string profileName = sessionBuilder.CreateSessionName(32);
-            var zennoProfile = new ZennoProfile(profileName, ZennoPosterProject.Profile);
+            var zennoProfile = new ZennoProfile(profileName, profile);
             return zennoProfile;
         }
     }

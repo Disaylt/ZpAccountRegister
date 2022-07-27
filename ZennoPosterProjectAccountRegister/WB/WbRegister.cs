@@ -20,6 +20,7 @@ using ZennoPosterProjectAccountRegister.MongoDB.WB;
 using ZennoPosterProjectAccountRegister.OnlineSim;
 using ZennoPosterProjectAccountRegister.OnlineSim.WB;
 using ZennoPosterProjectAccountRegister.Proxy;
+using ZennoPosterProjectAccountRegister.RegisterService;
 using ZennoPosterProjectAccountRegister.ZennoPoster;
 
 namespace ZennoPosterProjectAccountRegister.WB
@@ -29,7 +30,7 @@ namespace ZennoPosterProjectAccountRegister.WB
         public override Account Account { get; }
         public IPhoneNumberActions PhoneNumberActions { get; }
 
-        internal WbRegister(Instance instance, IZennoPosterProjectModel project) : base(instance, project)
+        internal WbRegister(Instance instance, IZennoPosterProjectModel project, RegisterOptions registerOptions) : base(instance, project, registerOptions)
         {
             WbGenderOptions genderOptions = new WbGenderOptions();
             Account = new AccountBuilder(genderOptions);

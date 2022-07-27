@@ -17,12 +17,13 @@ using ZennoPosterProjectAccountRegister.MongoDB.WB;
 using ZennoPosterProjectAccountRegister.OnlineSim;
 using ZennoPosterProjectAccountRegister.OnlineSim.Letu;
 using ZennoPosterProjectAccountRegister.Proxy;
+using ZennoPosterProjectAccountRegister.RegisterService;
 
 namespace ZennoPosterProjectAccountRegister.Letu
 {
     internal class LetuRegister : RegisterController
     {
-        public LetuRegister(Instance instance, IZennoPosterProjectModel project) : base(instance, project)
+        public LetuRegister(Instance instance, IZennoPosterProjectModel project, RegisterOptions registerOptions) : base(instance, project, registerOptions)
         {
             LetuGenderOptions genderOptions = new LetuGenderOptions();
             IEmailCreator emailCreator = new YandexEmailCreator(project.Profile);

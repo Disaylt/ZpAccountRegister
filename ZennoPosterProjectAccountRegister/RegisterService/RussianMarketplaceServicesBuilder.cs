@@ -26,8 +26,8 @@ namespace ZennoPosterProjectAccountRegister.RegisterService
 
         private void AddCustomServices()
         {
-            Services.Add("wb", (options) => new WbRegister(_instance, _project));
-            Services.Add("letu", (options) => new LetuRegister(_instance, _project));
+            Services.Add("wb", (options) => new WbRegister(_instance, _project, options));
+            Services.Add("letu", (options) => new LetuRegister(_instance, _project, options));
         }
     }
 }

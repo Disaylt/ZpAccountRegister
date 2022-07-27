@@ -11,8 +11,8 @@ namespace ZennoPosterProjectAccountRegister.AccountStore.Letu
 {
     internal class LetuPersonalInfoWriter : IPersonalInfoWriter
     {
-        private Account _account;
-        private TabActionsExecutor _actionsExecutor;
+        private readonly Account _account;
+        private readonly TabActionsExecutor _actionsExecutor;
 
         public LetuPersonalInfoWriter(Account account, TabActionsExecutor tabActionsExecutor)
         {

@@ -29,7 +29,7 @@ namespace ZennoPosterProjectAccountRegister
         {
             int executionResult = default;
 
-            Configuration.Load();
+            Configuration.Load(project);
             var services = new RussianMarketplaceServicesBuilder(instance, project);
             var options = OptionsCollector.Instance;
             var registrationServices = new RegistrationServiceCollector(services, options);

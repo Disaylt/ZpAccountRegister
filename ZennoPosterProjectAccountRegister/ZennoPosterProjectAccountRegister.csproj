@@ -212,6 +212,7 @@
     <Compile Include="RegisterService\RegistrationServices.cs" />
     <Compile Include="RegisterService\RussianMarketplaceServicesBuilder.cs" />
     <Compile Include="TaskCompletion\ITaskComplete.cs" />
+    <Compile Include="TaskCompletion\LetuTaskComplete.cs" />
     <Compile Include="TaskCompletion\WbTaskComplete.cs" />
     <Compile Include="Tests\Proxy\TestProxy.cs" />
     <Compile Include="WB\WbRegister.cs" />

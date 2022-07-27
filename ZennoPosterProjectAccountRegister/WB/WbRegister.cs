@@ -22,18 +22,22 @@ using ZennoPosterProjectAccountRegister.OnlineSim.WB;
 using ZennoPosterProjectAccountRegister.Proxy;
 using ZennoPosterProjectAccountRegister.RegisterService;
 using ZennoPosterProjectAccountRegister.RegisterService.OptionBuilders;
+using ZennoPosterProjectAccountRegister.TaskCompletion;
 using ZennoPosterProjectAccountRegister.ZennoPoster;
 
 namespace ZennoPosterProjectAccountRegister.WB
 {
     internal class WbRegister : RegisterController
     {
+        private readonly ITaskComplete _taskComplete;
+
         public IPhoneNumberActions PhoneNumberActions { get; }
 
         internal WbRegister(Instance instance, IZennoPosterProjectModel project, RegisterOptions registerOptions) : base(instance, project, registerOptions)
         {
             var wbOptions = registerOptions as WbRegisterOptions;
             PhoneNumberActions = wbOptions.PhoneNumberActions;
+            _taskComplete = new WbTaskComplete(ZennoProfile, Account, project.Profile, wbOptions.PhoneNumberActions);
         }
         public override void StartRegistration()
         {
@@ -56,7 +60,7 @@ namespace ZennoPosterProjectAccountRegister.WB
                     if (isWriteAccount)
                     {
                         isWriteAccount = false;
-                        BadSave();
+                        _taskComplete.BadEnd();
                     }
                     Logger.Error(ex);
                 }
@@ -65,7 +69,7 @@ namespace ZennoPosterProjectAccountRegister.WB
 
                     if (isWriteAccount)
                     {
-                        GoodSave();
+                        _taskComplete.GoodEnd();
                         Logger.Info($"Registration completed");
                     }
                     PhoneNumberActions.CloseNumberAsync().Wait();
@@ -136,40 +140,6 @@ namespace ZennoPosterProjectAccountRegister.WB
             CodeScaner codeScaner = new CodeScaner(message);
             string code = codeScaner.GetCode();
             ActionsExecutor.Input(WbTabInputDataBuilder.InputPhoneCode, code);
-        }
-        private void BadSave()
-        {
-            ZennoProfile.SaveProfile(Configuration.Settings.PathForSaveBadAccount);
-            AccountDbModel accountDb = CreateAccountDbData(false, false);
-            WbBuyoutsShopMongoAccounts<AccountDbModel> wbBuyoutsShopMongo = new WbBuyoutsShopMongoAccounts<AccountDbModel>("badAccounts");
-            wbBuyoutsShopMongo.Insert(accountDb);
-        }
-
-        private void GoodSave()
-        {
-            ZennoProfile.SaveProfile(Configuration.Settings.PathForSaveGoodAccount);
-            AccountDbModel accountDb = CreateAccountDbData(true, false);
-            WbBuyoutsShopMongoAccounts<AccountDbModel> wbBuyoutsShopMongo = new WbBuyoutsShopMongoAccounts<AccountDbModel>("accounts");
-            wbBuyoutsShopMongo.Insert(accountDb);
-        }
-
-        private AccountDbModel CreateAccountDbData(bool isActive, bool inWork)
-        {
-            ZennoCookieContainer zennoCookieContainer = new ZennoCookieContainer(ZennoPosterProject.Profile.CookieContainer);
-            string jsonCookies = zennoCookieContainer.ConvertToJsonString();
-            AccountDbModel accountDbModel = new AccountDbModel
-            {
-                Cookies = jsonCookies,
-                IsActive = isActive,
-                InWork = inWork,
-                CreateDate = DateTime.Now,
-                FirstName = Account.FirstName,
-                Gender = Account.Gender,
-                LastName = Account.LastName,
-                PhoneNumber = PhoneNumberActions.PhoneNumber,
-                Session = ZennoProfile.SessionName
-            };
-            return accountDbModel;
         }
     }
 }

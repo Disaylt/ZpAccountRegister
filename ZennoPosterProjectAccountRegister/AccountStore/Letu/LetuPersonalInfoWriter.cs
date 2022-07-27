@@ -9,7 +9,7 @@ using ZennoPosterProjectAccountRegister.Letu;
 
 namespace ZennoPosterProjectAccountRegister.AccountStore.Letu
 {
-    internal class LetuPersonalInfoWriter
+    internal class LetuPersonalInfoWriter : IPersonalInfoWriter
     {
         private Account _account;
         private TabActionsExecutor _actionsExecutor;

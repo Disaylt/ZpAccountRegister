@@ -111,9 +111,7 @@ namespace ZennoPosterProjectAccountRegister.WB
         private void SendPersonalInfo(ProxyModel proxy)
         {
             IPersonalInfoWriter personalInfoWriter = new WbPersonalInfoWriter(Account, proxy, ZennoPosterProject);
-            personalInfoWriter.SetGender();
-            personalInfoWriter.SetBirthDate();
-            personalInfoWriter.SetPersonalInfo();
+            personalInfoWriter.UpdatePersonalInfo();
         }
 
         private void BeginBrowserRegister()

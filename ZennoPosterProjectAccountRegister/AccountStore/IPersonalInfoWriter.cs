@@ -8,9 +8,6 @@ namespace ZennoPosterProjectAccountRegister.AccountStore
 {
     internal interface IPersonalInfoWriter
     {
-        void SetEmail();
-        void SetPersonalInfo();
-        void SetBirthDate();
-        void SetGender();
+        void UpdatePersonalInfo();
     }
 }

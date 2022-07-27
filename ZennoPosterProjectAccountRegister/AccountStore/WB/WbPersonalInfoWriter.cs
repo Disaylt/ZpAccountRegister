@@ -24,24 +24,26 @@ namespace ZennoPosterProjectAccountRegister.AccountStore.WB
             _httpClient = new WbPersonalInfoHttpSender(project, proxy);
         }
 
-        public void SetGender()
+        public void UpdatePersonalInfo()
+        {
+            SetGender();
+            SetBirthDate();
+            SetPersonalInfo();
+        }
+
+        private void SetGender()
         {
             GenderRequestModel genderRequest = new GenderRequestModel(_account.Gender);
             _httpClient.SetGender(genderRequest).Wait();
         }
 
-        public void SetBirthDate()
+        private void SetBirthDate()
         {
             BirthdayRequestModel birthdayRequest = new BirthdayRequestModel(_account.BirthDate);
             _httpClient.SetBirthDateAsync(birthdayRequest).Wait();
         }
 
-        public void SetEmail()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetPersonalInfo()
+        private void SetPersonalInfo()
         {
             PersonalInfoModel personalInfo = new PersonalInfoModel
             {

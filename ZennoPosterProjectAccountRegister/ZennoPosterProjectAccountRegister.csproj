@@ -202,10 +202,12 @@
     <Compile Include="RegisterController.cs" />
     <Compile Include="AccountStore\WB\WbFemalePersonalInfo.cs" />
     <Compile Include="AccountStore\WB\WbMalePersonalInfo.cs" />
-    <Compile Include="RegisterService\RegisterControllerOptions.cs" />
-    <Compile Include="RegisterService\RegistrationServiceStorage.cs" />
+    <Compile Include="RegisterService\OptionsCollector.cs" />
+    <Compile Include="RegisterService\OptionBuilders\GeneralRegisterOptions.cs" />
+    <Compile Include="RegisterService\RegisterOptions.cs" />
+    <Compile Include="RegisterService\RegistrationServiceCollector.cs" />
     <Compile Include="RegisterService\RegistrationServices.cs" />
-    <Compile Include="RegisterService\RussianMarketplaceServices.cs" />
+    <Compile Include="RegisterService\RussianMarketplaceServicesBuilder.cs" />
     <Compile Include="Tests\Proxy\TestProxy.cs" />
     <Compile Include="WB\WbRegister.cs" />
     <Compile Include="WB\WebWbAccount.cs" />

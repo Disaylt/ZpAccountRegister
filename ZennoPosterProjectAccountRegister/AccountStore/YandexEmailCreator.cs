@@ -9,15 +9,15 @@ namespace ZennoPosterProjectAccountRegister.AccountStore
 {
     internal class YandexEmailCreator : IEmailCreator
     {
-        private readonly IProfile _profile;
-        public YandexEmailCreator(IProfile profile)
+        private readonly SessionNameBuilder _sessionName;
+        public YandexEmailCreator()
         {
-            _profile = profile;
+            _sessionName = new SessionNameBuilder(true, false);
         }
 
         public string CreateEmail()
         {
-            string email = $"{_profile.NickName}@yandex.ru";
+            string email = $"{_sessionName.CreateSessionName(10)}@yandex.ru";
             return email;
         }
     }

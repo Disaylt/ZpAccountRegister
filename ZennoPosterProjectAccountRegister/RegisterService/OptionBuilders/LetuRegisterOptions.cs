@@ -22,7 +22,8 @@ namespace ZennoPosterProjectAccountRegister.RegisterService.OptionBuilders
         protected override Account CreateAccount()
         {
             GenderOptions genderOptions = new GeneralGenderOptions();
-            Account account = new AccountBuilder(genderOptions);
+            IEmailCreator emailCreator = new YandexEmailCreator();
+            Account account = new AccountBuilder(genderOptions, emailCreator);
             return account;
         }
     }

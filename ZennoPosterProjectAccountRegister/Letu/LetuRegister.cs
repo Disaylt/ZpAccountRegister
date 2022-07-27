@@ -18,6 +18,7 @@ using ZennoPosterProjectAccountRegister.OnlineSim;
 using ZennoPosterProjectAccountRegister.OnlineSim.Letu;
 using ZennoPosterProjectAccountRegister.Proxy;
 using ZennoPosterProjectAccountRegister.RegisterService;
+using ZennoPosterProjectAccountRegister.RegisterService.OptionBuilders;
 
 namespace ZennoPosterProjectAccountRegister.Letu
 {
@@ -25,7 +26,8 @@ namespace ZennoPosterProjectAccountRegister.Letu
     {
         public LetuRegister(Instance instance, IZennoPosterProjectModel project, RegisterOptions registerOptions) : base(instance, project, registerOptions)
         {
-            PhoneNumberActions = new LetuPhoneNumber();
+            var letuOptions = registerOptions as LetuRegisterOptions;
+            PhoneNumberActions = letuOptions.PhoneNumberActions;
         }
         public IPhoneNumberActions PhoneNumberActions { get; }
 

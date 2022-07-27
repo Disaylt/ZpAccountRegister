@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZennoPosterProjectAccountRegister.RegisterService.OptionBuilders;
 
 namespace ZennoPosterProjectAccountRegister.RegisterService
 {
@@ -14,6 +15,7 @@ namespace ZennoPosterProjectAccountRegister.RegisterService
         private OptionsCollector()
         {
             Options = new Dictionary<string, CreateRegisterControllerOptions>();
+            AddCustomOptions();
         }
 
         public static OptionsCollector Instance
@@ -32,7 +34,8 @@ namespace ZennoPosterProjectAccountRegister.RegisterService
 
         private void AddCustomOptions()
         {
-            
+            Options.Add("wb", () => new WbRegisterOptions());
+            Options.Add("letu", () => new LetuRegisterOptions());
         }
     }
 }

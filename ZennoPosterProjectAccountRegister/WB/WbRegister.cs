@@ -21,6 +21,7 @@ using ZennoPosterProjectAccountRegister.OnlineSim;
 using ZennoPosterProjectAccountRegister.OnlineSim.WB;
 using ZennoPosterProjectAccountRegister.Proxy;
 using ZennoPosterProjectAccountRegister.RegisterService;
+using ZennoPosterProjectAccountRegister.RegisterService.OptionBuilders;
 using ZennoPosterProjectAccountRegister.ZennoPoster;
 
 namespace ZennoPosterProjectAccountRegister.WB
@@ -31,7 +32,8 @@ namespace ZennoPosterProjectAccountRegister.WB
 
         internal WbRegister(Instance instance, IZennoPosterProjectModel project, RegisterOptions registerOptions) : base(instance, project, registerOptions)
         {
-            PhoneNumberActions = new WbPhoneNumber();
+            var wbOptions = registerOptions as WbRegisterOptions;
+            PhoneNumberActions = wbOptions.PhoneNumberActions;
         }
         public override void StartRegistration()
         {

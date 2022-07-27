@@ -5,24 +5,25 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZennoLab.CommandCenter;
+using ZennoLab.InterfacesLibrary.ProjectModel;
 using ZennoPosterProjectAccountRegister.Models.Objects;
 
 namespace ZennoPosterProjectAccountRegister
 {
     internal static class Configuration
     {
-        public static string ProjectFolder { get; } = @"C:\Users\user\Desktop\git\Buyouts-shop account register\ZennoPosterSolutionAccountRegister\ZennoPosterProjectAccountRegister\bin\Debug\files"; //zennoposter is stupid, and not see project folder path. Because need to specify where the files will be stored
         private const string _settingsFileName = "projectSettings.json";
-        internal static ProjectSettingsModel Settings { get; private set; }
+        private static readonly object _settingsLock = new object();
+        public static ProjectSettingsModel Settings { get; private set; }
+        public static string ProjectFilesFolder { get; private set; }
 
-        static Configuration()
+        public static void Load(IZennoPosterProjectModel project)
         {
-            Load();
-        }
-
-        public static void Load()
-        {
-            Settings = JsonFileLoader.LoadJson<ProjectSettingsModel>($@"{ProjectFolder}\{_settingsFileName}");
+            lock(_settingsLock)
+            {
+                ProjectFilesFolder = $@"{project.Path}files\";
+                Settings = JsonFileLoader.LoadJson<ProjectSettingsModel>($"{ProjectFilesFolder}{_settingsFileName}");
+            }
         }
     }
 }

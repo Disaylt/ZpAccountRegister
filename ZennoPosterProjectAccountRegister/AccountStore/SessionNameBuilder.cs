@@ -7,11 +7,11 @@ using Global;
 
 namespace ZennoPosterProjectAccountRegister.AccountStore
 {
-    internal class SessionBuilder
+    internal class SessionNameBuilder
     {
         public List<char> CharacterSet { get; } = new List<char>();
 
-        public SessionBuilder(bool isUseLetters, bool isUseNumber)
+        public SessionNameBuilder(bool isUseLetters, bool isUseNumber)
         {
             if(isUseLetters)
             {

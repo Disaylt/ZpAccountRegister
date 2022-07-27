@@ -10,25 +10,24 @@ using ZennoPosterProjectAccountRegister.WB;
 
 namespace ZennoPosterProjectAccountRegister.RegisterService
 {
-    delegate RegisterController CreateRegisterContoller();
-    internal class RussianMarketplaceServices : RegistrationServices
+    internal class RussianMarketplaceServicesBuilder : RegistrationServices
     {
         public override Dictionary<string, CreateRegisterContoller> Services { get; }
         private readonly Instance _instance;
         private readonly IZennoPosterProjectModel _project;
 
-        public RussianMarketplaceServices(Instance instance, IZennoPosterProjectModel project)
+        public RussianMarketplaceServicesBuilder(Instance instance, IZennoPosterProjectModel project)
         {
             Services = new Dictionary<string, CreateRegisterContoller>();
             _instance = instance;
             _project = project;
-            AddServices();
+            AddCustomServices();
         }
 
-        private void AddServices()
+        private void AddCustomServices()
         {
-            Services.Add("wb", () => new WbRegister(_instance, _project));
-            Services.Add("letu", () => new LetuRegister(_instance, _project));
+            Services.Add("wb", (options) => new WbRegister(_instance, _project, options));
+            Services.Add("letu", (options) => new LetuRegister(_instance, _project, options));
         }
     }
 }

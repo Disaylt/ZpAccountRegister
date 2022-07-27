@@ -52,7 +52,7 @@ namespace ZennoPosterProjectAccountRegister.Logger
         {
             lock(_sync)
             {
-                string filePath = $@"{Configuration.ProjectFolder}\{_logFileName}.log";
+                string filePath = $@"{Configuration.ProjectFilesFolder}\{_logFileName}.log";
                 File.AppendAllLines(filePath, lineMessage);
             }
         }

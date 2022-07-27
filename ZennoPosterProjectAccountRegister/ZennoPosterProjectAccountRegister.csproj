@@ -133,6 +133,7 @@
     <Compile Include="AccountStore\Account.cs" />
     <Compile Include="AccountStore\AccountBuilder.cs" />
     <Compile Include="AccountStore\GenderOptions.cs" />
+    <Compile Include="AccountStore\General\GeneralGenderOptions.cs" />
     <Compile Include="AccountStore\YandexEmailCreator.cs" />
     <Compile Include="AccountStore\General\GeneralFemalePersonalInfo.cs" />
     <Compile Include="AccountStore\General\GeneralMalePersonalInfo.cs" />
@@ -141,7 +142,7 @@
     <Compile Include="AccountStore\Letu\LetuGenderOptions.cs" />
     <Compile Include="AccountStore\Letu\LetuPersonalInfoWriter.cs" />
     <Compile Include="AccountStore\PersonalInfoLoader.cs" />
-    <Compile Include="AccountStore\SessionBuilder.cs" />
+    <Compile Include="AccountStore\SessionNameBuilder.cs" />
     <Compile Include="AccountStore\WB\WbGenderOptions.cs" />
     <Compile Include="AccountStore\WB\WbPersonalInfoWriter.cs" />
     <Compile Include="BrowserTabHandler.cs" />
@@ -202,9 +203,17 @@
     <Compile Include="RegisterController.cs" />
     <Compile Include="AccountStore\WB\WbFemalePersonalInfo.cs" />
     <Compile Include="AccountStore\WB\WbMalePersonalInfo.cs" />
-    <Compile Include="RegisterService\RegistrationService.cs" />
+    <Compile Include="RegisterService\OptionBuilders\LetuRegisterOptions.cs" />
+    <Compile Include="RegisterService\OptionBuilders\WbRegisterOptions.cs" />
+    <Compile Include="RegisterService\OptionsCollector.cs" />
+    <Compile Include="RegisterService\OptionBuilders\GeneralRegisterOptions.cs" />
+    <Compile Include="RegisterService\RegisterOptions.cs" />
+    <Compile Include="RegisterService\RegistrationServiceCollector.cs" />
     <Compile Include="RegisterService\RegistrationServices.cs" />
-    <Compile Include="RegisterService\RussianMarketplaceServices.cs" />
+    <Compile Include="RegisterService\RussianMarketplaceServicesBuilder.cs" />
+    <Compile Include="TaskCompletion\ITaskComplete.cs" />
+    <Compile Include="TaskCompletion\LetuTaskComplete.cs" />
+    <Compile Include="TaskCompletion\WbTaskComplete.cs" />
     <Compile Include="Tests\Proxy\TestProxy.cs" />
     <Compile Include="WB\WbRegister.cs" />
     <Compile Include="WB\WebWbAccount.cs" />

@@ -17,20 +17,21 @@ using ZennoPosterProjectAccountRegister.MongoDB.WB;
 using ZennoPosterProjectAccountRegister.OnlineSim;
 using ZennoPosterProjectAccountRegister.OnlineSim.Letu;
 using ZennoPosterProjectAccountRegister.Proxy;
+using ZennoPosterProjectAccountRegister.RegisterService;
+using ZennoPosterProjectAccountRegister.RegisterService.OptionBuilders;
+using ZennoPosterProjectAccountRegister.TaskCompletion;
 
 namespace ZennoPosterProjectAccountRegister.Letu
 {
     internal class LetuRegister : RegisterController
     {
-        public LetuRegister(Instance instance, IZennoPosterProjectModel project) : base(instance, project)
+        private readonly ITaskComplete _taskComplete;
+        public LetuRegister(Instance instance, IZennoPosterProjectModel project, RegisterOptions registerOptions) : base(instance, project, registerOptions)
         {
-            LetuGenderOptions genderOptions = new LetuGenderOptions();
-            IEmailCreator emailCreator = new YandexEmailCreator(project.Profile);
-            Account = new AccountBuilder(genderOptions, emailCreator);
-            PhoneNumberActions = new LetuPhoneNumber();
+            var letuOptions = registerOptions as LetuRegisterOptions;
+            PhoneNumberActions = letuOptions.PhoneNumberActions;
+            _taskComplete = new LetuTaskComplete(ZennoProfile, Account, letuOptions.PhoneNumberActions);
         }
-
-        public override Account Account { get; }
         public IPhoneNumberActions PhoneNumberActions { get; }
 
         public override void StartRegistration()
@@ -52,7 +53,7 @@ namespace ZennoPosterProjectAccountRegister.Letu
                     if (isWriteAccount)
                     {
                         isWriteAccount = false;
-                        BadSave();
+                        _taskComplete.BadEnd();
                     }
                     Logger.Error(ex);
                 }
@@ -60,7 +61,7 @@ namespace ZennoPosterProjectAccountRegister.Letu
                 {
                     if (isWriteAccount)
                     {
-                        GoodSave();
+                        _taskComplete.GoodEnd();
                         Logger.Info($"Registration completed");
                     }
                     PhoneNumberActions.CloseNumberAsync().Wait();
@@ -108,40 +109,6 @@ namespace ZennoPosterProjectAccountRegister.Letu
             Thread.Sleep(5 * 1000);
             BrowserTab.UpdateToNextPage("https://www.letu.ru/account/profile");
             Thread.Sleep(5 * 1000);
-        }
-
-        private void BadSave()
-        {
-            ZennoProfile.SaveProfile(Configuration.Settings.PathForSaveBadAccount);
-            LetuAccountDbModel accountDb = CreateAccountDbData(false, false);
-            LetuBuyoutsShopMongoAccounts<LetuAccountDbModel> wbBuyoutsShopMongo = new LetuBuyoutsShopMongoAccounts<LetuAccountDbModel>("badAccounts");
-            wbBuyoutsShopMongo.Insert(accountDb);
-        }
-
-        private void GoodSave()
-        {
-            ZennoProfile.SaveProfile(Configuration.Settings.PathForSaveGoodAccount);
-            LetuAccountDbModel accountDb = CreateAccountDbData(true, false);
-            LetuBuyoutsShopMongoAccounts<LetuAccountDbModel> wbBuyoutsShopMongo = new LetuBuyoutsShopMongoAccounts<LetuAccountDbModel>("accounts");
-            wbBuyoutsShopMongo.Insert(accountDb);
-        }
-
-        private LetuAccountDbModel CreateAccountDbData(bool isActive, bool inWork)
-        {
-            LetuAccountDbModel accountDbModel = new LetuAccountDbModel
-            {
-                Cookies = string.Empty,
-                IsActive = isActive,
-                InWork = inWork,
-                CreateDate = DateTime.Now,
-                FirstName = Account.FirstName,
-                Gender = Account.Gender,
-                LastName = Account.LastName,
-                PhoneNumber = PhoneNumberActions.PhoneNumber,
-                Session = ZennoProfile.SessionName,
-                Email = Account.Email
-            };
-            return accountDbModel;
         }
     }
 }

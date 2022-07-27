@@ -27,13 +27,10 @@ namespace ZennoPosterProjectAccountRegister.WB
 {
     internal class WbRegister : RegisterController
     {
-        public override Account Account { get; }
         public IPhoneNumberActions PhoneNumberActions { get; }
 
         internal WbRegister(Instance instance, IZennoPosterProjectModel project, RegisterOptions registerOptions) : base(instance, project, registerOptions)
         {
-            WbGenderOptions genderOptions = new WbGenderOptions();
-            Account = new AccountBuilder(genderOptions);
             PhoneNumberActions = new WbPhoneNumber();
         }
         public override void StartRegistration()

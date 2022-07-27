@@ -18,7 +18,7 @@ namespace ZennoPosterProjectAccountRegister
 {
     internal abstract class RegisterController
     {
-        public abstract Account Account { get; }
+        protected Account Account { get; }
         protected Instance Instance { get; }
         protected IZennoPosterProjectModel ZennoPosterProject { get; }
         protected BrowserTabHandler BrowserTab { get; }
@@ -36,6 +36,7 @@ namespace ZennoPosterProjectAccountRegister
             BrowserProxy = new InstanceProxy(Instance);
             ZennoProfile = CreateZennoProfile(registerOptions.SessionNameBuilder , project.Profile);
             Logger = new ProjectLogger();
+            Account = registerOptions.Account;
 
         }
         public abstract void StartRegistration();

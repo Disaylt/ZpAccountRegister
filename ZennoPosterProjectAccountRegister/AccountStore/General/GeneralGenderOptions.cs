@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZennoPosterProjectAccountRegister.AccountStore.General;
 
-namespace ZennoPosterProjectAccountRegister.AccountStore.Letu
+namespace ZennoPosterProjectAccountRegister.AccountStore.General
 {
-    internal class LetuGenderOptions : GenderOptions
+    internal class GeneralGenderOptions : GenderOptions
     {
         private static readonly Dictionary<string, IPersonalInfo> _genderPersonalInfo = new Dictionary<string, IPersonalInfo>
         {
@@ -15,7 +14,7 @@ namespace ZennoPosterProjectAccountRegister.AccountStore.Letu
             {"female", new GeneralFemalePersonalInfo() }
         };
 
-        public LetuGenderOptions() : base(_genderPersonalInfo)
+        public GeneralGenderOptions() : base(_genderPersonalInfo)
         {
 
         }

@@ -133,6 +133,7 @@
     <Compile Include="AccountStore\Account.cs" />
     <Compile Include="AccountStore\AccountBuilder.cs" />
     <Compile Include="AccountStore\GenderOptions.cs" />
+    <Compile Include="AccountStore\General\GeneralGenderOptions.cs" />
     <Compile Include="AccountStore\YandexEmailCreator.cs" />
     <Compile Include="AccountStore\General\GeneralFemalePersonalInfo.cs" />
     <Compile Include="AccountStore\General\GeneralMalePersonalInfo.cs" />
@@ -202,6 +203,8 @@
     <Compile Include="RegisterController.cs" />
     <Compile Include="AccountStore\WB\WbFemalePersonalInfo.cs" />
     <Compile Include="AccountStore\WB\WbMalePersonalInfo.cs" />
+    <Compile Include="RegisterService\OptionBuilders\LetuRegisterOptions.cs" />
+    <Compile Include="RegisterService\OptionBuilders\WbRegisterOptions.cs" />
     <Compile Include="RegisterService\OptionsCollector.cs" />
     <Compile Include="RegisterService\OptionBuilders\GeneralRegisterOptions.cs" />
     <Compile Include="RegisterService\RegisterOptions.cs" />

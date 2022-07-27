@@ -7,8 +7,9 @@ using ZennoPosterProjectAccountRegister.AccountStore;
 
 namespace ZennoPosterProjectAccountRegister.RegisterService
 {
-    internal class RegisterOptions
+    internal abstract class RegisterOptions
     {
-        public SessionNameBuilder SessionNameBuilder { get; set; }
+        public abstract SessionNameBuilder SessionNameBuilder { get; protected set; }
+        public abstract Account Account { get; protected set; }
     }
 }

@@ -19,8 +19,10 @@ namespace ZennoPosterProjectAccountRegister.TaskCompletion
         private readonly Account _account;
         private readonly IProfile _profile;
         private readonly IPhoneNumberActions _phoneNumberActions;
+        private readonly Configuration _configuration;
         public WbTaskComplete(ZennoProfile zennoProfile, Account account, IProfile profile, IPhoneNumberActions phoneNumber)
         {
+            _configuration = Configuration.Instance;
             _profile = profile;
             _zennoProfile = zennoProfile;
             _account = account;
@@ -29,7 +31,8 @@ namespace ZennoPosterProjectAccountRegister.TaskCompletion
 
         public void BadEnd()
         {
-            _zennoProfile.SaveProfile(Configuration.Settings.PathForSaveBadAccount);
+            string pathBadAccounts = _configuration.GetAccountsRouteForCurrentSeller().PathForSaveBadAccount;
+            _zennoProfile.SaveProfile(pathBadAccounts);
             AccountDbModel accountDb = CreateAccountDbData(false, false);
             WbBuyoutsShopMongoAccounts<AccountDbModel> wbBuyoutsShopMongo = new WbBuyoutsShopMongoAccounts<AccountDbModel>("badAccounts");
             wbBuyoutsShopMongo.Insert(accountDb);
@@ -37,7 +40,8 @@ namespace ZennoPosterProjectAccountRegister.TaskCompletion
 
         public void GoodEnd()
         {
-            _zennoProfile.SaveProfile(Configuration.Settings.PathForSaveGoodAccount);
+            string pathGoodAccounts = _configuration.GetAccountsRouteForCurrentSeller().PathForSaveGoodAccount;
+            _zennoProfile.SaveProfile(pathGoodAccounts);
             AccountDbModel accountDb = CreateAccountDbData(true, false);
             WbBuyoutsShopMongoAccounts<AccountDbModel> wbBuyoutsShopMongo = new WbBuyoutsShopMongoAccounts<AccountDbModel>("accounts");
             wbBuyoutsShopMongo.Insert(accountDb);

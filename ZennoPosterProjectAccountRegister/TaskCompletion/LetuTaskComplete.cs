@@ -17,8 +17,10 @@ namespace ZennoPosterProjectAccountRegister.TaskCompletion
         private readonly ZennoProfile _zennoProfile;
         private readonly Account _account;
         private readonly IPhoneNumberActions _phoneNumberActions;
+        private readonly Configuration _configuration;
         public LetuTaskComplete(ZennoProfile zennoProfile, Account account, IPhoneNumberActions phoneNumber)
         {
+            _configuration = Configuration.Instance;
             _zennoProfile = zennoProfile;
             _account = account;
             _phoneNumberActions = phoneNumber;
@@ -26,7 +28,8 @@ namespace ZennoPosterProjectAccountRegister.TaskCompletion
 
         public void BadEnd()
         {
-            _zennoProfile.SaveProfile(Configuration.Settings.PathForSaveBadAccount);
+            string pathBadAccounts = _configuration.GetAccountsRouteForCurrentSeller().PathForSaveBadAccount;
+            _zennoProfile.SaveProfile(pathBadAccounts);
             LetuAccountDbModel accountDb = CreateAccountDbData(false, false);
             LetuBuyoutsShopMongoAccounts<LetuAccountDbModel> wbBuyoutsShopMongo = new LetuBuyoutsShopMongoAccounts<LetuAccountDbModel>("badAccounts");
             wbBuyoutsShopMongo.Insert(accountDb);
@@ -34,7 +37,8 @@ namespace ZennoPosterProjectAccountRegister.TaskCompletion
 
         public void GoodEnd()
         {
-            _zennoProfile.SaveProfile(Configuration.Settings.PathForSaveGoodAccount);
+            string pathGoodAccounts = _configuration.GetAccountsRouteForCurrentSeller().Marketplace;
+            _zennoProfile.SaveProfile(pathGoodAccounts);
             LetuAccountDbModel accountDb = CreateAccountDbData(true, false);
             LetuBuyoutsShopMongoAccounts<LetuAccountDbModel> wbBuyoutsShopMongo = new LetuBuyoutsShopMongoAccounts<LetuAccountDbModel>("accounts");
             wbBuyoutsShopMongo.Insert(accountDb);

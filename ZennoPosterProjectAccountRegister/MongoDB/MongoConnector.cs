@@ -17,7 +17,8 @@ namespace ZennoPosterProjectAccountRegister.MongoDB
         {
             if (_client == null )
             {
-                _client = new MongoClient(Configuration.Settings.MongoConnectionString);
+                var config = Configuration.Instance;
+                _client = new MongoClient(config.Settings.MongoConnectionString);
             }
             Logger =new ProjectLogger();
         }

@@ -15,7 +15,8 @@ namespace ZennoPosterProjectAccountRegister.OnlineSim
 
         public OnlineSimSettings()
         {
-            Settings = JsonFileLoader.LoadJson<OnlineSimSettingModel>($@"{Configuration.ProjectFilesFolder}\{settingsFileName}");
+            var config = Configuration.Instance;
+            Settings = JsonFileLoader.LoadJson<OnlineSimSettingModel>($@"{config.ProjectFilesFolder}\{settingsFileName}");
         }
     }
 }

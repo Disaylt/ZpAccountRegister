@@ -28,12 +28,13 @@ namespace ZennoPosterProjectAccountRegister
         public int Execute(Instance instance, IZennoPosterProjectModel project)
         {
             int executionResult = default;
+            Configuration configuration = Configuration.Instance;
 
-            Configuration.Load(project);
+            configuration.Load(project);
             var services = new RussianMarketplaceServicesBuilder(instance, project);
             var options = OptionsCollector.Instance;
             var registrationServices = new RegistrationServiceCollector(services, options);
-            var registerController = registrationServices.GetRegistrationController(Configuration.Settings.Marketplace);
+            var registerController = registrationServices.GetRegistrationController(configuration.Settings.Marketplace);
             registerController.StartRegistration();
 
             return executionResult;

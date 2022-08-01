@@ -168,6 +168,7 @@
     <Compile Include="Models\Json\OnlineSim\PhoneModel.cs" />
     <Compile Include="Models\Json\OnlineSim\ServiceModel.cs" />
     <Compile Include="Models\Json\OnlineSim\TzModel.cs" />
+    <Compile Include="Models\Json\Settings\SellerAccountsRouteModel.cs" />
     <Compile Include="Models\Json\WB\PersonalInfoModel.cs" />
     <Compile Include="Models\Json\WB\WbAccountSettingsModel.cs" />
     <Compile Include="Models\Json\WB\WbProfileModel.cs" />

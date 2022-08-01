@@ -11,6 +11,7 @@ namespace ZennoPosterProjectAccountRegister.AccountStore
 {
     internal class AccountBuilder : Account
     {
+        protected Configuration Config { get; }
         public override string FirstName { get; }
 
         public override string LastName { get; }
@@ -25,6 +26,7 @@ namespace ZennoPosterProjectAccountRegister.AccountStore
 
         internal AccountBuilder(GenderOptions genderOptions)
         {
+            Config = Configuration.Instance;
             Gender = GetGender();
             BirthDate = GetBirthDate();
             var personalInfo = genderOptions.GetGenderPersonalInfo(Gender);
@@ -57,13 +59,13 @@ namespace ZennoPosterProjectAccountRegister.AccountStore
 
         public virtual DateTime GetBirthDate()
         {
-            int rangeDay = (Configuration.Settings.MaxRegisterBirthDate - Configuration.Settings.MinRegisterBirthDate).Days;
-            return Configuration.Settings.MinRegisterBirthDate.AddDays(Classes.rnd.Next(rangeDay));
+            int rangeDay = (Config.Settings.MaxRegisterBirthDate - Config.Settings.MinRegisterBirthDate).Days;
+            return Config.Settings.MinRegisterBirthDate.AddDays(Classes.rnd.Next(rangeDay));
         }
 
         public virtual string GetGender()
         {
-            switch (Configuration.Settings.GenderRegister)
+            switch (Config.Settings.GenderRegister)
             {
                 case "male":
                     return "male";

@@ -13,7 +13,7 @@ namespace ZennoPosterProjectAccountRegister
 {
     internal class Configuration
     {
-        private List<SellerAccountsRouteModel> _sellersAccountsRoute { get; set; }
+        private List<SellerAccountsRouteModel> _sellersAccountsRoute;
         private const string _settingsFileName = "projectSettings.json";
         private const string _routeFileName = "sellersAccountsRoute.json";
         private readonly object _settingsLock;
@@ -45,6 +45,12 @@ namespace ZennoPosterProjectAccountRegister
                 Settings = JsonFileLoader.LoadJson<ProjectSettingsModel>($"{ProjectFilesFolder}{_settingsFileName}");
                 _sellersAccountsRoute = JsonFileLoader.LoadJson<List<SellerAccountsRouteModel>>($"{ProjectFilesFolder}{_routeFileName}") ?? new List<SellerAccountsRouteModel>();
             }
+        }
+
+        public SellerAccountsRouteModel GetAccountsRouteForCurrentSeller()
+        {
+            SellerAccountsRouteModel sellerAccountsRoute = GetAccountsRoute(Settings.Marketplace);
+            return sellerAccountsRoute;
         }
 
         public SellerAccountsRouteModel GetAccountsRoute(string seller)

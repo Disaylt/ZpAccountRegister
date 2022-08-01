@@ -8,7 +8,7 @@ namespace ZennoPosterProjectAccountRegister.Models.Json.Settings
 {
     internal class SellerAccountsRouteModel
     {
-        public string SellerName { get; set; }
+        public string Marketplace { get; set; }
         public string PathForSaveGoodAccount { get; set; }
         public string PathForSaveBadAccount { get; set; }
     }

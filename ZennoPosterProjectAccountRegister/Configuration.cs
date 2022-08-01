@@ -55,7 +55,7 @@ namespace ZennoPosterProjectAccountRegister
 
         public SellerAccountsRouteModel GetAccountsRoute(string seller)
         {
-            SellerAccountsRouteModel sellerAccountsRoute = _sellersAccountsRoute.FirstOrDefault(x=> x.SellerName == seller);
+            SellerAccountsRouteModel sellerAccountsRoute = _sellersAccountsRoute.FirstOrDefault(x=> x.Marketplace == seller);
             if (sellerAccountsRoute == null)
             {
                 throw new Exception("Path settings for seller does not exist");

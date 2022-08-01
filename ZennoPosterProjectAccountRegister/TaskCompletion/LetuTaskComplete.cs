@@ -37,7 +37,7 @@ namespace ZennoPosterProjectAccountRegister.TaskCompletion
 
         public void GoodEnd()
         {
-            string pathGoodAccounts = _configuration.GetAccountsRouteForCurrentSeller().SellerName;
+            string pathGoodAccounts = _configuration.GetAccountsRouteForCurrentSeller().Marketplace;
             _zennoProfile.SaveProfile(pathGoodAccounts);
             LetuAccountDbModel accountDb = CreateAccountDbData(true, false);
             LetuBuyoutsShopMongoAccounts<LetuAccountDbModel> wbBuyoutsShopMongo = new LetuBuyoutsShopMongoAccounts<LetuAccountDbModel>("accounts");

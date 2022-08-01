@@ -22,11 +22,11 @@ namespace ZennoPosterProjectAccountRegister.TaskCompletion
         private readonly Configuration _configuration;
         public WbTaskComplete(ZennoProfile zennoProfile, Account account, IProfile profile, IPhoneNumberActions phoneNumber)
         {
+            _configuration = Configuration.Instance;
             _profile = profile;
             _zennoProfile = zennoProfile;
             _account = account;
             _phoneNumberActions = phoneNumber;
-            _configuration = Configuration.Instance;
         }
 
         public void BadEnd()

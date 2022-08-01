@@ -20,10 +20,10 @@ namespace ZennoPosterProjectAccountRegister.TaskCompletion
         private readonly Configuration _configuration;
         public LetuTaskComplete(ZennoProfile zennoProfile, Account account, IPhoneNumberActions phoneNumber)
         {
+            _configuration = Configuration.Instance;
             _zennoProfile = zennoProfile;
             _account = account;
             _phoneNumberActions = phoneNumber;
-            _configuration = Configuration.Instance;
         }
 
         public void BadEnd()

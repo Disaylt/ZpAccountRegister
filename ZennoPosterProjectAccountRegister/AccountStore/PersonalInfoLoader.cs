@@ -12,10 +12,10 @@ namespace ZennoPosterProjectAccountRegister.AccountStore
         private readonly Configuration _configuration;
         internal PersonalInfoLoader(string firstNameFileName, string lastNameFileName, string middleNameFileName)
         {
+            _configuration = Configuration.Instance;
             FirstNames = LoadPersonalInfo(firstNameFileName);
             LastNames = LoadPersonalInfo(lastNameFileName);
             MiddleNames = LoadPersonalInfo(middleNameFileName);
-            _configuration = Configuration.Instance;
         }
 
         public string[] FirstNames { get; }
